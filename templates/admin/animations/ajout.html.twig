@@ -4,5 +4,20 @@
 
 {% block body %}
 <h1> Ajouter une animation : </h1>
-{{form(form)}}
+
+{{form_start(form)}}
+    <div class="row">
+        <div class="col-md-4">{{form_row(form.title)}}</div>
+        <div class="col-md-4">{{form_row(form.imageFile)}}</div>
+        <div class="col-md-4">{{form_row(form.categories)}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">{{form_row(form.description)}}</div>
+    </div>
+    
+    {{form_row(form.Valider)}}
+    
+{{form_end(form)}}
+
 {% endblock %}

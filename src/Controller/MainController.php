@@ -17,4 +17,18 @@ class MainController extends AbstractController
             'controller_name' => 'MainController',
         ]);
     }
+
+    /**
+     * @Route ("/animations", name="animations")
+     * Cette route renvoie sur la page des animations du site
+     */
+
+    public function animations()
+    {
+         // on affiche notre template (plus tard on pourra lui passer des variables et autres 
+        return $this->render('main/animations.html.twig');
+    }
+
+
+
 }
