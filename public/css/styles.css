@@ -20,6 +20,10 @@ a { text-decoration: none; }
 
 .collapse { justify-content: center; }
 
+/* Css du template "users" : */
+.sous_menu a { display: block; text-decoration: none; color: black; }
+
+
 @media screen and (max-width: 600px){
     .icon { display: block; float:left; } /* A partir de 600 px, l'icone burger s'affiche a gauche de l'écran*/
     .topnav a { display: none; } /* Sélectionne tous les a , on retire l'affichage */

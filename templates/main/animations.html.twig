@@ -172,9 +172,7 @@ nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
 <div class="container-fluid">
     <div class="scene">
         <div class="carousel">
-            <div class="carousel__cell">
-                <img src="images/evg-evjf.png">
-            </div>
+            <div class="carousel__cell"><img src="images/evg-evjf.png"></div>
             <div class="carousel__cell" id="img1"><img src="images/FB2020Logo.png"></div>
             <div class="carousel__cell" id="img2"><img src="images/casino.jpg"></div>
             <div class="carousel__cell" id="img3"><img src="images/cocktail.jpg"></div>
@@ -286,7 +284,7 @@ cellsRange.addEventListener('input', changeCarousel);
 
 */
 
-
+/* Cette fonction rend le carousel en 3D et s'occupe de la rotation de celui ci*/
 function changeCarousel() {
     cellCount = cellsRange.value;
     theta = 360 / cellCount;
@@ -320,9 +318,12 @@ var orientationRadios = document.querySelectorAll('input[name="orientation"]');
 
 /* Cette fonction changer */
 function onOrientationChange() {
-    var checkedRadio = document.querySelector('input[name="orientation"]:checked');
+    var checkedRadio = document.querySelector('input[name="orientation"]:checked'); 
+    // on déclare une variable checkedRadio, querySelector va chercher la valeur du 1er argument du document respectant la condition:
+    // Premiere balise "input" ayant été cliqué (":checked") et ayant pour nom "orientation" 
+
     isHorizontal = checkedRadio.value == 'horizontal';
-    rotateFn = isHorizontal ? 'rotateY' : 'rotateX';
+    rotateFn = isHorizontal ? 'rotateY' : 'rotateX'; // Si le carousel est horizontal, la rotation se fera
     changeCarousel();
 }
 

@@ -19,7 +19,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route ("/animations", name="animations")
+     * @Route ("/animations", name="app_animations")
      * Cette route renvoie sur la page des animations du site
      */
 
