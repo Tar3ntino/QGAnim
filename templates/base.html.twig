@@ -56,6 +56,11 @@
                 <a href="#">Présentation</a>
                 <a href="{{path('app_animations')}}">Animation</a>
                 <a href="#">Nous contacter</a>
+                
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="#">Espace administration</a>
+                {% endif %}
+                    
                 </div>
             </div>
         </div>
