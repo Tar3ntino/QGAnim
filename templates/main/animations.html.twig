@@ -48,10 +48,10 @@
     width: 190px;
     height: 120px;
     left: 10px;
-    top: 10px;
-    border: 2px solid black;
+    /*top: 10px;
+    border: 2px solid black;*/
     line-height: 116px;
-    font-size: 80px;
+    /*font-size: 80px;*/
     font-weight: bold;
     color: white;
     text-align: center;
@@ -155,7 +155,7 @@ nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
     width: 190px;
     height: 120px;
     left: 10px;
-    top: 10px;
+    /* top: 10px;*/
     border: 2px solid black;
     line-height: 116px;
     font-size: 80px;
@@ -171,30 +171,35 @@ nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
 
 <div class="container-fluid">
     <div class="scene">
+    {# Nous récuperons une variable "array" "animations" renvoyée par le controller dans cette vue pour pouvoir boucler dessus 
+    pour afficher une div à chaque animation. Lorsqu'un ajout ou suppression d'animation sera effectué dans l'espace Admin, les
+    divs seront ajustées en conséquence #}
         <div class="carousel">
-            <div class="carousel__cell"><img src="images/evg-evjf.png"></div>
-            <div class="carousel__cell" id="img1"><img src="images/FB2020Logo.png"></div>
-            <div class="carousel__cell" id="img2"><img src="images/casino.jpg"></div>
-            <div class="carousel__cell" id="img3"><img src="images/cocktail.jpg"></div>
-            <div class="carousel__cell" id="img4"><img src="images/lcdp.jpg"></div>
-            <div class="carousel__cell" id="img5"><img src="images/kermesse.jpg"></div>
-            <div class="carousel__cell" id="img6"><img src="images/Jeremy.jpg"></div>
-            <div class="carousel__cell" id="img7"><img src="images/guitarelive.jpg"></div>
-            <div class="carousel__cell" id="img8"><img src="images/guirare_cours.jpg"></div>
+            {% for animation in animations %}
+            <div class="carousel__cell" id="img{{animation.id}}"><img src="images/animations/{{animation.filename}}"></div>
+            {% endfor %}
         </div>
     </div>
 
     <div class="carousel-options">
+    {# Options de la balise input retirées provisoirement car non nécessaires:
+    type="range" : sert à afficher une jauge avec un curseur
+    min="1" max="100" : délimite la jauge de sélection avec un curseur
+    animations|length : indique le nombre d'animations présent dans la table (=nb de vignettes qui seront affichées) #}
         <p>
             <label>
                 <!-- Cells -->
-                <input class="cells-range" type="range" min="3" max="15" value="9" />
+                <input class="cells-range"  value="{{ animations|length }}" />
             </label>
         </p>
+
+    {# Boutons de sélections qui vont permettre un changement d'affichage du carousel par rotation 
+    Le clic sur ce bouton viendra également incrémenter ou décrémenter l'index de lecture de la diapositive centréé (initialisée à zéro au chargement de la page) #}
         <p>
             <button class="previous-button">Previous</button>
             <button class="next-button">Next</button>
         </p>
+        <div style="display : none" value="0"></div>
         <p>
             Orientation:
             <label>
@@ -209,13 +214,11 @@ nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
     </div>
     <div style="display:none" id="readIdImage"></div>
     <div class="container">
-        <h1 style="text-align:center;"> Titre de l'animation </h1>
+        <h1 id="title_animation" style="text-align:center;"> {{animations[0].title}} </h1>
     </div>
     <div class="container-fluid">
     SCENARIO :
-    Une soirée chic en perspective, tout le monde a revêtu sa plus belle tenue pour honorer votre invitation.
-    Convivialité et amusement sont les maitres mots... L'agent secret qui sommeille en vous parviendra t'il 
-    toutefois à trouver et désamorcer la bombe cachée parmi les convives ?   
+    {{animations[0].description}} 
     </div>
     <div class="container-fluid">
     CARACTÉRISTIQUES TECHNIQUES :
@@ -235,7 +238,8 @@ nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
 {% block javascripts %}
 
 <script>
-/* EXEMPLE CAROUSSELD POUR MON SITE - TEST
+/* CAROUSSEL 3D POUR MON SITE - Commentaires et explications de code :
+
 // On récupère dans la variable:
     - "carousel" : l'intégralité de la div parent qui contient toutes les div enfants de photo
     - "cells" : collection des cellules (l'intégralité des div enfants dans un tableau array)
@@ -244,9 +248,9 @@ nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
     - "cellWidth = carousel.offsetWidth" : propriété en lecture seule qui renvoie la largeur totale d'un élément
     - "cellHeight = carousel.offsetHeight" : propriété en lecture seule, elle renvoie la hauteur totale d'un élément
 */
-var carousel = document.querySelector('.carousel');
-var cells = carousel.querySelectorAll('.carousel__cell');
-var cellCount; 
+var carousel = document.querySelector('.carousel');         // on récupère la div parent carousel
+var cells = carousel.querySelectorAll('.carousel__cell');   // idem avec toutes les animations
+var cellCount;                                              
 var selectedIndex = 0;
 console.log(selectedIndex);
 var cellWidth = carousel.offsetWidth;
@@ -256,35 +260,70 @@ var rotateFn = isHorizontal ? 'rotateY' : 'rotateX';
 var radius, theta;
 console.log(cellWidth, cellHeight);
 
+// C'est cette fonction que nous souhaitons activer avec une rotation verticale dans le matchMedia (media query Javascript)
+/*
+if (window.matchMedia("(min-width: 600px)").matches) {
+  /* La largeur minimum de l'affichage est 600 px inclus 
+    var angle = theta * selectedIndex * -1; /* Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1   
+    carousel.style.transform = 'translateZ(' + -radius + 'px) ' +
+        'rotateX' + '(' + angle + 'deg)';
+} else {
+  /* L'affichage est inférieur à 600px de large 
+
+    var angle = theta * selectedIndex * -1; /* Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1   
+    carousel.style.transform = 'translateZ(' + -radius + 'px) ' +
+        'rotateY' + '(' + angle + 'deg)';
+}
+*/
+
+
 function rotateCarousel() {
-    var angle = theta * selectedIndex * -1; /* Si index=0 on a angle = (360/9) * 0 *-1   */
+    var angle = theta * selectedIndex * -1; /* Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1   */
     carousel.style.transform = 'translateZ(' + -radius + 'px) ' +
         rotateFn + '(' + angle + 'deg)';
 }
+
 
 var prevButton = document.querySelector('.previous-button');
 prevButton.addEventListener('click', function() {
     selectedIndex--;
     rotateCarousel();
+    console.log(selectedIndex);
 });
 
 var nextButton = document.querySelector('.next-button');
 nextButton.addEventListener('click', function() {
     selectedIndex++;
     rotateCarousel();
+    console.log("index select :" + selectedIndex);
+    console.log("nb animations :" + cellsRange.value)
+    console.log("selectedIndex % NbAnimation :" + (selectedIndex % cellsRange.value));
+    var index_played = selectedIndex % cellsRange.value;
+    let anim_player = "\{\{animations[";
+    anim_player += index_played;
+    anim_player += "].title}}";
+    console.log(anim_player);
+    document.getElementById('title_animation').innerHTML = anim_player;
+    //document.getElementById('title_animation').textContent += "\{\{animations[".anim_played."].title}}";
 });
 
-var cellsRange = document.querySelector('.cells-range');
+// cellsRange : La balise input contenant le nombre d'animation
+var cellsRange = document.querySelector('.cells-range');   
+/* Si la valeur de la balise change, la fonction changeCarousel s'active et ajuste l'affichage en profondeur pour  une meilleure gestion de la 3D de celui ci */
 cellsRange.addEventListener('change', changeCarousel);
 cellsRange.addEventListener('input', changeCarousel);
 
 /* 
     - "theta" : définit l'angle de rotation 360 / nombre de cellules dispo au visionnage
     - "cellSize" = isHorizontal ? cellWidth : cellHeight : si le booleen isHorizontal est true, cellSize= largeur sinon hauteur
-
 */
 
-/* Cette fonction rend le carousel en 3D et s'occupe de la rotation de celui ci*/
+/* Function verif lecture evenement*/
+function testFunction(){
+    console.log ("la fonction s'active")
+}
+
+/* Cette fonction permet un affichage du carousel en 3D et gère l'inclinaison de l'affichage en profondeur selon le nombre d'animation présente dans la balise input cellesRange */
 function changeCarousel() {
     cellCount = cellsRange.value;
     theta = 360 / cellCount;
@@ -303,25 +342,32 @@ function changeCarousel() {
             cell.style.transform = 'none';
         }
     }
-
     rotateCarousel();
 }
+// Etape 1 :
+// Lecture des boutons orientations:
+// Dans le tour de boucle, on va lire les évènements pour les 2 boutons orientations avec l'appel d'une autre méthode onOrientationChange
+var orientationRadios = document.querySelectorAll('input[name="orientation"]'); // Vaut 2
 
-var orientationRadios = document.querySelectorAll('input[name="orientation"]');
 (function() {
-    for (var i = 0; i < orientationRadios.length; i++) {
+    for (var i = 0; i < orientationRadios.length; i++) {        
         var radio = orientationRadios[i];
-        radio.addEventListener('change', onOrientationChange);
+        // target.addEventListener(type, écouteur [, options]);
+        radio.addEventListener('change', onOrientationChange); 
     }
 })();
 
 
-/* Cette fonction changer */
+/* Etape 2 : A l'appel de cette fonction:
+On cible quel est le bouton coché en déclarant une variable checkedRadio, querySelector va chercher la valeur du 1er argument du document respectant la condition: Premiere balise "input" ayant été cliqué (":checked") et ayant pour nom "orientation" et on renvoie l'élément dans la variable checkedRadio
+Si la condition (checkRadio.value =='horizontal' est respectée, isHorizontal sera "TRUE" sinon "FALSE")
+Soit rotateFn, la propriété à changer:
+    - Si le bouton isHorizontal est coché, on viendra modifier rotateY pour rendre le carousel vertical
+    - Si le bouton est coché en vertical, on viendra modifier rotateX pour rendre le carousel horizontal
+Une fois que l'on a définit comment l'on devait effectuer la rotation, on appelle la méthode changeCarousel()
+ */
 function onOrientationChange() {
     var checkedRadio = document.querySelector('input[name="orientation"]:checked'); 
-    // on déclare une variable checkedRadio, querySelector va chercher la valeur du 1er argument du document respectant la condition:
-    // Premiere balise "input" ayant été cliqué (":checked") et ayant pour nom "orientation" 
-
     isHorizontal = checkedRadio.value == 'horizontal';
     rotateFn = isHorizontal ? 'rotateY' : 'rotateX'; // Si le carousel est horizontal, la rotation se fera
     changeCarousel();
@@ -332,8 +378,6 @@ onOrientationChange();
 
 {# Récuperation des infos de l'animation selectionnée du carousel avecc JS : #}
 document.getElementById('readIdImage');
-
-
 
 </script>
 

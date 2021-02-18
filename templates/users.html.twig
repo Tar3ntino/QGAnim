@@ -53,10 +53,15 @@
 
             <div class="row">
                 <div class="container-fluid topnav">
-                <a href="#">Accueil <span class="sr-only">(current)</span></a>
+                <a href="{{path('app_home')}}">Accueil <span class="sr-only">(current)</span></a>
                 <a href="#">Présentation</a>
-                <a href="#">Animation</a>
+                <a href="{{path('app_animations')}}">Animation</a>
                 <a href="#">Nous contacter</a>
+                
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{path('admin_home')}}">Espace administration</a>
+                {% endif %}
+                    
                 </div>
             </div>
 
@@ -68,8 +73,8 @@
                 <a href="#">Mes devis</a>
                 <a href="#">Mes factures</a>
             </div>
-            
-        {% block body %}{% endblock %}
+            <div class="col-7">{% block body %}{% endblock %} </div>
+            <div class="col-1"></div>
         </div>
 
         <!-- FOOTER -->

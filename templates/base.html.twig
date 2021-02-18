@@ -58,7 +58,7 @@
                 <a href="#">Nous contacter</a>
                 
                 {% if is_granted('ROLE_ADMIN') %}
-                <a href="#">Espace administration</a>
+                <a href="{{path('admin_home')}}">Espace administration</a>
                 {% endif %}
                     
                 </div>
