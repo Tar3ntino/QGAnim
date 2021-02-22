@@ -2,16 +2,16 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Images;
 use App\Entity\Animations;
 use App\Form\AnimationsType;
-use App\Form\CategoriesType;
 use App\Repository\AnimationsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
-
-    /**
+/**
      * @Route("/admin/animations", name="admin_animations_")
      * @package App\Controller\Admin
      */
@@ -44,6 +44,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
         /* Dans le cas ou le formulaire est soumis ET valide : */
         if ($form->isSubmitted() && $form->isValid()){
+
+            // On récupère les images transmises: on déclare une variable $images, on lui affecte(=) la donnée qui se trouve dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
+            $images = $form->get('images')->getData();
+
+            // On boucle sur les images: 
+            foreach($images as $image){
+                // on génére un nouveau nom de fichier
+                $fichier = md5(uniqid()). '.' . $image->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                // On stocke l'image dans la base de données (son nom)
+                $img = new Images();
+                $img->setName($fichier);
+                $animation->addImage($img);
+            }
+
             /* Entity manager = em */
             $em = $this->getDoctrine()->getManager();
             $em->persist($animation);
@@ -74,6 +95,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         /* Dans le cas ou le formulaire est soumis ET valide : */
         if ($form->isSubmitted() && $form->isValid()){
 
+            // On récupère les images transmises: on déclare une variable $images, on lui affecte(=) la donnée qui se trouve dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
+            $images = $form->get('images')->getData();
+
+            // On boucle sur les images: 
+            foreach($images as $image){
+                // on génére un nouveau nom de fichier
+                $fichier = md5(uniqid()). '.' . $image->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                // On stocke l'image dans la base de données (son nom)
+                $img = new Images();
+                $img->setName($fichier);
+                $animation->addImage($img);
+            }
+
             /* Entity manager = em */
             $em = $this->getDoctrine()->getManager();
             $em->persist($animation);
@@ -83,6 +124,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         }
 
         return $this->render('admin/animations/ajout.html.twig', [
+            'animation' => $animation,
             'form' => $form->createView()
         ]);
     }
@@ -101,4 +143,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
             return $this->redirectToRoute('admin_animations_home');
     }
 
-}
+    /**
+     * @Route("/supprime/image/{id}", name="delete_image", methods={"DELETE"})
+     */
+    public function deleteImage(Images $image, Request $request){
+        $data = json_decode($request->getContent(), true);
+        
+        // On vérifie si le token est valide
+        if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
+            // On récupère le nom de l'image
+            $nom = $image->getName();
+            // On supprime le fichier du dossier Uploads
+            unlink($this->getParameter('images_directory').'/'.$nom);
+            
+            // On supprime l'entrée de la base
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($image);
+            $em->flush();
+
+            // On répond en json
+            return new JsonResponse(['success' => 1]);
+        }else{
+            return new JsonResponse(['error' => 'Token Invalide'], 400);
+        }
+    }
+
+} 

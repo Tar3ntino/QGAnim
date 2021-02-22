@@ -12,7 +12,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
  
 class AnimationsType extends AbstractType
 {
@@ -20,8 +19,14 @@ class AnimationsType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('imageFile',FileType::class, [
-                'required' => false // On ne veut pas nécessairement que ce champ soit rempli
+
+            // On ajoute le champ "images" dans le formulaire
+            // Il n'est pas lié à la Base De Données (mapped à false)
+            ->add('images', FileType::class, [
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false
             ])
             ->add('description', CKEditorType::class)
             ->add('categories', EntityType::class,array(
@@ -29,7 +34,6 @@ class AnimationsType extends AbstractType
                 'multiple' => true // nécessaire lorsque l'on a une relation many to many, car l'on précise que l'on peut accepter plusieurs catégories dans une variable tableau rattaché à une meme animation
             ))
             ->add('Valider', SubmitType::class)
-
         ;
     }
 

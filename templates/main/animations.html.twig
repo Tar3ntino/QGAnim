@@ -176,7 +176,8 @@ nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
     divs seront ajustées en conséquence #}
         <div class="carousel">
             {% for animation in animations %}
-            <div class="carousel__cell" id="img{{animation.id}}"><img src="images/animations/{{animation.filename}}"></div>
+            <div class="carousel__cell" id="img{{animation.id}}"><img src="images/animations/"></div>
+            {{dump(animation.images)}}
             {% endfor %}
         </div>
     </div>

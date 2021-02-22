@@ -24,19 +24,6 @@ class Animations
      */
     private $id;
 
-
-    /**
-     * @var string|null
-     * @ORM\Column(type="string", length=255)
-     */
-    private $filename;
-
-    /**
-     * @var File|null
-     * @Vich\UploadableField(mapping="animation_image", fileNameProperty="filename") 
-     */
-    private $imageFile;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -64,9 +51,15 @@ class Animations
      */
     private $categories;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="animations", orphanRemoval=true, cascade={"persist"})
+     */
+    private $images;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,46 +141,32 @@ class Animations
     }
 
     /**
-     * Get the value of filename
-     * @return  string|null
-     */ 
-    public function getFilename()
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
     {
-        return $this->filename;
+        return $this->images;
     }
 
-    /**
-     * Set the value of filename
-     * @param  string|null  $filename
-     * @return  self
-     */ 
-    public function setFilename($filename)
+    public function addImage(Images $image): self
     {
-        $this->filename = $filename;
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setAnimations($this);
+        }
 
         return $this;
     }
 
-    /**
-     * Get the value of imageFile
-     * @return  File|null
-     */ 
-    public function getImageFile()
+    public function removeImage(Images $image): self
     {
-        return $this->imageFile;
-    }
-
-    /**
-     * Set the value of imageFile
-     * @param  File|null  $imageFile
-     * @return  self
-     */ 
-    public function setImageFile($imageFile)
-    {
-        $this->imageFile = $imageFile;
-        if ($this->imageFile instanceof UploadedFile) {
-            $this->updated_at = new \DateTime('now');
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getAnimations() === $this) {
+                $image->setAnimations(null);
+            }
         }
+
         return $this;
     }
 }

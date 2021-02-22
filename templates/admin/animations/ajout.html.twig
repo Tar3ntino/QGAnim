@@ -3,6 +3,19 @@
 {% block title %}Ajouter une animation{% endblock %}
 
 {% block body %}
- <h1> Ajouter une animation </h1>
- {{ form(form) }}
+    <h1> Ajouter une animation </h1>
+
+    {# Vérifier si la route est "admin_animations_modifier", on affiche les images #}
+    {% if app.request.attributes.get('_route') == 'admin_animations_modifier' %}
+        <h2>Images</h2>
+        {% for image in animation.images %}
+            <div>
+                <img src="{{ asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
+                <a href="{{ path ('admin_animations_delete_image', {'id': image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}"> Supprimer </a>
+            </div>            
+        {% endfor %}
+    {% endif %}
+
+    {{form(form)}}
+
 {% endblock %}
