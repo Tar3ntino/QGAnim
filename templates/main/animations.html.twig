@@ -6,382 +6,82 @@
 {% endblock %}
 
 {% block stylesheets %}
-
-<style>
-/* Animation carousel 3D  - Cells */
-
-/* Préparation de la scène La première chose à faire lors de la construction d'un modèle 3D est de créer un élément qui joue le rôle de scène.
-    - Définissez la profondeur de la scène à l'aide de la propriété de perspective CSS:
-    - Définir une valeur plus grande pour la propriété perspective crée un effet 3D moins visible, tandis qu'un plus petit le rend plus prononcé.
-    - Une valeur d'environ 800 pixels convient généralement à la plupart des petits objets, mais si vous créez quelque chose de plus grand (comme un gratte-ciel), vous pouvez utiliser une valeur inférieure pour créer des angles plus prononcés.
-    - Lors de la définition de la propriété de perspective, vous devez également définir l'origine de la perspective (propriété qui détermine la position de la caméra virtuelle face à la scène), positionnée sur les axes X et Y.
- */
-
-/* Un élément en position RELATIVE est calculé d'après sa position originale dans la page. */
-
-.scene {
-    border: 1px solid #CCC;
-    margin: 40px 0;
-    position: relative;
-    width: 210px;
-    height: 140px;
-    margin: 120px auto;
-    perspective: 1000px;
-}
-
-/*Propriété CSS du .carousel: 
-    - width : 100% prend la taille de 100% de la div parent "scene" par defaut mais on le précise quand même 
-    - height : à l'inverse de width; il est important de spécifier que l'on souhaite garder une hauteur de 100% pour que la div s'affiche correctement dans la scene en absence de contenu
-*/
-
-.carousel {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    transform: translateZ(-288px);
-    transform-style: preserve-3d;
-    transition: transform 1s;
-}
-
-.carousel__cell {
-    position: absolute;
-    width: 190px;
-    height: 120px;
-    left: 10px;
-    /*top: 10px;
-    border: 2px solid black;*/
-    line-height: 116px;
-    /*font-size: 80px;*/
-    font-weight: bold;
-    color: white;
-    text-align: center;
-    transition: transform 1s, opacity 1s;
-}
-
-/* LA PSEUDO CLASS :
-https://developer.mozilla.org/fr/docs/Web/CSS/:nth-child
-
-nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
-
-/* GESTION DES COULEURS SUR CHAQUE ANIMATION */
-/*
-
-.carousel__cell:nth-child(9n+1) {
-    background: hsla(0, 100%, 50%, 0.8);
-}
-
-
-.carousel__cell:nth-child(9n+2) {
-    background: hsla(40, 100%, 50%, 0.8);
-}
-
-.carousel__cell:nth-child(9n+3) {
-    background: hsla(80, 100%, 50%, 0.8);
-}
-
-.carousel__cell:nth-child(9n+4) {
-    background: hsla(120, 100%, 50%, 0.8);
-}
-
-.carousel__cell:nth-child(9n+5) {
-    background: hsla(160, 100%, 50%, 0.8);
-}
-
-.carousel__cell:nth-child(9n+6) {
-    background: hsla(200, 100%, 50%, 0.8);
-}
-
-.carousel__cell:nth-child(9n+7) {
-    background: hsla(240, 100%, 50%, 0.8);
-}
-
-.carousel__cell:nth-child(9n+8) {
-    background: hsla(280, 100%, 50%, 0.8);
-}
-
-.carousel__cell:nth-child(9n+0) {
-    background: hsla(320, 100%, 50%, 0.8);
-}
-
-.carousel__cell:nth-child(1) {
-    transform: rotateY(0deg) translateZ(288px);
-}
-
-.carousel__cell:nth-child(2) {
-    transform: rotateY(40deg) translateZ(288px);
-}
-
-.carousel__cell:nth-child(3) {
-    transform: rotateY(80deg) translateZ(288px);
-}
-
-.carousel__cell:nth-child(4) {
-    transform: rotateY(120deg) translateZ(288px);
-}
-
-.carousel__cell:nth-child(5) {
-    transform: rotateY(160deg) translateZ(288px);
-}
-
-.carousel__cell:nth-child(6) {
-    transform: rotateY(200deg) translateZ(288px);
-}
-
-.carousel__cell:nth-child(7) {
-    transform: rotateY(240deg) translateZ(288px);
-}
-
-.carousel__cell:nth-child(8) {
-    transform: rotateY(280deg) translateZ(288px);
-}
-
-.carousel__cell:nth-child(9) {
-    transform: rotateY(320deg) translateZ(288px);
-}
-
-*/
-
-.carousel-options {
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    background: hsla(0, 0%, 100%, 0.8);
-}
-
-/* Carousel avec les photos: TEST: */
-
-.carousel__cell img {
-    position: absolute;
-    width: 190px;
-    height: 120px;
-    left: 10px;
-    /* top: 10px;*/
-    border: 2px solid black;
-    line-height: 116px;
-    font-size: 80px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-    transition: transform 1s, opacity 1s;
-}
-</style>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/animations.css') }}">
 {% endblock %}
 
 {% block body %}
 
-<div class="container-fluid">
-    <div class="scene">
-    {# Nous récuperons une variable "array" "animations" renvoyée par le controller dans cette vue pour pouvoir boucler dessus 
-    pour afficher une div à chaque animation. Lorsqu'un ajout ou suppression d'animation sera effectué dans l'espace Admin, les
-    divs seront ajustées en conséquence #}
-        <div class="carousel">
-            {% for animation in animations %}
-            <div class="carousel__cell" id="img{{animation.id}}"><img src="images/animations/"></div>
-            {{dump(animation.images)}}
-            {% endfor %}
+    <div class="container-fluid">
+        <div class="scene">
+        {# Nous récuperons une variable "array" "animations" renvoyée par le controller dans cette vue pour pouvoir boucler dessus pour afficher une div à chaque animation. Lorsqu'un ajout ou suppression d'animation sera effectué dans l'espace Admin, les divs seront ajustées en conséquence #}
+            <div class="carousel">
+                {% set i = 0 %}
+                {% for animation in animations %}
+                    <div class="carousel__cell" id="img{{i}}"><img src="{{ asset('/uploads/') ~ animation.images[0].name }}"></div>
+                    <h2 id="titre{{i}}" style="display:none"> {{animation.title}} </h2>
+                    {% if ((animations|length)-1) == i %}
+                        {% set i = 0 %}
+                    {% else %}
+                        {% set i = i+1 %}   
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="carousel-options">
+        {# Options de la balise input retirées provisoirement car non nécessaires:
+        type="range" : sert à afficher une jauge avec un curseur
+        min="1" max="100" : délimite la jauge de sélection avec un curseur
+        animations|length : indique le nombre d'animations présent dans la table (=nb de vignettes qui seront affichées) #}
+            <p>
+                <label>
+                    <!-- Cells -->
+                    <input class="cells-range"  value="{{ animations|length }}" />
+                </label>
+            </p>
+
+        {# Boutons de sélections qui vont permettre un changement d'affichage du carousel par rotation. Le clic sur ce bouton viendra également incrémenter ou décrémenter l'index de lecture de la diapositive centréé (initialisée à zéro au chargement de la page) #}
+            <p>
+                <button class="previous-button">Previous</button>
+                <button class="next-button">Next</button>
+            </p>
+            <div style="display:none" value="0"></div>
+            <p>
+                Orientation:
+                <label>
+                    <input type="radio" name="orientation" value="horizontal" checked />
+                    horizontal
+                </label>
+                <label>
+                    <input type="radio" name="orientation" value="vertical" />
+                    vertical
+                </label>
+            </p>
+        </div>
+        <div style="display:none" id="readIdImage"></div>
+        <div class="container">
+            <h1 id="title_animation" style="text-align:center;"> {{animations[0].title}} </h1>
+        </div>
+        <div class="container-fluid">
+            SCENARIO : {{animations[0].description}} 
+        </div>
+        <div class="container-fluid">
+            CARACTÉRISTIQUES TECHNIQUES : 
+        Jeu individuel avec de l'argent factice, offert à chacun, en début de soirée. Chacun 
+        évolue librement au cours de la soirée. L'objectif étant de faire fructifier ses jetons et de créer une 
+        « compétition » entre les invités.
+        </div>
+        <div class="container-fluid">
+            JEUX : Big Ben, Roulette Russe, Opération Commando, Course Poursuite, Compte à Rebours... 
+        1 animateur dans la soirée.
+        Montage et démontage inclus
         </div>
     </div>
-
-    <div class="carousel-options">
-    {# Options de la balise input retirées provisoirement car non nécessaires:
-    type="range" : sert à afficher une jauge avec un curseur
-    min="1" max="100" : délimite la jauge de sélection avec un curseur
-    animations|length : indique le nombre d'animations présent dans la table (=nb de vignettes qui seront affichées) #}
-        <p>
-            <label>
-                <!-- Cells -->
-                <input class="cells-range"  value="{{ animations|length }}" />
-            </label>
-        </p>
-
-    {# Boutons de sélections qui vont permettre un changement d'affichage du carousel par rotation 
-    Le clic sur ce bouton viendra également incrémenter ou décrémenter l'index de lecture de la diapositive centréé (initialisée à zéro au chargement de la page) #}
-        <p>
-            <button class="previous-button">Previous</button>
-            <button class="next-button">Next</button>
-        </p>
-        <div style="display : none" value="0"></div>
-        <p>
-            Orientation:
-            <label>
-                <input type="radio" name="orientation" value="horizontal" checked />
-                horizontal
-            </label>
-            <label>
-                <input type="radio" name="orientation" value="vertical" />
-                vertical
-            </label>
-        </p>
-    </div>
-    <div style="display:none" id="readIdImage"></div>
-    <div class="container">
-        <h1 id="title_animation" style="text-align:center;"> {{animations[0].title}} </h1>
-    </div>
-    <div class="container-fluid">
-    SCENARIO :
-    {{animations[0].description}} 
-    </div>
-    <div class="container-fluid">
-    CARACTÉRISTIQUES TECHNIQUES :
-    Jeu individuel avec de l'argent factice, offert à chacun, en début de soirée. Chacun 
-    évolue librement au cours de la soirée. L'objectif étant de faire fructifier ses jetons et de créer une 
-    « compétition » entre les invités.
-    </div>
-    <div class="container-fluid">
-    JEUX : Big Ben, Roulette Russe, Opération Commando, Course Poursuite, Compte à Rebours... 
-    1 animateur dans la soirée.
-    Montage et démontage inclus
-    </div>
-</div>
 
 {% endblock %}
 
 {% block javascripts %}
-
-<script>
-/* CAROUSSEL 3D POUR MON SITE - Commentaires et explications de code :
-
-// On récupère dans la variable:
-    - "carousel" : l'intégralité de la div parent qui contient toutes les div enfants de photo
-    - "cells" : collection des cellules (l'intégralité des div enfants dans un tableau array)
-    - "cellCount" :  définit le nombre de cellule désirée, on affecte la value de cells-range définit dans les options carousels html
-    - "selectedIndex" : définit l'index de lecture de la cellule actuelle
-    - "cellWidth = carousel.offsetWidth" : propriété en lecture seule qui renvoie la largeur totale d'un élément
-    - "cellHeight = carousel.offsetHeight" : propriété en lecture seule, elle renvoie la hauteur totale d'un élément
-*/
-var carousel = document.querySelector('.carousel');         // on récupère la div parent carousel
-var cells = carousel.querySelectorAll('.carousel__cell');   // idem avec toutes les animations
-var cellCount;                                              
-var selectedIndex = 0;
-console.log(selectedIndex);
-var cellWidth = carousel.offsetWidth;
-var cellHeight = carousel.offsetHeight;
-var isHorizontal = true;
-var rotateFn = isHorizontal ? 'rotateY' : 'rotateX';
-var radius, theta;
-console.log(cellWidth, cellHeight);
-
-// C'est cette fonction que nous souhaitons activer avec une rotation verticale dans le matchMedia (media query Javascript)
-/*
-if (window.matchMedia("(min-width: 600px)").matches) {
-  /* La largeur minimum de l'affichage est 600 px inclus 
-    var angle = theta * selectedIndex * -1; /* Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1   
-    carousel.style.transform = 'translateZ(' + -radius + 'px) ' +
-        'rotateX' + '(' + angle + 'deg)';
-} else {
-  /* L'affichage est inférieur à 600px de large 
-
-    var angle = theta * selectedIndex * -1; /* Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1   
-    carousel.style.transform = 'translateZ(' + -radius + 'px) ' +
-        'rotateY' + '(' + angle + 'deg)';
-}
-*/
-
-
-function rotateCarousel() {
-    var angle = theta * selectedIndex * -1; /* Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1   */
-    carousel.style.transform = 'translateZ(' + -radius + 'px) ' +
-        rotateFn + '(' + angle + 'deg)';
-}
-
-
-var prevButton = document.querySelector('.previous-button');
-prevButton.addEventListener('click', function() {
-    selectedIndex--;
-    rotateCarousel();
-    console.log(selectedIndex);
-});
-
-var nextButton = document.querySelector('.next-button');
-nextButton.addEventListener('click', function() {
-    selectedIndex++;
-    rotateCarousel();
-    console.log("index select :" + selectedIndex);
-    console.log("nb animations :" + cellsRange.value)
-    console.log("selectedIndex % NbAnimation :" + (selectedIndex % cellsRange.value));
-    var index_played = selectedIndex % cellsRange.value;
-    let anim_player = "\{\{animations[";
-    anim_player += index_played;
-    anim_player += "].title}}";
-    console.log(anim_player);
-    document.getElementById('title_animation').innerHTML = anim_player;
-    //document.getElementById('title_animation').textContent += "\{\{animations[".anim_played."].title}}";
-});
-
-// cellsRange : La balise input contenant le nombre d'animation
-var cellsRange = document.querySelector('.cells-range');   
-/* Si la valeur de la balise change, la fonction changeCarousel s'active et ajuste l'affichage en profondeur pour  une meilleure gestion de la 3D de celui ci */
-cellsRange.addEventListener('change', changeCarousel);
-cellsRange.addEventListener('input', changeCarousel);
-
-/* 
-    - "theta" : définit l'angle de rotation 360 / nombre de cellules dispo au visionnage
-    - "cellSize" = isHorizontal ? cellWidth : cellHeight : si le booleen isHorizontal est true, cellSize= largeur sinon hauteur
-*/
-
-/* Function verif lecture evenement*/
-function testFunction(){
-    console.log ("la fonction s'active")
-}
-
-/* Cette fonction permet un affichage du carousel en 3D et gère l'inclinaison de l'affichage en profondeur selon le nombre d'animation présente dans la balise input cellesRange */
-function changeCarousel() {
-    cellCount = cellsRange.value;
-    theta = 360 / cellCount;
-    var cellSize = isHorizontal ? cellWidth : cellHeight;
-    radius = Math.round((cellSize / 2) / Math.tan(Math.PI / cellCount));
-    for (var i = 0; i < cells.length; i++) {
-        var cell = cells[i];
-        if (i < cellCount) {
-            // visible cell
-            cell.style.opacity = 1;
-            var cellAngle = theta * i;
-            cell.style.transform = rotateFn + '(' + cellAngle + 'deg) translateZ(' + radius + 'px)';
-        } else {
-            // hidden cell
-            cell.style.opacity = 0;
-            cell.style.transform = 'none';
-        }
-    }
-    rotateCarousel();
-}
-// Etape 1 :
-// Lecture des boutons orientations:
-// Dans le tour de boucle, on va lire les évènements pour les 2 boutons orientations avec l'appel d'une autre méthode onOrientationChange
-var orientationRadios = document.querySelectorAll('input[name="orientation"]'); // Vaut 2
-
-(function() {
-    for (var i = 0; i < orientationRadios.length; i++) {        
-        var radio = orientationRadios[i];
-        // target.addEventListener(type, écouteur [, options]);
-        radio.addEventListener('change', onOrientationChange); 
-    }
-})();
-
-
-/* Etape 2 : A l'appel de cette fonction:
-On cible quel est le bouton coché en déclarant une variable checkedRadio, querySelector va chercher la valeur du 1er argument du document respectant la condition: Premiere balise "input" ayant été cliqué (":checked") et ayant pour nom "orientation" et on renvoie l'élément dans la variable checkedRadio
-Si la condition (checkRadio.value =='horizontal' est respectée, isHorizontal sera "TRUE" sinon "FALSE")
-Soit rotateFn, la propriété à changer:
-    - Si le bouton isHorizontal est coché, on viendra modifier rotateY pour rendre le carousel vertical
-    - Si le bouton est coché en vertical, on viendra modifier rotateX pour rendre le carousel horizontal
-Une fois que l'on a définit comment l'on devait effectuer la rotation, on appelle la méthode changeCarousel()
- */
-function onOrientationChange() {
-    var checkedRadio = document.querySelector('input[name="orientation"]:checked'); 
-    isHorizontal = checkedRadio.value == 'horizontal';
-    rotateFn = isHorizontal ? 'rotateY' : 'rotateX'; // Si le carousel est horizontal, la rotation se fera
-    changeCarousel();
-}
-
-// set initials
-onOrientationChange();
-
-{# Récuperation des infos de l'animation selectionnée du carousel avecc JS : #}
-document.getElementById('readIdImage');
-
-</script>
-
+    <script src="{{ asset('js/animations.js')}}"></script>
 {% endblock %}
 
 

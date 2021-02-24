@@ -1,0 +1,156 @@
+/* Animation carousel 3D  - Cells */
+
+/* Préparation de la scène La première chose à faire lors de la construction d'un modèle 3D est de créer un élément qui joue le rôle de scène.
+    - Définissez la profondeur de la scène à l'aide de la propriété de perspective CSS:
+    - Définir une valeur plus grande pour la propriété perspective crée un effet 3D moins visible, tandis qu'un plus petit le rend plus prononcé.
+    - Une valeur d'environ 800 pixels convient généralement à la plupart des petits objets, mais si vous créez quelque chose de plus grand (comme un gratte-ciel), vous pouvez utiliser une valeur inférieure pour créer des angles plus prononcés.
+    - Lors de la définition de la propriété de perspective, vous devez également définir l'origine de la perspective (propriété qui détermine la position de la caméra virtuelle face à la scène), positionnée sur les axes X et Y.
+ */
+
+/* Un élément en position RELATIVE est calculé d'après sa position originale dans la page. */
+
+.scene {
+    border: 1px solid #CCC;
+    margin: 40px 0;
+    position: relative;
+    width: 210px;
+    height: 140px;
+    margin: 70px auto;
+    perspective: 1000px;
+}
+
+/*Propriété CSS du .carousel: 
+    - width : 100% prend la taille de 100% de la div parent "scene" par defaut mais on le précise quand même 
+    - height : à l'inverse de width; il est important de spécifier que l'on souhaite garder une hauteur de 100% pour que la div s'affiche correctement dans la scene en absence de contenu
+*/
+
+.carousel {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform: translateZ(-288px);
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+
+.carousel__cell {
+    position: absolute;
+    width: 190px;
+    height: 120px;
+    left: 10px;
+    /*top: 10px;
+    border: 2px solid black;*/
+    line-height: 116px;
+    /*font-size: 80px;*/
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    transition: transform 1s, opacity 1s;
+}
+
+/* LA PSEUDO CLASS :
+https://developer.mozilla.org/fr/docs/Web/CSS/:nth-child
+
+nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
+
+/* GESTION DES COULEURS SUR CHAQUE ANIMATION */
+/*
+
+.carousel__cell:nth-child(9n+1) {
+    background: hsla(0, 100%, 50%, 0.8);
+}
+
+
+.carousel__cell:nth-child(9n+2) {
+    background: hsla(40, 100%, 50%, 0.8);
+}
+
+.carousel__cell:nth-child(9n+3) {
+    background: hsla(80, 100%, 50%, 0.8);
+}
+
+.carousel__cell:nth-child(9n+4) {
+    background: hsla(120, 100%, 50%, 0.8);
+}
+
+.carousel__cell:nth-child(9n+5) {
+    background: hsla(160, 100%, 50%, 0.8);
+}
+
+.carousel__cell:nth-child(9n+6) {
+    background: hsla(200, 100%, 50%, 0.8);
+}
+
+.carousel__cell:nth-child(9n+7) {
+    background: hsla(240, 100%, 50%, 0.8);
+}
+
+.carousel__cell:nth-child(9n+8) {
+    background: hsla(280, 100%, 50%, 0.8);
+}
+
+.carousel__cell:nth-child(9n+0) {
+    background: hsla(320, 100%, 50%, 0.8);
+}
+
+.carousel__cell:nth-child(1) {
+    transform: rotateY(0deg) translateZ(288px);
+}
+
+.carousel__cell:nth-child(2) {
+    transform: rotateY(40deg) translateZ(288px);
+}
+
+.carousel__cell:nth-child(3) {
+    transform: rotateY(80deg) translateZ(288px);
+}
+
+.carousel__cell:nth-child(4) {
+    transform: rotateY(120deg) translateZ(288px);
+}
+
+.carousel__cell:nth-child(5) {
+    transform: rotateY(160deg) translateZ(288px);
+}
+
+.carousel__cell:nth-child(6) {
+    transform: rotateY(200deg) translateZ(288px);
+}
+
+.carousel__cell:nth-child(7) {
+    transform: rotateY(240deg) translateZ(288px);
+}
+
+.carousel__cell:nth-child(8) {
+    transform: rotateY(280deg) translateZ(288px);
+}
+
+.carousel__cell:nth-child(9) {
+    transform: rotateY(320deg) translateZ(288px);
+}
+
+*/
+
+.carousel-options {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    background: hsla(0, 0%, 100%, 0.8);
+}
+
+/* Carousel avec les photos: TEST: */
+
+.carousel__cell img {
+    position: absolute;
+    width: 190px;
+    height: 120px;
+    left: 10px;
+    /* top: 10px;*/
+    border: 2px solid black;
+    line-height: 116px;
+    font-size: 80px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    transition: transform 1s, opacity 1s;
+}

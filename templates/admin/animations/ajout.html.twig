@@ -1,13 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une animation{% endblock %}
+
+{% block title %}
+    {% if app.request.attributes.get('_route') == 'admin_animations_modifier' %}
+    Modifier une animation
+    {% else %}
+    Ajouter une animation
+    {% endif %}
+{% endblock %}
 
 {% block body %}
-    <h1> Ajouter une animation </h1>
-
+    {% if app.request.attributes.get('_route') == 'admin_animations_modifier' %}
+        <h1> Modifier une animation </h1>
+    {% else %}
+        <h1> Ajouter une animation </h1>
+    {% endif %}
+    
     {# Vérifier si la route est "admin_animations_modifier", on affiche les images #}
     {% if app.request.attributes.get('_route') == 'admin_animations_modifier' %}
-        <h2>Images</h2>
         {% for image in animation.images %}
             <div>
                 <img src="{{ asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
@@ -15,7 +25,9 @@
             </div>            
         {% endfor %}
     {% endif %}
-
     {{form(form)}}
+{% endblock %} 
 
+{% block javascripts %}
+    <script src="{{ asset('js/images.js')}}"></script>
 {% endblock %}

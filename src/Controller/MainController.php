@@ -12,10 +12,10 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="app_home")
      */
-    public function index(): Response
+    public function index(AnimationsRepository $animationsRepo): Response
     {
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
+            'animations' => $animationsRepo->findAll(),
         ]);
     }
 
