@@ -33,6 +33,30 @@ class MainController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route ("/presentation", name="app_presentation")
+     * @param AnimationsRepository $animationsRepository
+     * Cette route renvoie sur la page de presentation du site
+     */
+
+    public function presentation()
+    {
+         // on affiche notre template (plus tard on pourra lui passer des variables et autres 
+        return $this->render('main/presentation.html.twig');
+    }
+
+    /**
+     * @Route ("/contact", name="app_contact")
+     * @param AnimationsRepository $animationsRepository
+     * Cette route renvoie sur la page de presentation du site
+     */
+
+    public function contact()
+    {
+         // on affiche notre template (plus tard on pourra lui passer des variables et autres 
+        return $this->render('main/contact.html.twig');
+    }
+
 
 
 }

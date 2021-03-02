@@ -1,13 +1,308 @@
-* {padding:0; margin: 0; box-sizing: border-box;} 
+/* :root peut être utile lorsqu'on déclare des propriétés CSS personnalisées globales : 
+Les variables en haut nous aideront à éviter de copier-coller les couleurs dans notre CSS.
+Les noms des propriétés qui sont préfixés par deux tirets : -- (par exemple : --nom-exemple) représentent des PROPRIETES PERSONNALISEES (custom properties) qui peuvent contenir une valeur qui pourra être réutilisée dans le document grâce à la fonction var.
+*/
+:root {
+    --navbar-bg-color: hsl(0, 0%, 15%);
+    --navbar-text-color: hsl(0, 0%, 85%);
+    --navbar-text-color-focus: white;
+    --navbar-bg-contrast: hsl(0, 0%, 25%);
+}
 
-body { font-family: Arial, Helvetica, sans-serif;}
+/* Nous réinitialisons les rembourrages et les marges et utilisons: 
+box-sizing: border-box      pour nous assurer que les largeurs / hauteurs prennent en compte la bordure et le rembourrage. 
+margin = extérieur élément
+padding = intérieur élément
+*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Enfin, nous nous assurons que le corps occupe toute la hauteur verticale de l'appareil avec height: 100vh 
+Pour les navigateurs "modernes" (en clair depuis IE9 inclus), CSS3 propose une solution encore bien meilleure via les unités de viewport.
+Du coup, grâce à l'unité vh (pour "viewport height"), il devient inutile d'appliquer une hauteur de 100% à chacun des ancêtres de notre élément. */
+body {
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+}
+
+/* CSS du HEADER Logo : */
+
+#myheader{
+    background-color: black;
+}
+
+
+
+
+
+.left{
+    height: 100%;
+    align-items: center;
+}
+
+/* C'est une approche assez populaire pour centrer les choses horizontalement dans CSS. Fondamentalement, vous pouvez simplement gifler un nom de classe containersur tout ce qui doit être centré horizontalement sur la page. Ici, la page est centrée sur une largeur maximale de 1000px. Si vous vous en souvenez, nous avons appliqué cette classe à l'élément nav.
+note sur "rem values" are relative to the root html element, not to the parent element. That is, If font-size of the root element is 16px then 1 rem = 16px for all elements. */
+
+/* .container {
+    max-width: 1000px;
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+    margin-left: auto;
+    margin-right: auto;
+} */
+
+/* Pourquoi nous avons besoin de la variable CSS deviendra évidente plus tard. L'élément entier a une position fixe, de sorte qu'il reste en haut de la page lorsque l'utilisateur fait défiler. On lui donne également une légère ombre de boîte. Ne vous inquiétez pas du fait que les liens débordent actuellement de leur parent; nous allons résoudre ce problème assez tôt. */
+
+#mynavbar {padding: 0;justify-content: space-around;}
+#mynavbar .row {padding: 0; margin:0 ; width: 100%;} 
+
+#navbar {
+    --navbar-height: 30px;
+    width: 100%;
+    /* position: fixed; PAS COMPATIBLE AVEC CDN BOOTSTRAP, PRIVILEGIER LA CLASSE PREVUE A CETTE EFFET FIXED-TOP*/
+    height: var(--navbar-height);
+    background-color: var(--navbar-bg-color);
+    /* left: 0;
+    right: 0; */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Comme je l'ai mentionné plus tôt, il s'agit simplement d'un conteneur flexible. Nous utilisons justify-content: space-between pour positionner le lien d'accueil et l'icône du hamburger aux extrémités opposées de la barre de navigation. Mais pour le moment, il positionne les trois enfants: le lien d'accueil, le bouton hamburger et les liens de navigation eux-mêmes; nous allons résoudre ce problème sous peu. */
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+}
+
+/* ************************************************** */
+/* style général pour les ancres de la barre de navigation: */
+
+.navbar-item {
+    margin: 0.4em;
+    width: 100%;
+}
+
+.home-link,
+.navbar-link {
+    color: var(--navbar-text-color);
+    transition: color 0.2s ease-in-out;
+    text-decoration: none;
+    display: flex;
+    font-weight: 400;
+    align-items: center;
+    transition: background-color 0.2s ease-in-out,
+                color 0.2s ease-in-out;
+}
+
+.home-link:focus,
+.home-link:hover {
+    color: var(--navbar-text-color-focus);
+}
+
+.navbar-link {
+    justify-content: center;
+    width: 100%;
+    padding: 0.4em 0.8em;
+    border-radius: 5px;
+}
+
+.navbar-link:focus,
+.navbar-link:hover {
+    color: var(--navbar-text-color-focus);
+    background-color: var(--navbar-bg-contrast);
+}
+/* ************************************************** */
+
+/* Voici le CSS pour le logo du site Web. Notez que ce n'est qu'un espace réservé pour ma démo; en réalité, vous voudrez probablement utiliser une image ou SVG: */
+
+.navbar-logo {
+    background-color: var(--navbar-text-color-focus);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-right: 0.5em;
+}
+
+/* Bouton "Bascule" - Icône Navbar Hamburger : 
+Fondamentalement, nous réinitialisons certains des <button>styles par défaut et donnons au bouton des dimensions fixes. C'est aussi un conteneur flexible. Notez que les barres réelles de l'icône du hamburger sont de trois <span>:
+Remarque : je n'utilise pas divs car c'est du HTML non valide pour mettre des divs à l'intérieur des boutons.
+*/
+.navbar-toggle {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    width: 40px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    vertical-align: middle;
+    align-self: center;
+    /* line-height: 130px; */
+}
+
+/* CSS des barres réelles icone Burger :  */
+
+.icon-bar {
+    display: block;
+    width: 25px;
+    height: 4px;
+    margin: 2px;
+    transition: background-color 0.2s ease-in-out,
+                transform 0.2s ease-in-out,
+                opacity 0.2s ease-in-out;
+    background-color: var(--navbar-text-color);
+}
+
+.navbar-toggle:focus .icon-bar,
+.navbar-toggle:hover .icon-bar {
+    background-color: var(--navbar-text-color-focus);
+}
+
+/* ************************************************** */
+/* Il existe de nombreuses façons de le faire, mais je pense que c'est la plus simple à comprendre. Je suis sûr que vous pouvez profiter des pseudo-éléments à la place.
+Lorsque vous cliquez sur le bouton bascule, nous appliquerons un nom de classe de .opened à la barre de navigation via JavaScript. Voici comment nous allons animer l'icône du hamburger pour qu'elle devienne une icône de fermeture (X): 
+
+Fondamentalement, la barre du milieu disparaît, les barres supérieure et inférieure sont centrées, la barre supérieure pivote de 45 degrés dans le sens des aiguilles d'une montre et la barre inférieure de 45 degrés dans le sens inverse des aiguilles d'une montre.
+
+*/
+
+#navbar.opened .navbar-toggle .icon-bar:first-child,
+#navbar.opened .navbar-toggle .icon-bar:last-child {
+    position: absolute;
+    margin: 0;
+    width: 30px;
+}
+
+#navbar.opened .navbar-toggle .icon-bar:first-child {
+    transform: rotate(45deg);
+}
+
+#navbar.opened .navbar-toggle .icon-bar:nth-child(2) {
+    opacity: 0;
+}
+
+#navbar.opened .navbar-toggle .icon-bar:last-child {
+    transform: rotate(-45deg);
+}
+/* ************************************************** */
+/* Menu de la barre de navigation réactif
+Comme je l'ai mentionné précédemment, le wrapper du menu de navigation a un positionnement fixe, avec un topdécalage égal précisément à la hauteur de la barre de navigation elle-même: 
+navbar-menu : La div contenant nos liens de navigation. Le fait de la cacher permet à notre menu Burger de venir se positionner à droite du navigateur
+
+Bien que opacity: 0 et visibility: hidde npuisse sembler redondant, c'est une bonne idée d'animer ces deux propriétés car visibility seule a tendance à s'aligner / s'animer très rapidement, alors qu'elle opacity est plus progressive.
+*/
+
+.navbar-menu {
+    position: fixed;
+    top: var(--navbar-height);
+    bottom: 0;
+    transition: opacity 0.2s ease-in-out,
+                visibility 0.2s ease-in-out,
+                left 0.2s ease-in-out,
+                right 0.2s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
+}
+
+.sidebar.left {
+    left: -1000px;
+    right: 0;
+}
+
+/* ************************************************** */
+/* Code pour l'état d'ouverture du menu burger : */
+#navbar.opened .navbar-menu {
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 1;
+    visibility: visible;
+}
+
+.navbar-links {
+    list-style-type: none;
+    max-height: 0;
+    overflow: hidden;
+    position: absolute;
+    background-color: var(--navbar-bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+
+
+    left: 0;
+    right: 0;
+    margin: 1.4rem;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.left.sidebar .navbar-links {
+    left: 0;
+    right: unset;
+    box-shadow: 5px 20px 20px rgba(0, 0, 0, 0.3);
+}
+
+#navbar.opened .navbar-links {
+    padding: 1em;
+    max-height: none;
+}
+
+/* ************************************************** */
+/* Barre de navigation adaptative: disposition du bureau
+Je vais montrer la requête média dans son intégralité, puis nous verrons ce que fait chaque pièce: */
+
+    #navbar .navbar-menu,
+    #navbar.opened .navbar-menu {
+        visibility: visible;
+        opacity: 1;
+        position: static;
+        display: block;
+        height: 100%;
+    }
+
+    #navbar .navbar-links,
+    #navbar.opened .navbar-links {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        position: static;
+        flex-direction: row;
+        list-style-type: none;
+        max-height: max-content;
+        width: 100%;
+        height: 100%;
+    }
+
+    #navbar .navbar-link:last-child {
+        margin-right: 0;
+    }
+
+    #leftselect {
+        display:none;
+    }
+
+/* ************************************************** */
+
 a { text-decoration: none; }
-.mybody { color: black;}
-.myheader { background-color: black; justify-content: center; }
+
+/* Container-fluid bande LOGO: 100% large avec des "gouttières" padding de 15 px de large à gauche et droite */
+.myheader { background-color: black }
+
 .row { padding-top: 15px; }
 .icon { display: none; } /* display-none : On cache l'icone burger en affichage pas défaut */
 
-.connect { background-color:black; position:relative; z-index:auto;}
+.connect { background-color:black; position:relative; z-index:auto; height: 100%;}
 .connect nav {margin-top: 90px;}
 .logoderoulant { position:relative; color:white;}
 #logoconnect { margin-right: 70px; list-style: none;}
@@ -23,13 +318,24 @@ a { text-decoration: none; }
 /* Css du template "users" : */
 .sous_menu a { display: block; text-decoration: none; color: black; }
 
+@media screen and (min-width: 700px) {
+    .navbar-toggle { display: none;}
+}
 
-@media screen and (max-width: 600px){
-    .icon { display: block; float:left; } /* A partir de 600 px, l'icone burger s'affiche a gauche de l'écran*/
-    .topnav a { display: none; } /* Sélectionne tous les a , on retire l'affichage */
-    #logoheader { max-width: 18%; height: auto; }
-    #logoconnect { margin-right: 0; } /* Retrait du margin dès que l'on passe en petit écran pour que le logo reste le plus à droit possible */
-    .connect nav {margin-top: 20px;}
+/* CSS mobile : */
+@media screen and (max-width: 700px){
+#myheader { height: 60px; position: relative; }
+#myheader .row { padding: 0; }
+#logoheader { max-width: 67%; }
+.navbar-toggle { height: 60px; }
+#mynavbar { display: none; }
+#leftselect {display:flex;}
+#titreDernieresAnimations { font-size: 15px; }
+
+.topnav a { display: none; } /* Sélectionne tous les a , on retire l'affichage */
+
+#logoconnect { margin-right: 0; } /* Retrait du margin dès que l'on passe en petit écran pour que le logo reste le plus à droit possible */
+.connect nav {margin-top: 20px;}
 }
 
 /* Carousel Bootstrap (page index) */

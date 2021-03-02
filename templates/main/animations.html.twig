@@ -6,82 +6,82 @@
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/animations.css') }}">
+	<link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/animations.css') }}">
 {% endblock %}
 
 {% block body %}
 
-    <div class="container-fluid">
-        <div class="scene">
-        {# Nous récuperons une variable "array" "animations" renvoyée par le controller dans cette vue pour pouvoir boucler dessus pour afficher une div à chaque animation. Lorsqu'un ajout ou suppression d'animation sera effectué dans l'espace Admin, les divs seront ajustées en conséquence #}
-            <div class="carousel">
-                {% set i = 0 %}
-                {% for animation in animations %}
-                    <div class="carousel__cell" id="img{{i}}"><img src="{{ asset('/uploads/') ~ animation.images[0].name }}"></div>
-                    <h2 id="titre{{i}}" style="display:none"> {{animation.title}} </h2>
-                    {% if ((animations|length)-1) == i %}
-                        {% set i = 0 %}
-                    {% else %}
-                        {% set i = i+1 %}   
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
+	<div class="container-fluid px-0" id="mycarousel">
+		<div class="row pt-0">
+			<div
+				class="scene">
+				{# Nous récuperons une variable "array" "animations" renvoyée par le controller dans cette vue pour pouvoir boucler dessus pour afficher une div à chaque animation. Lorsqu'un ajout ou suppression d'animation sera effectué dans l'espace Admin, les divs seront ajustées en conséquence #}
+				<div class="carousel">
+					{% set i = 0 %}
+					{% for animation in animations %}
+						<div class="carousel__cell" id="img{{i}}"><img src="{{ asset('/uploads/') ~ animation.images[0].name }}"></div>
+						<h2 id="titre{{i}}" style="display:none">
+							{{animation.title}}
+						</h2>
+						{% if ((animations|length)-1) == i %}
+							{% set i = 0 %}
+						{% else %}
+							{% set i = i+1 %}
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid" id="myselector">
+		<div
+			class="carousel-options">
+			{# Options de la balise input retirées provisoirement car non nécessaires:
+			            type="range" : sert à afficher une jauge avec un curseur
+			            min="1" max="100" : délimite la jauge de sélection avec un curseur
+			            animations|length : indique le nombre d'animations présent dans la table (=nb de vignettes qui seront affichées) #}
+			<p>
+				<label
+					style="display:none">
+					<!-- Cells -->
+					<input class="cells-range" value="{{ animations|length }}"/>
+				</label>
+			</p>
 
-        <div class="carousel-options">
-        {# Options de la balise input retirées provisoirement car non nécessaires:
-        type="range" : sert à afficher une jauge avec un curseur
-        min="1" max="100" : délimite la jauge de sélection avec un curseur
-        animations|length : indique le nombre d'animations présent dans la table (=nb de vignettes qui seront affichées) #}
-            <p>
-                <label>
-                    <!-- Cells -->
-                    <input class="cells-range"  value="{{ animations|length }}" />
-                </label>
-            </p>
+			{# Boutons de sélections qui vont permettre un changement d'affichage du carousel par rotation. Le clic sur ce bouton viendra également incrémenter ou décrémenter l'index de lecture de la diapositive centréé (initialisée à zéro au chargement de la page) #}
+			<p>
+				<button class="previous-button">Previous</button>
+				<button class="next-button">Next</button>
+			</p>
+			<div style="display:none" value="0"></div>
+			<p style="display:none">
+				<label><input type="radio" name="orientation" value="horizontal" checked/></label>
+				<label><input type="radio" name="orientation" value="vertical"/></label>
+			</p>
+		</div>
+	</div>
 
-        {# Boutons de sélections qui vont permettre un changement d'affichage du carousel par rotation. Le clic sur ce bouton viendra également incrémenter ou décrémenter l'index de lecture de la diapositive centréé (initialisée à zéro au chargement de la page) #}
-            <p>
-                <button class="previous-button">Previous</button>
-                <button class="next-button">Next</button>
-            </p>
-            <div style="display:none" value="0"></div>
-            <p>
-                Orientation:
-                <label>
-                    <input type="radio" name="orientation" value="horizontal" checked />
-                    horizontal
-                </label>
-                <label>
-                    <input type="radio" name="orientation" value="vertical" />
-                    vertical
-                </label>
-            </p>
-        </div>
-        <div style="display:none" id="readIdImage"></div>
-        <div class="container">
-            <h1 id="title_animation" style="text-align:center;"> {{animations[0].title}} </h1>
-        </div>
-        <div class="container-fluid">
-            SCENARIO : {{animations[0].description}} 
-        </div>
-        <div class="container-fluid">
-            CARACTÉRISTIQUES TECHNIQUES : 
+	<div style="display:none" id="readIdImage"></div>
+	<div class="container">
+		<h1 id="title_animation" style="text-align:center;">
+			{{animations[0].title}}
+		</h1>
+	</div>
+	<div class="container-fluid">
+		SCENARIO :
+		{{animations[0].description}}
+	</div>
+	<div class="container-fluid">
+		CARACTÉRISTIQUES TECHNIQUES : 
         Jeu individuel avec de l'argent factice, offert à chacun, en début de soirée. Chacun 
         évolue librement au cours de la soirée. L'objectif étant de faire fructifier ses jetons et de créer une 
         « compétition » entre les invités.
-        </div>
-        <div class="container-fluid">
-            JEUX : Big Ben, Roulette Russe, Opération Commando, Course Poursuite, Compte à Rebours... 
+</div>
+<div class="container-fluid">
+        JEUX : Big Ben, Roulette Russe, Opération Commando, Course Poursuite, Compte à Rebours... 
         1 animateur dans la soirée.
         Montage et démontage inclus
-        </div>
-    </div>
+	</div>
+</div>{% endblock %}{% block javascripts %}
 
-{% endblock %}
-
-{% block javascripts %}
-    <script src="{{ asset('js/animations.js')}}"></script>
-{% endblock %}
-
-
+<script src="{{ asset('js/animations.js')}}"></script>{% endblock %}

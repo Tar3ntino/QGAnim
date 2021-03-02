@@ -32,7 +32,7 @@ function screenTest(e) {
   if (e.matches) {
     /* the viewport is more than than 600 pixels wide */
     console.log('This is a narrow screen — 600px wide or less.');
-    document.body.style.backgroundColor = 'pink';
+    // document.body.style.backgroundColor = 'pink';
 
     angle = theta * selectedIndex * -1; // Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1
     isHorizontal = true;
@@ -43,7 +43,7 @@ function screenTest(e) {
   } else {
     /* the viewport is 600 pixels wide or less */
     console.log('This is a wide screen — more than 600px wide.');
-    document.body.style.backgroundColor = 'aquamarine';
+    // document.body.style.backgroundColor = 'aquamarine';
 
     angle = theta * selectedIndex * -1;
     isHorizontal = false;

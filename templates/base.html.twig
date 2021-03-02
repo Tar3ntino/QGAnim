@@ -1,97 +1,165 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}{% endblock %}
+		</title>
+		{# Run `composer require symfony/webpack-encore-bundle`and uncomment the following Encore helpers to start using Symfony UX #}
 
-        <!-- Bootstrap CSS CDN -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+		<!-- Bootstrap CSS CDN -->
+		<link
+		rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-        <!-- Our Custom CSS -->
-        <link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/styles.css') }}">
+		<!-- Our Custom CSS -->
+		<link
+		rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/styles.css') }}">
 
-        <!-- Front awesome CDN - Pour Icone Menu Burger -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+		<!-- Front awesome CDN - Pour Icone Menu Burger -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
-    </head>
+		{% block stylesheets %}
+			{#{{ encore_entry_link_tags('app') }}#}
+		{% endblock %}
+	</head>
 
-    <body>
-        <div class="container-fluid mybody px-0"> 
-        <!-- HEADER -->
-            <header>
-                <div class="container-fluid myheader ">
-                    <div class="row">
-                        <div class="col-3">
-                            <a href="javascript:void(0);" class="icon">
-                                <i class="fas fa-bars fa-2x"></i>
-                            </a>
-                        </div>
-                        <div class="col-6 text-center">
-                            <img src= "{{ asset('images/logoheader.png') }}" alt="logo du site" id="logoheader">
-                        </div>
-                        <div class="col-3 connect">
-                            <nav>
-                                <ul id="logoconnect">   
-                                    <li class="logoderoulant"> <i class="fas fa-user fa-2x"></i>  <i class="fas fa-sort-down"></i>
-                                        <ul class="sousmenu">
-                                            <li><a href="{{path('app_register')}}">S'inscrire</a></li>
-                                            <li><a href="{{path('app_login')}}">Se connecter</a></li>
-                                            <li><a href="{{path('app_logout')}}">Se déconnecter</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </header>
-            <div class="row">
-                <div class="container-fluid topnav">
-                <a href="{{path('app_home')}}">Accueil <span class="sr-only">(current)</span></a>
-                <a href="#">Présentation</a>
-                <a href="{{path('app_animations')}}">Animation</a>
-                <a href="#">Nous contacter</a>
-                
-                {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{path('admin_home')}}">Espace administration</a>
-                {% endif %}
-                    
-                </div>
-            </div>
-        </div>
+	<body>
+		<div class="container-fluid px-0" id="myheader">
+			<div class="container">
+				<div class="row">
+					<div class="left col-4">
+						<button type="button" class="navbar-toggle" aria-label="Open navigation menu">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div class="center col-4 text-center">
+						<a class="text-center" href="/" class="home-link">
+							<img src="{{ asset('images/logoheader.png') }}" alt="logo du site" id="logoheader">
+						</a>
+					</div>
+					<div class="right col-4 connect">
+						<nav>
+							<ul id="logoconnect">
+								<li class="logoderoulant">
+									<i class="fas fa-user fa-2x"></i>
+									<i class="fas fa-sort-down"></i>
+									<ul class="sousmenu">
+										{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+											<li>
+												<a href="{{path('app_logout')}}">Se déconnecter</a>
+											</li>
+										{% else %}
+											<li>
+												<a href="{{path('app_register')}}">S'inscrire</a>
+											</li>
+											<li>
+												<a href="{{path('app_login')}}">Se connecter</a>
+											</li>
+										{% endif %}
 
-        {% block body %}{% endblock %}
+									</ul>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <!-- FOOTER -->
-        <footer>
-            <div class="container-fluid bg-secondary"> 
-                <p class=" float-end">
-                    <a href="#">Back to top</a>
-                </p>
-                <p>&copy; 2017-2020 Company, Inc. &middot;
-                    <a href="#">Privacy</a>
-                    &middot;
-                    <a href="#">Terms</a>
-                </p>
-            </div>
-        </footer>
-    </body>
-
-    {# JS Bootstrap: #}
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-    {# Fin JS Bootstrap: #}
-
-    <script src="{{ asset('js/scripts.js') }}"></script>
-
-    {% block javascripts %}
-        {#{{ encore_entry_script_tags('app') }}#}
-    {% endblock %}
-
+		<div class="container-fluid pt-0" id="mynavbar">
+			<div class="row">
+				<header id="navbar">
+					<nav class="navbar-container container">
+						<div class="navbar-menu">
+							<ul class="navbar-links">
+								<li class="navbar-item">
+									<a class="navbar-link" href="{{path('app_home')}}">Accueil</a>
+								</li>
+								<li class="navbar-item">
+									<a class="navbar-link" href="{{path('app_presentation')}}">Présentation</a>
+								</li>
+								<li class="navbar-item">
+									<a class="navbar-link" href="{{path('app_animations')}}">Animation</a>
+								</li>
+								<li class="navbar-item">
+									<a class="navbar-link" href="{{path('app_contact')}}">Contact</a>
+								</li>
+								{% if is_granted('ROLE_ADMIN') %}
+									<li class="navbar-item">
+										<a class="navbar-link" href="{{path('admin_home')}}">Admin</a>
+									</li>
+								{% endif %}
+							</ul>
+						</div>
+					</nav>
+				</header>
+			</div>
+		</div>
+		{# Fin de ma div container-fluid de la nav #}
+		{% block body %}{% endblock %}
+	</body>
 </html>
+
+{# 
+            <header id="navbar">
+                
+        
+        
+                <nav class="navbar-container container">
+                    <a href="/" class="home-link">
+                        <div class="navbar-logo"></div>
+                        Website Name
+                    </a>
+                    <button type="button" class="navbar-toggle" aria-label="Open navigation menu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="navbar-menu detached">
+                        <ul class="navbar-links">
+                            <li class="navbar-item">
+                                <a class="navbar-link" href="/about">About</a>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="navbar-link" href="/blog">Blog</a>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="navbar-link" href="/careers">Careers</a>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="navbar-link" href="/contact">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header> #}
+{# <main>
+        
+        
+                <form id="options" class="container">
+                    <label for="detached">Detached
+                        <input type="radio" checked name="navtype" id="detached"/></label>
+                    <label for="attached">Attached
+                        <input type="radio" name="navtype" id="attached"/></label>
+                    <label for="left-sidebar">Left sidebar
+                        <input type="radio" name="navtype" id="left-sidebar"/></label>
+                    <label for="right-sidebar">Right sidebar
+                        <input type="radio" name="navtype" id="right-sidebar"/></label>
+                </form>
+            </main> #}
+
+<!-- FOOTER -->
+	<footer>
+		<div class="container-fluid bg-secondary"> <p class=" float-end">
+			<a href="#">Back to top</a>
+		</p>
+		<p>&copy; 2017-2020 Company, Inc. &middot;
+			<a href="#">Privacy</a>
+			&middot;
+			<a href="#">Terms</a>
+		</p>
+	</div>
+</footer></body>{# JS Bootstrap: #}<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>{# Fin JS Bootstrap: #}<script src="{{ asset('js/scripts.js') }}"></script><script src="{{ asset('js/navbar.js') }}"></script>{% block javascripts %}{#{{ encore_entry_script_tags('app') }}#}{% endblock %}</html>
