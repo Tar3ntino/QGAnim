@@ -6,12 +6,41 @@
 {% endblock %}
 
 {% block stylesheets %}
-	<link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/animations.css') }}">
+	<link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/styles.css') }}">
 {% endblock %}
 
 {% block body %}
+	<div class="container-fluid">
+		<div class="container" id="containerTopPresentation">
+			<div class="row">
+				<div class="col-4">
+					<img src="{{ asset('/images/20190606_132633-removebg-preview-ConvertImage.png') }}" alt="Photo de présentation">
+				</div>
+				<div class="col-8 d-flex align-items-center">
+					<p style="text-align: right">
+						QG Animations vous propose d’animer vos évènements :
+						<br><br>
+						Anniversaires, mariage, retraite mais pas que …toutes les occasions sont bonnes pour se retrouver, s’évader, s’amuser et partager un moment unique axé sur la convivialité, le partage, le plaisir et la bonne humeur.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="container-fluid">
+		<div class="container" id="containerBottomPresentation">
+			<div class="row">
+				<div class="col-8 d-flex align-items-center">
+					<p style="text-align: left">
+						Tous publics, petits et grands, jeunes et moins jeunes, QG Animations s’adaptera et saura vous écouter et vous proposer un divertissement adapté, à vos attentes. <br> <br> Alors, n’hésitez plus, n’attendez plus, contactez-moi. <br> <br> QG Animations gère tout, chez vous pour vous, avec vous
+					</p>
+				</div>
+                <div class="col-4">
+					<img id="photoAtelier" src="{{ asset('/images/IMG-20200815-WA0004-removebg-preview-ConvertImage.png') }}" alt="Photo atelier">
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
 
 
-{% block javascripts %} 
-{% endblock %}
+{% block javascripts %}{% endblock %}

@@ -1,9 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Index Admin Controller
+{% block title %}
+	Index Admin Controller
 {% endblock %}
 
 {% block body %}
 
- <h1> Index Admin Controller </h1>
+	<h1 class="text-center">
+		Mon espace d'administration du site
+	</h1>
+
+	<div class="container-fluid">
+		<div class="container text-center">
+
+
+			<h2>
+				Administration générale :</h2>
+			<a class="btn btn-secondary my-2" href="#" role="button">Administration | Gestion des utilisateurs</a>
+			<br>
+
+			<h2>
+				Site internet - Gestion du contenu :</h2>
+			<a class="btn btn-secondary my-2" href="#" role="button">Administration | Page Accueil</a>
+			<br>
+			<a class="btn btn-secondary my-2" href="#" role="button">Administration | Page Présentation</a>
+			<br>
+			<a class="btn btn-secondary my-2" href="{{path('admin_animations_home')}}" role="button">Administration | Gestion des animations</a>
+			<br>
+
+			<h2>
+				Administratif :</h2>
+			<a class="btn btn-secondary my-2" href="#" role="button">Gestion des devis</a>
+			<br>
+			<a class="btn btn-secondary my-2" href="#" role="button">Gestion des factures</a>
+			<br>
+		</div>
+	</div>
+
 {% endblock %}

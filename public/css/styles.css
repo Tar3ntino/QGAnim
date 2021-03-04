@@ -35,15 +35,6 @@ body {
     background-color: black;
 }
 
-
-
-
-
-.left{
-    height: 100%;
-    align-items: center;
-}
-
 /* C'est une approche assez populaire pour centrer les choses horizontalement dans CSS. Fondamentalement, vous pouvez simplement gifler un nom de classe containersur tout ce qui doit être centré horizontalement sur la page. Ici, la page est centrée sur une largeur maximale de 1000px. Si vous vous en souvenez, nous avons appliqué cette classe à l'élément nav.
 note sur "rem values" are relative to the root html element, not to the parent element. That is, If font-size of the root element is 16px then 1 rem = 16px for all elements. */
 
@@ -57,17 +48,17 @@ note sur "rem values" are relative to the root html element, not to the parent e
 
 /* Pourquoi nous avons besoin de la variable CSS deviendra évidente plus tard. L'élément entier a une position fixe, de sorte qu'il reste en haut de la page lorsque l'utilisateur fait défiler. On lui donne également une légère ombre de boîte. Ne vous inquiétez pas du fait que les liens débordent actuellement de leur parent; nous allons résoudre ce problème assez tôt. */
 
-#mynavbar {padding: 0;justify-content: space-around;}
+#mynavbar {padding: 0;justify-content: space-around; background-color: var(--navbar-bg-color);}
 #mynavbar .row {padding: 0; margin:0 ; width: 100%;} 
 
 #navbar {
     --navbar-height: 30px;
-    width: 100%;
-    /* position: fixed; PAS COMPATIBLE AVEC CDN BOOTSTRAP, PRIVILEGIER LA CLASSE PREVUE A CETTE EFFET FIXED-TOP*/
+    width:100%; /* Propriété nécessaire pour la gestion de l'alignement pour les propriétés des enfants */
+    /* position: fixed; PAS COMPATIBLE AVEC CDN BOOTSTRAP, PRIVILEGIER LA CLASSE PREVUE A CET EFFET FIXED-TOP*/
     height: var(--navbar-height);
     background-color: var(--navbar-bg-color);
-    /* left: 0;
-    right: 0; */
+    left: 0;
+    right: 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
@@ -340,9 +331,19 @@ a { text-decoration: none; }
 
 /* Carousel Bootstrap (page index) */
 .carousel-inner{
+    height:360px;
     width:100%;
     max-height: 500px !important;
   }
 
   /* Title Mes dernieres animations */
   #title_last_anim { font-size: 25px;}
+
+  #containerTopPresentation {
+    background-color:rgb(229, 238, 238);
+  }
+
+  #photoAtelier{
+      text-align: right;
+      width: 65%;
+  }

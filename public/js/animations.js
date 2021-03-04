@@ -8,52 +8,48 @@
     - "cellWidth = carousel.offsetWidth" : propriété en lecture seule qui renvoie la largeur totale d'un élément
     - "cellHeight = carousel.offsetHeight" : propriété en lecture seule, elle renvoie la hauteur totale d'un élément
 */
-var carousel = document.querySelector('.carousel');         // on récupère la div parent carousel
-var cells = carousel.querySelectorAll('.carousel__cell');   // idem avec toutes les animations
-var cellCount;                                              
-var selectedIndex = 0;
-//console.log(selectedIndex);
-var cellWidth = carousel.offsetWidth;
-var cellHeight = carousel.offsetHeight;
-var isHorizontal = true;
-var rotateFn = isHorizontal ? 'rotateY' : 'rotateX';
-var radius, theta;
+var carousel = document.querySelector('.carousel');        // on récupère la div parent carousel
+var cells = carousel.querySelectorAll('.carousel__cell');  // idem avec toutes les animations
+var cellCount;                                             // variable pour définir nombre d'animations                          
+var selectedIndex = 0;                                     // initialisation index de lecture
+var cellWidth = carousel.offsetWidth;                      // width à 100% du parent .scene (300px)
+var cellHeight = carousel.offsetHeight;                    // height à 100% du parent .scene (200px)
+var isHorizontal = true;                                   // Initialisation position carousel défaut horizontal
+var rotateFn = isHorizontal ? 'rotateY' : 'rotateX';       // Variable rotateFn prend la valeur de la propriété css de la rotation a effectuer selon orientation carousel. Cette variable sera nécessaire pour le changement d'affichage responsive.
+var radius, theta;                                          
 //console.log(cellWidth, cellHeight);
 
-// C'est cette fonction que nous souhaitons activer avec une rotation verticale dans le matchMedia (media query Javascript)
-// La largeur minimum de l'affichage est 600 px inclus 
+// MDN WEB Docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/addListener
+// Retourne BOOLEN -> matchMedia() : C'est une méthode qui dépend de l'objet window (la fenêtre du navigateur) et qui prend en argument une chaîne de texte contenant l'expression à tester, pour retourner true ou false via sa propriété matches.
+var mediaQueryList = window.matchMedia('(min-width: 600px)'); 
 
-//var angle;
-//console.log(window.matchMedia("(min-width: 600px)").matches);
 
-var mediaQueryList = window.matchMedia('(min-width: 600px)');
-
-function screenTest(e) {
-  if (e.matches) {
-    /* the viewport is more than than 600 pixels wide */
-    console.log('This is a narrow screen — 600px wide or less.');
-    // document.body.style.backgroundColor = 'pink';
-
-    angle = theta * selectedIndex * -1; // Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1
+function screenTest(e) {                                    // Notre fonction de rappel que l'on exécute lorsque l'état de notre requête multimédia change.
+  if (e.matches) {                                          /* the viewport is more than than 600 pixels wide */
+    console.log('C\'est un plus grand écran - 600 px de large ou plus');
+    angle = theta * selectedIndex * -1;                     // Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1
     isHorizontal = true;
-    rotateFn = isHorizontal ? 'rotateY' : 'rotateX'; // Si le carousel est horizontal, la rotation se fera verticalement
+    rotateFn = isHorizontal ? 'rotateY' : 'rotateX';        // "RotateFn" prend la propriété Css de la rotation verticale car carousel actuellement horizontal
     carousel.style.transform = 'translateZ(' + -radius + 'px) ' + rotateFn + '(' + angle + 'deg)'; 
+    console.log("radius : " + radius)
+    console.log("angle : " + angle)
     changeCarousel();
 
   } else {
     /* the viewport is 600 pixels wide or less */
-    console.log('This is a wide screen — more than 600px wide.');
+    console.log('C\'est un petit écran - 600 px de large ou moins');
     // document.body.style.backgroundColor = 'aquamarine';
 
     angle = theta * selectedIndex * -1;
     isHorizontal = false;
     rotateFn = isHorizontal ? 'rotateY' : 'rotateX'; // Si le carousel est horizontal, la rotation se fera horizontalement
     carousel.style.transform = 'translateZ(' + -radius + 'px) ' + rotateFn + '(' + angle + 'deg)';
+    console.log("radius : " + radius)
+    console.log("angle : " + angle)
     changeCarousel();
   }
 }
 mediaQueryList.addListener(screenTest);
-
 
 /*
 if (window.matchMedia("(min-width: 600px)").matches) {
@@ -62,7 +58,6 @@ if (window.matchMedia("(min-width: 600px)").matches) {
     console.log('On passe en mode vertical');
 
 }*/
-
 
 function rotateCarousel() {
     var angle = theta * selectedIndex * -1; //Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1   
@@ -102,8 +97,9 @@ nextButton.addEventListener('click', function() {
     document.getElementById('title_animation').innerHTML = titleAnimationPlayed;
 });
 
-// cellsRange : La balise input contenant le nombre d'animation
-var cellsRange = document.querySelector('.cells-range');   
+// cellsRange : On récupère dans cette variable la balise input (class.cells-range). Au sein de celle ci se trouve la valeur du nombre d'animations existantes calculée en récupérant la taille de l'array des animations existantes. Nous utiliserons cette variable dans la fonction changeCaroussel (cf *)
+var cellsRange = document.querySelector('.cells-range'); 
+
 /* Si la valeur de la balise change, la fonction changeCarousel s'active et ajuste l'affichage en profondeur pour  une meilleure gestion de la 3D de celui ci */
 cellsRange.addEventListener('change', changeCarousel);
 cellsRange.addEventListener('input', changeCarousel);
@@ -120,10 +116,10 @@ function testFunction(){
 
 /* Cette fonction permet un affichage du carousel en 3D et gère l'inclinaison de l'affichage en profondeur selon le nombre d'animation présente dans la balise input cellesRange */
 function changeCarousel() {
-    cellCount = cellsRange.value;
-    theta = 360 / cellCount;
-    var cellSize = isHorizontal ? cellWidth : cellHeight;
-    radius = Math.round((cellSize / 2) / Math.tan(Math.PI / cellCount));
+    cellCount = cellsRange.value;   // (cf *) On récupère le nombre d'animations existantes    
+    theta = 360 / cellCount;        // theta : L'angle de rotation pour chaque clic "Next" ou "Previous". Cette angle va nous intéresser pour le positionnement Css à l'initialisation du carousel également
+    var cellSize = isHorizontal ? cellWidth : cellHeight;                  // la taille de la cellule prend la valeur de la longueur si horizontal hauteur si vertical
+    radius = Math.round((cellSize / 2) / Math.tan(Math.PI / cellCount));   
     for (var i = 0; i < cells.length; i++) {
         var cell = cells[i];
         if (i < cellCount) {
