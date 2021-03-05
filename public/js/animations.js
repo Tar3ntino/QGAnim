@@ -19,6 +19,7 @@ var rotateFn = isHorizontal ? 'rotateY' : 'rotateX';       // Variable rotateFn 
 var radius, theta;                                          
 //console.log(cellWidth, cellHeight);
 
+
 // MDN WEB Docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/addListener
 // Retourne BOOLEN -> matchMedia() : C'est une méthode qui dépend de l'objet window (la fenêtre du navigateur) et qui prend en argument une chaîne de texte contenant l'expression à tester, pour retourner true ou false via sa propriété matches.
 var mediaQueryList = window.matchMedia('(min-width: 600px)'); 

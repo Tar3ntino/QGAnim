@@ -1,58 +1,42 @@
 {% extends 'users.html.twig' %}
 
-{% block title %}Profil de {{app.user.firstname}} {{app.user.name}}{% endblock %}
+{% block title %}Profil de
+	{{app.user.firstname}}
+	{{app.user.name}}
+{% endblock %}
 
 {% block body %}
 
-{% for message in app.flashes('message') %}
-<div class="row">
-    <div class="col-12 alert alert-success" role="alert">{{message}}</div>  
-</div>
-{% endfor %}
+	{% for message in app.flashes('message') %}
+		<div class="row">
+			<div class="col-12 alert alert-success" role="alert">{{message}}</div>
+		</div>
+	{% endfor %}
 
+	<div class="row">
+		<div class="col-3"> Titre de civilité : </div>
+		<div class="col-9">	{{app.user.gender}} </div>
+	</div>
+	<div class="row">
+		<div class="col-3">	Prénom : </div>
+		<div class="col-9">	{{app.user.firstname}} </div>
+	</div>
+	<div class="row">
+		<div class="col-3">	Nom	:</div>
+		<div class="col-9">	{{app.user.name}}</div>
+	</div>
+	<div class="row">
+		<div class="col-3">	Date de naissance :</div>
+		<div class="col-9">	{{app.user.dateBirth | date('d-m-Y') }} </div>
+	</div>
+	<div class="row">
+		<div class="col-3"> Email :</div>
+		<div class="col-9">	{{app.user.email}} </div>
+	</div>
+	<div class="row">
 
-<div class="row">
-    <div class="col-3"> Titre de civilité </div>
-    <div class="col-9"> 
-        <label>
-            <input type="radio" name="orientation" value="Mr" checked />
-            Mr
-        </label>
-        <label>
-            <input type="radio" name="orientation" value="Mme"/>
-            Mme
-        </label>
-    </div>
-</div>
-<div class="row">
-    <div class="col-3"> Prénom </div>
-    <div class="col-9"> {{app.user.firstname}} </div>
-</div>
-<div class="row">
-    <div class="col-3"> Nom </div>
-    <div class="col-9"> {{app.user.name}}</div>
-</div>
-<div class="row">
-    <div class="col-3"> Date de naissance</div>
-    <div class="col-9"> - </div>
-</div>
-<div class="row">
-    <div class="col-3"> Email </div>
-    <div class="col-9"> {{app.user.email}}</div>
-</div>
-<div class="row">
-    <div class="col-3"> Mot de passe </div>
-    <div class="col-9"> - </div>
-</div>
-<div class="row">
-    <div class="col-3"> Confirmer le mot de passe </div>
-    <div class="col-9"> - </div>
-</div>
-<div class="row">
+		<a href="{{ path('users_profil_modifier')}}" class="btn btn-dark mr-1">Modifier mes informations personnelles</a>
+		<a href="{{ path('users_password_modifier')}}" class="btn btn-dark">Modifier mon mot de passe</a>
 
-<a href="{{ path('users_profil_modifier')}}" class="btn btn-dark mr-1" >Modifier le profil</a>
-<a href="{{ path('users_password_modifier')}}" class="btn btn-dark" >Modifier le mot de passe</a>
-
-</div>
+	</div>
 {% endblock %}
-

@@ -51,6 +51,16 @@ class Users implements UserInterface
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateBirth;
+
+    /**
+     * @ORM\Column(type="string", length=4, nullable=true)
+     */
+    private $gender;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -169,6 +179,30 @@ class Users implements UserInterface
     public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDateBirth(): ?\DateTimeInterface
+    {
+        return $this->dateBirth;
+    }
+
+    public function setDateBirth(\DateTimeInterface $dateBirth): self
+    {
+        $this->dateBirth = $dateBirth;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
 
         return $this;
     }
