@@ -45,7 +45,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
         /* Dans le cas ou le formulaire est soumis ET valide : */
         if ($form->isSubmitted() && $form->isValid()){
 
-            // On récupère les images transmises: on déclare une variable $images, on lui affecte(=) la donnée qui se trouve dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
+            // On récupère les images transmises: on déclare une variable $images, on lui affecte(=) la donnée qui se 
+            // trouve dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
             $images = $form->get('images')->getData();
 
             // On boucle sur les images: 
@@ -86,7 +87,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
      */
     public function modifAnimation(Animations $animation, Request $request)
     {
-        /* Creation d'un formulaire pour pouvoir ajouter la nouvelle animation que l'on va renvoyer dans la vue pour la saisie : */
+        /* Creation d'un formulaire pour pouvoir modifier l'animation déjà existante que l'on va renvoyer dans la vue une fois éditée: */
         $form = $this->createForm(AnimationsType::class, $animation);
 
         /* Traitement de la request du formulaire une fois le bouton 'valider' cliqué : */
@@ -95,7 +96,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
         /* Dans le cas ou le formulaire est soumis ET valide : */
         if ($form->isSubmitted() && $form->isValid()){
 
-            // On récupère les images transmises: on déclare une variable $images, on lui affecte(=) la donnée qui se trouve dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
+            // On récupère les images transmises: on déclare une variable $images, on lui affecte(=) la donnée qui se trouve dans 
+            //le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
             $images = $form->get('images')->getData();
 
             // On boucle sur les images: 
@@ -114,7 +116,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
                 $img->setName($fichier);
                 $animation->addImage($img);
             }
-
             /* Entity manager = em */
             $em = $this->getDoctrine()->getManager();
             $em->persist($animation);
@@ -122,7 +123,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
             return $this->redirectToRoute('admin_animations_home');
         }
-
         return $this->render('admin/animations/ajout.html.twig', [
             'animation' => $animation,
             'form' => $form->createView()

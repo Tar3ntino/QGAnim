@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UsersRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -60,6 +61,12 @@ class Users implements UserInterface
      * @ORM\Column(type="string", length=4, nullable=true)
      */
     private $gender;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
 
     public function getId(): ?int
     {
@@ -206,4 +213,10 @@ class Users implements UserInterface
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+ 
 }

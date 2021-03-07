@@ -20,9 +20,14 @@
 					{% set i = 0 %}
 					{% for animation in animations %}
 						<div class="carousel__cell" id="img{{i}}"><img src="{{ asset('/uploads/') ~ animation.images[0].name }}"></div>
+
+                        {# Creation de "X" balises titre h2 stockant le nom de chaque animation avec un affichage masqué display:none : #}
 						<h2 id="titre{{i}}" style="display:none">
 							{{animation.title}}
 						</h2>
+                        <p id=""></p>
+
+
 						{% if ((animations|length)-1) == i %}
 							{% set i = 0 %}
 						{% else %}
@@ -69,7 +74,7 @@
 	</div>
 	<div class="container-fluid">
 		SCENARIO :
-		{{animations[0].description}}
+		{{animations[0].description | raw}}
 	</div>
 	<div class="container-fluid">
 		CARACTÉRISTIQUES TECHNIQUES : 

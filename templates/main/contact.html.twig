@@ -1,4 +1,4 @@
-{# templates/contact.html.twig #}
+{# templates/main/contact.html.twig #}
 {% extends "base.html.twig" %}
 
 {% block title %}
@@ -10,7 +10,24 @@
 {% endblock %}
 
 {% block body %}
+
+    {% for message in app.flashes('message') %}
+		<div class="row">
+			<div class="col-12 alert alert-success text-center" role="alert">{{message}}</div>
+		</div>
+	{% endfor %}
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4  col-sm-12 my-3">
+				<h3>VOTRE DEMANDE D'ANIMATIONS:</h3>
+				{{ form(form) }}
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+
 {% endblock %}
 
-{% block javascripts %} 
-{% endblock %}
+{% block javascripts %}{% endblock %}

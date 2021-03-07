@@ -15,7 +15,7 @@ class MainController extends AbstractController
     public function index(AnimationsRepository $animationsRepo): Response
     {
         return $this->render('main/index.html.twig', [
-            'animations' => $animationsRepo->findAll(),
+            'animations' => $animationsRepo->findAll()
         ]);
     }
 
@@ -44,19 +44,5 @@ class MainController extends AbstractController
          // on affiche notre template (plus tard on pourra lui passer des variables et autres 
         return $this->render('main/presentation.html.twig');
     }
-
-    /**
-     * @Route ("/contact", name="app_contact")
-     * @param AnimationsRepository $animationsRepository
-     * Cette route renvoie sur la page de presentation du site
-     */
-
-    public function contact()
-    {
-         // on affiche notre template (plus tard on pourra lui passer des variables et autres 
-        return $this->render('main/contact.html.twig');
-    }
-
-
 
 }

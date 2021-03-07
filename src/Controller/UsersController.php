@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Users;
 use App\Form\EditProfileType;
+use App\Form\RegistrationFormType;
+use App\Repository\UsersRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -72,5 +75,45 @@ class UsersController extends AbstractController
         } 
         return $this->render('users/editpassword.html.twig');
     }
+
+    /**
+     * @Route("admin/users", name="admin_users_home")
+     */
+    public function adminUsersIndex(UsersRepository $usersRepo)
+    {
+        return $this->render('admin/users/index.html.twig', [
+            'users' => $usersRepo->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("admin/users/ajout", name="admin_users_ajout")
+     * Pour créer un formulaire, il est nécessaire d'avoir en paramètre l'objet Request
+     * provenant de la classe HttpFoundation à importer use...
+     */
+    public function adminUsersAjout(Request $request)
+    {
+    /* Creation un nouvel utilisateur: */
+    $user = new Users;
+    /* Creation d'un formulaire pour pouvoir ajouter un nouvel utilisateur que l'on va renvoyer dans la vue pour la saisie : */
+    $form = $this->createForm(RegistrationFormType::class, $user);
+    /* Traitement de la request du formulaire une fois le bouton 'valider' cliqué : */
+    $form->handleRequest($request);
+
+    /* Dans le cas ou le formulaire est soumis ET valide : */
+    if ($form->isSubmitted() && $form->isValid()){
+        /* Entity manager = em */
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute('admin_users_home'); // Redirection une fois l'utilisateur ajouté
+    }
+    // Page formulaire d'ajout utilisateur si non envoyé : 
+    return $this->render('admin/users/ajout.html.twig', [ 
+        'form' => $form->createView()
+    ]);
+    }
+
+
 
 }
