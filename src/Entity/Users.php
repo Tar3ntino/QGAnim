@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -67,6 +69,16 @@ class Users implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Demande::class, mappedBy="user")
+     */
+    private $demandes;
+
+    public function __construct()
+    {
+        $this->demandes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -218,5 +230,35 @@ class Users implements UserInterface
     {
         return $this->created_at;
     }
- 
+
+    /**
+     * @return Collection|Demande[]
+     */
+    public function getDemandes(): Collection
+    {
+        return $this->demandes;
+    }
+
+    public function addDemande(Demande $demande): self
+    {
+        if (!$this->demandes->contains($demande)) {
+            $this->demandes[] = $demande;
+            $demande->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemande(Demande $demande): self
+    {
+        if ($this->demandes->removeElement($demande)) {
+            // set the owning side to null (unless already changed)
+            if ($demande->getUser() === $this) {
+                $demande->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

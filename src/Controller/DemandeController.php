@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Demande;
 use App\Form\DemandeType;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,16 @@ class DemandeController extends AbstractController
     {
         // Création d'une demande. Les parenthèses sont nécessaires si tu as un constructeur dans ta classe. Ici non.
         $demande = new Demande;
+
+        // Vérification si utilisateur authentifié
+        // Si oui -> get le user Id pour pouvoir MAJ dans l'entité "Demande" et identifier son auteur
+        // Sinon, on ne fait rien et l'on renvoie simplement la vue avec un utilisateur "Null" pour l'entité "Demande"
+        // et l'on enregistre la requête en base
+        // Si l'utilisateur existe... autrement dit, un user est connecté
+        $user = $this->getUser();
+        if ($user){
+            $demande->setUser($user); // On MAJ le champs User de l'entité "Demande" avant de l'envoyer en Base
+        }
 
         // Création du formulaire :
         $form = $this->createForm(DemandeType::class, $demande);

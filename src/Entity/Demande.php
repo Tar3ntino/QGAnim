@@ -77,6 +77,11 @@ class Demande
      */
     private $phoneRequester;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="demandes")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -222,6 +227,18 @@ class Demande
     public function setPhoneRequester(string $phoneRequester): self
     {
         $this->phoneRequester = $phoneRequester;
+
+        return $this;
+    }
+
+    public function getUser(): ?Users
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Users $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
