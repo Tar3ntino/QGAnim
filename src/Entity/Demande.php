@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DemandeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=DemandeRepository::class)
@@ -81,6 +82,12 @@ class Demande
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="demandes")
      */
     private $user;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
 
     public function getId(): ?int
     {
@@ -242,4 +249,10 @@ class Demande
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
 }

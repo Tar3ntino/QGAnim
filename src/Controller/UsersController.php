@@ -5,21 +5,26 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Form\EditProfileType;
 use App\Form\RegistrationFormType;
+use App\Repository\DemandeRepository;
 use App\Repository\UsersRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\User;
 
 class UsersController extends AbstractController
 {
     /**
      * @Route("/users", name="users")
      */
-    public function index(): Response
+    public function index(DemandeRepository $demandeRepo): Response
     {
-        return $this->render('users/index.html.twig');
+        $user = $this->getUser();
+        return $this->render('users/index.html.twig', [
+            'demandes' => $demandeRepo->findBy(array('user' => $user))
+        ]);
     }
 
     /**
