@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Form\EditProfileType;
 use App\Form\RegistrationFormType;
+use App\Form\SearchUserType;
 use App\Repository\DemandeRepository;
 use App\Repository\UsersRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,10 +85,22 @@ class UsersController extends AbstractController
     /**
      * @Route("admin/users", name="admin_users_home")
      */
-    public function adminUsersIndex(UsersRepository $usersRepo)
+    public function adminUsersIndex(UsersRepository $usersRepo, Request $request)
     {
+        $users = $usersRepo->findAll();
+
+        $form = $this->createForm(SearchUserType::class);
+
+        $search = $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            // On recherche les Users correspondant aux mots clés
+            $users = $usersRepo->search($search->get('mots')->getData());
+        }
+
         return $this->render('admin/users/index.html.twig', [
-            'users' => $usersRepo->findAll()
+            'users' => $users,
+            'form' => $form->createView()
         ]);
     }
 

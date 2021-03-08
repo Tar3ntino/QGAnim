@@ -6,7 +6,46 @@
 
 {% block body %}
 	<h1 class="text-center mt-2">Gestion des utilisateurs</h1>
-	<a class="btn btn-secondary" href="{{path("admin_users_ajout")}}" role="button">Ajouter un utilisateur</a>
+	<a class="btn btn-secondary my-3" href="{{path("admin_users_ajout")}}" role="button">Ajouter un utilisateur</a>
+	<table class="table table-striped table-dark my-1">
+		<thead>
+        {{ form(form) }}
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Date création</th>
+				<th scope="col">Titre Civilité</th>
+				<th scope="col">Prénom</th>
+				<th scope="col">Nom</th>
+				<th scope="col">Date de naissance</th>
+				<th scope="col">Email</th>
+				<th scope="col">Email vérifié</th>
+				<th scope="col">Role</th>
+				<th scope="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in users %}
+				<tr>
+					<td>{{user.id}}</td>
+					<td>{{user.createdAt|date('d-m-Y')}}</td>
+					<td>{{user.gender}}</td>
+					<td>{{user.firstname}}</td>
+					<td>{{user.name}}</td>
+					<td>{{user.dateBirth | date('d-m-Y') }}</td>
+					<td>{{user.email}}</td>
+					<td>{{user.isVerified  ? 'Oui':'Non'}}</td>
+					<td>{{user.roles | join('|')}}</td>
+					<td class="text-center">
+						<a class="btn btn-secondary my-1" href="#" role="button">Modifier</a>
+						{# {{path("admin_users_modifier", {id: user.id})}} #}
+
+						<!-- Button trigger modal -->
+						<a href="#" type="button" class="btn btn-secondary modal-trigger my-1" data-toggle="modal" data-target="#modal-delete" data-id="{{user.id}}" data-titre="{{user.firstname}}">Supprimer</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
 	<!-- Modal -->
 	<div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="modal-delete" aria-hidden="true">

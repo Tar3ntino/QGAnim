@@ -23,6 +23,21 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
     }
 
     /**
+     * Recherche les utilisateurs en fonction du formulaire
+     * @return void
+     */
+    public function search($mots){
+        $query = $this->createQueryBuilder('u');
+        if($mots != null){
+            $query->andWhere('MATCH_AGAINST(u.firstname,u.name) AGAINST
+            (:mots boolean)>0')
+                ->setParameter('mots', $mots);
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+    /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
