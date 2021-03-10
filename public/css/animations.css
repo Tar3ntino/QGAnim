@@ -14,7 +14,9 @@
     position: relative;
     width: 210px;
     height: 140px;
-    margin: 70px auto;
+    margin-top: 75px;
+    margin-left: auto;
+    margin-right: auto;
     perspective: 1000px;
 }
 
@@ -37,14 +39,21 @@
     width: 190px;
     height: 120px;
     left: 10px;
-    /*top: 10px;
-    border: 2px solid black;*/
+    top: 10px;
+    /*xborder: 2px solid black;*/
     line-height: 116px;
     /*font-size: 80px;*/
     font-weight: bold;
     color: white;
     text-align: center;
     transition: transform 1s, opacity 1s;
+}
+
+/* Titre dynamique de l'animation : */
+#title_animation{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 30px;
 }
 
 /* LA PSEUDO CLASS :
@@ -143,8 +152,7 @@ nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
     position: absolute;
     width: 190px;
     height: 120px;
-    left: 10px;
-    /* top: 10px;*/
+    left: 0px;
     border: 2px solid black;
     line-height: 116px;
     font-size: 80px;
@@ -154,7 +162,7 @@ nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
     transition: transform 1s, opacity 1s;
 }
 
- /* CSS mobile : */
- @media screen and (max-width: 700px){
-    .scene{ margin: 40px auto; }
+/* CSS mobile : Format portrait */
+@media screen and (max-width: 700px) {
+    
 }

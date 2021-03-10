@@ -1,3 +1,10 @@
+// Vérifie si l'événement touchstart existe et est le premier déclenché
+var clickedEvent = "click"; // Au clic si "touchstart" n'est pas détecté
+window.addEventListener('touchstart', function detectTouch() {
+	clickedEvent = "touchstart"; // Transforme l'événement en "touchstart"
+	window.removeEventListener('touchstart', detectTouch, false);
+}, false);
+
 const navbar = document.getElementById("navbar");
 const navbarToggle = navbar.querySelector(".navbar-toggle");
 
@@ -11,7 +18,8 @@ function closeMobileNavbar() {
   navbarToggle.setAttribute("aria-label", "Open navigation menu.");
 }
 
-navbarToggle.addEventListener("click", () => {
+navbarToggle.addEventListener(clickedEvent, () => {
+    console.log(clickedEvent);
   if (navbar.classList.contains("opened")) {
     closeMobileNavbar();
   } else {

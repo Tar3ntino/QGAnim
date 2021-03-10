@@ -17,16 +17,8 @@ body {
     line-height: 1.6;
 }
 
-.container {
-    max-width: 1000px;
-    padding-left: 1.4rem;
-    padding-right: 1.4rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 #navbar {
-    --navbar-height: 64px;
+    --navbar-height: 50px;
     /* position: fixed; */
     position: relative;
     height: var(--navbar-height);
@@ -51,12 +43,12 @@ body {
     font-weight: 400;
     align-items: center;
     transition: background-color 0.2s ease-in-out,
-                color 0.2s ease-in-out;
-                
+        color 0.2s ease-in-out;
+
     justify-content: center;
     width: 100%;
     padding: 0.4em 0.8em;
-    border-radius: 5px;  
+    border-radius: 5px;
 }
 
 .navbar-link:focus,
@@ -83,8 +75,8 @@ body {
     height: 4px;
     margin: 2px;
     transition: background-color 0.2s ease-in-out,
-                transform 0.2s ease-in-out,
-                opacity 0.2s ease-in-out;
+        transform 0.2s ease-in-out,
+        opacity 0.2s ease-in-out;
     background-color: var(--navbar-text-color);
 }
 
@@ -118,9 +110,9 @@ body {
     top: var(--navbar-height);
     bottom: 0;
     transition: opacity 0.2s ease-in-out,
-                visibility 0.2s ease-in-out,
-                left 0.2s ease-in-out,
-                right 0.2s ease-in-out;
+        visibility 0.2s ease-in-out,
+        left 0.2s ease-in-out,
+        right 0.2s ease-in-out;
     opacity: 0;
     visibility: hidden;
     width: 100%;
@@ -130,11 +122,7 @@ body {
 .navbar-menu.sidebar.left {
     left: -1000px;
     right: 0;
-}
-
-.navbar-menu.sidebar.right {
-    right: -1000px;
-    left: 0;
+    z-index: 99;
 }
 
 #navbar.opened .navbar-menu {
@@ -145,10 +133,6 @@ body {
 
 #navbar.opened .navbar-menu.sidebar.left {
     left: 0;
-}
-
-#navbar.opened .navbar-menu.sidebar.right {
-    right: 0;
 }
 
 .navbar-links {
@@ -177,7 +161,7 @@ body {
     right: unset;
     box-shadow: 5px 20px 20px rgba(0, 0, 0, 0.3);
     position: absolute;
-    z-index:99;
+    z-index: 99;
 }
 
 .navbar-item {
@@ -185,11 +169,11 @@ body {
     width: 100%;
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 1080px) {
     .navbar-toggle {
         display: none;
     }
-    
+
     #navbar .navbar-menu,
     #navbar.opened .navbar-menu {
         visibility: visible;
@@ -235,66 +219,163 @@ body {
 a { text-decoration: none; }
 
 /* Container-fluid bande LOGO: 100% large avec des "gouttières" padding de 15 px de large à gauche et droite */
-.myheader { background-color: black }
+.myheader {
+    background-color: black
+}
 
-.row { padding-top: 15px; }
-.icon { display: none; } /* display-none : On cache l'icone burger en affichage pas défaut */
+.row {
+    padding-top: 15px;
+}
 
-.connect { background-color:black; position:relative; z-index:auto; height: 100%;}
-.connect nav {margin-top: 90px;}
-.logoderoulant { position:relative; color:white;}
-#logoconnect { margin-right: 70px; list-style: none;}
-.connect ul { text-align: right; margin-bottom: 0; }
-.sousmenu { display:none; position:absolute; z-index: 1; list-style: none; background-color: black; top:32px; right:0; width:140px;padding:5px; margin:0;}
-.sousmenu a { color: grey; display: block; }
+.icon {
+    display: none;
+}
 
-.topnav { background-color: whitesmoke;text-align: center; }
-.topnav a { color:grey; justify-content: center; margin:0 20px; }
+/* display-none : On cache l'icone burger en affichage pas défaut */
 
-.collapse { justify-content: center; }
+.connect {
+    background-color: black;
+    position: relative;
+    z-index: auto;
+    height: 100%;
+}
+
+.connect nav {
+    margin-top: 90px;
+}
+
+.logoderoulant {
+    position: relative;
+    color: white;
+}
+
+#logoconnect {
+    margin-right: 70px;
+    list-style: none;
+}
+
+.connect ul {
+    text-align: right;
+    margin-bottom: 0;
+}
+
+.sousmenu {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    list-style: none;
+    background-color: black;
+    top: 32px;
+    right: 0;
+    width: 140px;
+    padding: 5px;
+    margin: 0;
+}
+
+.sousmenu a {
+    color: grey;
+    display: block;
+}
+
+.topnav {
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+.topnav a {
+    color: grey;
+    justify-content: center;
+    margin: 0 20px;
+}
+
+.collapse {
+    justify-content: center;
+}
 
 /* Css du template "users" : */
-.sous_menu a { display: block; text-decoration: none; color: black; }
+.sous_menu a {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
 
-@media screen and (min-width: 700px) {
-    .navbar-toggle { display: none;}
+/* Disparition du bouton burger à partir d'une largeur min de 1080px */
+@media screen and (min-width: 1080px) {
+    .navbar-toggle {
+        display: none;
+    }
 }
 
 /* CSS mobile : */
-@media screen and (max-width: 700px){
+@media screen and (max-width: 1080px) {
+
     /* base.html.twig : */
-    #myheader { height: 60px; position: relative; }
-    #myheader .row { padding: 0; }
-    #logoheader { max-width: 67%; }
-    .navbar-toggle { height: 60px; }
-    #mynavbar { display: none; }
-    #leftselect {display:flex;}
+    #myheader {
+        height: 60px;
+        position: relative;
+    }
 
+    #myheader .row {
+        padding: 0;
+    }
 
-    #titreDernieresAnimations { font-size: 15px; }
-    .topnav a { display: none; } /* Sélectionne tous les a , on retire l'affichage */
-    #logoconnect { margin-right: 0; } /* Retrait du margin dès que l'on passe en petit écran pour que le logo reste le plus à droit possible */
-    .connect nav {margin-top: 20px;}
+    #logoheader {
+        max-width: 67%;
+    }
+
+    .navbar-toggle {
+        height: 60px;
+    }
+
+    #mynavbar {
+        display: none;
+    }
+
+    #leftselect {
+        display: flex;
+    }
+
+    #titreDernieresAnimations {
+        font-size: 15px;
+    }
+
+    .topnav a {
+        display: none;
+    }
+
+    /* Sélectionne tous les a , on retire l'affichage */
+    #logoconnect {
+        margin-right: 0;
+    }
+
+    /* Retrait du margin dès que l'on passe en petit écran pour que le logo reste le plus à droit possible */
+    .connect nav {
+        margin-top: 20px;
+    }
 
     /* Page Inscription : */
-    #btnRegister {border-radius: 20px;}
+    #btnRegister {
+        border-radius: 20px;
+    }
 }
 
 /* Carousel Bootstrap (page index) */
-.carousel-inner{
-    height:360px;
-    width:100%;
+.carousel-inner {
+    height: 360px;
+    width: 100%;
     max-height: 500px !important;
-  }
+}
 
-  /* Title Mes dernieres animations */
-  #title_last_anim { font-size: 25px;}
+/* Title Mes dernieres animations */
+#title_last_anim {
+    font-size: 25px;
+}
 
-  #containerTopPresentation {
-    background-color:rgb(229, 238, 238);
-  }
+#containerTopPresentation {
+    background-color: rgb(229, 238, 238);
+}
 
-  #photoAtelier{
-      text-align: right;
-      width: 65%;
-  }
+#photoAtelier {
+    text-align: right;
+    width: 65%;
+}

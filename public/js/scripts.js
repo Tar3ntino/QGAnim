@@ -1,7 +1,14 @@
+// Vérifie si l'événement touchstart existe et est le premier déclenché
+var clickedEvent = "click"; // Au clic si "touchstart" n'est pas détecté
+window.addEventListener('touchstart', function detectTouch() {
+	clickedEvent = "touchstart"; // Transforme l'événement en "touchstart"
+	window.removeEventListener('touchstart', detectTouch, false);
+}, false);
 
 // Script servant à l'ouverture du menu de connexion au clic sur l'élément
 
-document.getElementById('logoconnect').addEventListener('click', function(){
+document.getElementById('logoconnect').addEventListener(clickedEvent, function(){
+    console.log(clickedEvent);
     let sousmenu = document.getElementsByClassName('sousmenu');
     let displaySousMenu = sousmenu[0].style.display;
     console.log(displaySousMenu);

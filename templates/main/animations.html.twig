@@ -11,7 +11,7 @@
 
 {% block body %}
 
-	<div class="container-fluid px-0" id="mycarousel">
+	<div class="container-fluid my-3" id="mycarousel">
 		<div class="row pt-0">
 			<div
 				class="scene">
@@ -21,11 +21,11 @@
 					{% for animation in animations %}
 						<div class="carousel__cell" id="img{{i}}"><img src="{{ asset('/uploads/') ~ animation.images[0].name }}"></div>
 
-                        {# Creation de "X" balises titre h2 stockant le nom de chaque animation avec un affichage masqué display:none : #}
+						{# Creation de "X" balises titre h2 stockant le nom de chaque animation avec un affichage masqué display:none : #}
 						<h2 id="titre{{i}}" style="display:none">
 							{{animation.title}}
 						</h2>
-                        <p id=""></p>
+						<p id=""></p>
 
 
 						{% if ((animations|length)-1) == i %}
@@ -42,9 +42,9 @@
 		<div
 			class="carousel-options">
 			{# Options de la balise input retirées provisoirement car non nécessaires:
-			            type="range" : sert à afficher une jauge avec un curseur
-			            min="1" max="100" : délimite la jauge de sélection avec un curseur
-			            animations|length : indique le nombre d'animations présent dans la table (=nb de vignettes qui seront affichées) #}
+									            type="range" : sert à afficher une jauge avec un curseur
+									            min="1" max="100" : délimite la jauge de sélection avec un curseur
+									            animations|length : indique le nombre d'animations présent dans la table (=nb de vignettes qui seront affichées) #}
 			<p>
 				<label
 					style="display:none">
@@ -68,7 +68,7 @@
 
 	<div style="display:none" id="readIdImage"></div>
 	<div class="container">
-		<h1 id="title_animation" style="text-align:center;">
+		<h1 id="title_animation">
 			{{animations[0].title}}
 		</h1>
 	</div>
@@ -78,14 +78,14 @@
 	</div>
 	<div class="container-fluid">
 		CARACTÉRISTIQUES TECHNIQUES : 
-        Jeu individuel avec de l'argent factice, offert à chacun, en début de soirée. Chacun 
-        évolue librement au cours de la soirée. L'objectif étant de faire fructifier ses jetons et de créer une 
-        « compétition » entre les invités.
-</div>
-<div class="container-fluid">
-        JEUX : Big Ben, Roulette Russe, Opération Commando, Course Poursuite, Compte à Rebours... 
-        1 animateur dans la soirée.
-        Montage et démontage inclus
+				        Jeu individuel avec de l'argent factice, offert à chacun, en début de soirée. Chacun 
+				        évolue librement au cours de la soirée. L'objectif étant de faire fructifier ses jetons et de créer une 
+				        « compétition » entre les invités.
+	</div>
+	<div class="container-fluid">
+		JEUX : Big Ben, Roulette Russe, Opération Commando, Course Poursuite, Compte à Rebours... 
+				        1 animateur dans la soirée.
+				        Montage et démontage inclus
 	</div>
 </div>{% endblock %}{% block javascripts %}
 
