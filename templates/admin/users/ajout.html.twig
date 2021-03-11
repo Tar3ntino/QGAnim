@@ -21,7 +21,17 @@
 	{% endif %}
     <div class="row">
         <div class="col-md-4"></div>
-        <div class="col-md-4 col-sm-12">{{form(form)}}</div>
+            <div class="col-md-4 col-sm-12 my-3">
+                {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword) }}
+                {{ form_row(registrationForm.dateBirth) }}
+
+                {{ form_row(registrationForm.agreeTerms) }}
+                <button type="submit" class="btn btn-secondary" id="btnRegister">Enregistrer le nouvel utilisateur</button>
+
+                {{ form_end(registrationForm) }}
+            </div>
         <div class="col-md-4"></div>
     </div>
 {% endblock %}

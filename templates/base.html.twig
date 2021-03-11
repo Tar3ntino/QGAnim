@@ -73,11 +73,14 @@
 
 		<header class="mb-3" id="navbar">
 			<nav class="navbar-container container">
+                <!-- Bouton menu burger : -->
 				<button type="button" class="navbar-toggle" aria-label="Open navigation menu">
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
+
+                <!-- Menu gauche déroulant: -->
 				<div class="navbar-menu left sidebar">
 					<ul class="navbar-links">
 						<li class="navbar-item">
@@ -94,11 +97,38 @@
 						</li>
 						{% if is_granted('ROLE_ADMIN') %}
 							<li class="navbar-item">
-								<a class="navbar-link" href="{{path('admin_home')}}">Admin</a>
+								<a class="navbar-link" id="link-admin" href="{{path('admin_home')}}">Admin</a>
 							</li>
 						{% endif %}
 					</ul>
 				</div>
+
+                <!-- Logo Connexion en mode mobile portrait : -->
+                <button id="butn_connect">
+                    <ul id="logoconnect">
+                        <li class="logoderoulant">
+                            <i class="fas fa-user fa-2x"></i>
+                            <i class="fas fa-sort-down"></i>
+                            <ul class="sousmenu">
+                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                    <li>
+                                        <a href="{{path('users')}}">Mon compte</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{path('app_logout')}}">Se déconnecter</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="{{path('app_register')}}">S'inscrire</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{path('app_login')}}">Se connecter</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    </ul>
+                </button>
 			</nav>
 		</header>
 

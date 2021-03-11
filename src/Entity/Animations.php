@@ -32,7 +32,7 @@ class Animations
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $description;
+    private $scenario;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -79,14 +79,14 @@ class Animations
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getScenario(): ?string
     {
-        return $this->description;
+        return $this->scenario;
     }
 
-    public function setDescription(string $description): self
+    public function setScenario(string $scenario): self
     {
-        $this->description = $description;
+        $this->scenario = $scenario;
 
         return $this;
     }

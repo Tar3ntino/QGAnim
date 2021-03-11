@@ -3,20 +3,32 @@
 namespace App\Controller;
 
 use App\Entity\Users;
-use App\Form\EditProfileType;
-use App\Form\RegistrationFormType;
 use App\Form\SearchUserType;
-use App\Repository\DemandeRepository;
+use App\Form\EditProfileType;
+use App\Security\EmailVerifier;
+use App\Form\RegistrationFormType;
 use App\Repository\UsersRepository;
+use Symfony\Component\Mime\Address;
+use App\Security\UsersAuthenticator;
+use App\Repository\DemandeRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\User\User;
 
 class UsersController extends AbstractController
 {
+    private $emailVerifier;
+
+    public function __construct(EmailVerifier $emailVerifier)
+    {
+        $this->emailVerifier = $emailVerifier;
+    }
+
     /**
      * @Route("/users", name="users")
      */
@@ -109,7 +121,7 @@ class UsersController extends AbstractController
      * Pour créer un formulaire, il est nécessaire d'avoir en paramètre l'objet Request
      * provenant de la classe HttpFoundation à importer use...
      */
-    public function adminUsersAjout(Request $request)
+    public function adminUsersAjout(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UsersAuthenticator $authenticator)
     {
     /* Creation un nouvel utilisateur: */
     $user = new Users;
@@ -120,18 +132,42 @@ class UsersController extends AbstractController
 
     /* Dans le cas ou le formulaire est soumis ET valide : */
     if ($form->isSubmitted() && $form->isValid()){
+
+        // encode the plain password
+        $user->setPassword(
+            $passwordEncoder->encodePassword(
+                $user,
+                $form->get('plainPassword')->getData()
+            )
+        );
+
         /* Entity manager = em */
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
+
+        // generate a signed url and email it to the user
+        $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+        (new TemplatedEmail())
+            ->from(new Address('contact@qganimations.fun', 'QG Animations'))
+            ->to($user->getEmail())
+            ->subject('Please Confirm your Email')
+            ->htmlTemplate('registration/confirmation_email.html.twig')
+        );
+
+        return $guardHandler->authenticateUserAndHandleSuccess(
+            $user,
+            $request,
+            $authenticator,
+            'main' // firewall name in security.yaml
+        );
+
         return $this->redirectToRoute('admin_users_home'); // Redirection une fois l'utilisateur ajouté
     }
     // Page formulaire d'ajout utilisateur si non envoyé : 
     return $this->render('admin/users/ajout.html.twig', [ 
-        'form' => $form->createView()
+        'registrationForm' => $form->createView()
     ]);
     }
-
-
 
 }

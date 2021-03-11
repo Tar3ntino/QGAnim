@@ -5,8 +5,11 @@ window.addEventListener('touchstart', function detectTouch() {
 	window.removeEventListener('touchstart', detectTouch, false);
 }, false);
 
+
+
 const navbar = document.getElementById("navbar");
 const navbarToggle = navbar.querySelector(".navbar-toggle");
+
 
 function openMobileNavbar() {
   navbar.classList.add("opened");
@@ -18,8 +21,10 @@ function closeMobileNavbar() {
   navbarToggle.setAttribute("aria-label", "Open navigation menu.");
 }
 
+// ***************************************************************
+// Gestion du clic sur le bouton burger :
+// ***************************************************************
 navbarToggle.addEventListener(clickedEvent, () => {
-    console.log(clickedEvent);
   if (navbar.classList.contains("opened")) {
     closeMobileNavbar();
   } else {
@@ -27,21 +32,41 @@ navbarToggle.addEventListener(clickedEvent, () => {
   }
 });
 
+// ***************************************************************
+// Gestion du clic sur les liens du menu déroulant ouvert gauche :
+// ***************************************************************
 const navbarMenu = navbar.querySelector(".navbar-menu");
 const navbarLinksContainer = navbar.querySelector(".navbar-links");
 
-navbarLinksContainer.addEventListener("click", (clickEvent) => {
+navbarLinksContainer.addEventListener(clickedEvent, (clickEvent) => {
   clickEvent.stopPropagation();
 });
 
-navbarMenu.addEventListener("click", closeMobileNavbar);
+navbarMenu.addEventListener(clickedEvent, closeMobileNavbar);
 
-document
-  .getElementById("options")
-  .querySelectorAll("input[name='navtype']")
-  .forEach((option) => {
-    option.addEventListener("change", (e) => {
-      const navType = e.target.id.split("-").join(" ");
-      navbarMenu.classList = "navbar-menu " + navType;
-    });
-  });
+// ***************************************************************
+// Gestion du clic sur le bouton de connexion :
+// ***************************************************************
+
+const boutonConnexion = document.getElementById("butn_connect");
+const boutonConnexionSousMenu = navbar.querySelector(".sousmenu");
+
+boutonConnexion.addEventListener(clickedEvent, () =>{
+    if(getComputedStyle(boutonConnexionSousMenu).display != "none"){
+        boutonConnexionSousMenu.style.display = "none";
+    } else{
+        boutonConnexionSousMenu.style.display = "block";
+    }
+})
+
+
+// TO BE DELETE :
+// document
+//   .getElementById("options")
+//   .querySelectorAll("input[name='navtype']")
+//   .forEach((option) => {
+//     option.addEventListener("change", (e) => {
+//       const navType = e.target.id.split("-").join(" ");
+//       navbarMenu.classList = "navbar-menu " + navType;
+//     });
+//   });

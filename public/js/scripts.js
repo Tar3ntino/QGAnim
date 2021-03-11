@@ -6,24 +6,18 @@ window.addEventListener('touchstart', function detectTouch() {
 }, false);
 
 // Script servant à l'ouverture du menu de connexion au clic sur l'élément
+// Logo pour accès à la connexion
 
-document.getElementById('logoconnect').addEventListener(clickedEvent, function(){
-    console.log(clickedEvent);
-    let sousmenu = document.getElementsByClassName('sousmenu');
-    let displaySousMenu = sousmenu[0].style.display;
-    console.log(displaySousMenu);
-    if (sousmenu[0].style.display === "none"){
-        sousmenu[0].style.display = "block";  
-        sousmenu[0].style.position = "absolute";
-    }else sousmenu[0].style.display = "none"; 
-})
 
 // Fonction pour que la modale puisse apparaître lorque l'on click sur supprimer :
 $('modal-delete').on('shown.bs.modal', function () {
 $('#myInput').trigger('focus')
 })
 
-// Ecouteur d'évènement pour la confirmation de suppression :
+
+
+
+// Ecouteur d'évènement pour la confirmation de suppression d'une annonce :
 let supprimer = document.querySelectorAll('.modal-trigger');
 console.log(supprimer)
 for (let bouton of supprimer){

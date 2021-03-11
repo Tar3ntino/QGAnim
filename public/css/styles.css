@@ -1,5 +1,5 @@
 :root {
-    --navbar-bg-color: hsl(0, 0%, 15%);
+    --navbar-bg-color: hsl(0, 6%, 7%);
     --navbar-text-color: hsl(0, 0%, 85%);
     --navbar-text-color-focus: white;
     --navbar-bg-contrast: hsl(0, 0%, 25%);
@@ -49,6 +49,10 @@ body {
     width: 100%;
     padding: 0.4em 0.8em;
     border-radius: 5px;
+}
+
+#link-admin{
+    color: rgb(167, 39, 39);
 }
 
 .navbar-link:focus,
@@ -169,8 +173,15 @@ body {
     width: 100%;
 }
 
+/* *************************************************************** */
+/* On masque les boutons burger et de connexion si l'écran >1080px :  */
+/* *************************************************************** */
 @media screen and (min-width: 1080px) {
     .navbar-toggle {
+        display: none;
+    }
+
+    #butn_connect {
         display: none;
     }
 
@@ -264,7 +275,7 @@ a { text-decoration: none; }
     position: absolute;
     z-index: 1;
     list-style: none;
-    background-color: black;
+    background-color: var(--navbar-bg-color);
     top: 32px;
     right: 0;
     width: 140px;
@@ -306,7 +317,7 @@ a { text-decoration: none; }
     }
 }
 
-/* CSS mobile : */
+/* CSS mobile : portrait */
 @media screen and (max-width: 1080px) {
 
     /* base.html.twig : */
@@ -323,6 +334,7 @@ a { text-decoration: none; }
         max-width: 67%;
     }
 
+    /* Hauteur du bouton burger */
     .navbar-toggle {
         height: 60px;
     }
@@ -342,6 +354,14 @@ a { text-decoration: none; }
     .topnav a {
         display: none;
     }
+
+    #butn_connect {
+        height: 60px;
+        margin-top: 17px;
+        background-color: transparent;
+        border: none;
+    }
+
 
     /* Sélectionne tous les a , on retire l'affichage */
     #logoconnect {
@@ -366,11 +386,12 @@ a { text-decoration: none; }
     max-height: 500px !important;
 }
 
-/* Title Mes dernieres animations */
+/* Title Mes dernieres animations (page index) */
 #title_last_anim {
     font-size: 25px;
 }
 
+/* Page Présentation (page presentation): */
 #containerTopPresentation {
     background-color: rgb(229, 238, 238);
 }

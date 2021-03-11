@@ -80,8 +80,14 @@ prevButton.addEventListener('click', function() {
     var index_played = selectedIndex % cellsRange.value;
 
     /*On récupère le titre se situant à l'intérieur de la balise h2 généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'title_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
-    var titleAnimationPlayed = document.getElementById('titre'+index_played).textContent
+    var titleAnimationPlayed = document.getElementById('titre'+index_played).textContent;
     document.getElementById('title_animation').innerHTML = titleAnimationPlayed;
+
+    /*On récupère le titre de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
+    var scenarioAnimationPlayed = document.getElementById('scenario'+index_played).textContent;
+    console.log(scenarioAnimationPlayed);
+    document.getElementById('scenario_animation').innerHTML = scenarioAnimationPlayed;
+    console.log("scenarioAnimationplayed");
 });
 
 var nextButton = document.querySelector('.next-button');
