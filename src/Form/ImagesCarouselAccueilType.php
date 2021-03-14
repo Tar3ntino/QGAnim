@@ -19,7 +19,9 @@ class ImagesCarouselAccueilType extends AbstractType
             ->add('images', FileType::class, [
                 'label' => "Ajouter une nouvelle image au carousel",
                 'multiple' => false,
-                'mapped' => false,  // Si on passe ce paramètre à true, le formulaire va chercher ce champ dans la table et ne va pas le trouver donc renvoyer une erreur
+                'mapped' => false,  
+                // Si on passe "mapped" à true, le formulaire va chercher ce champ dans 
+                // la table et ne va pas le trouver donc renvoyer une erreur
                 'required' => true
             ])
             ->add('Valider', SubmitType::class)

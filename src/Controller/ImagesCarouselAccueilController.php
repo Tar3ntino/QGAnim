@@ -78,7 +78,7 @@ class ImagesCarouselAccueilController extends AbstractController
     }
 
 /**
-     * @Route("/admin/images/carousel/accueil/modifier", name="admin_images_carousel_accueil_modifier")
+     * @Route("/admin/images_carousel_accueil/modifier/{id}", name="admin_images_carousel_accueil_modifier")
      */
     public function editImageCarouselAccueil(ImagesCarouselAccueil $imagesCarouselAccueil, Request $request): Response
     {
@@ -109,7 +109,19 @@ class ImagesCarouselAccueilController extends AbstractController
                 $fichier
             );
 
-            // on met d'abord à jour le nom de l'objet ImagesCarouselAccueil (notre slide) dans la BDD
+            // RAJOUT***************************
+            // Si l'on a précédémment une image (ce qui est notre cas vu que l'on modifie le slide), alors on va supprimer l'image qui a été stockée physiquement dans le dossier "uploads"
+            if (null!==($imagesCarouselAccueil->getName())){
+                // On récupère le nom de l'image
+                $nom = $imagesCarouselAccueil->getName();
+
+                // On supprime le fichier du dossier Uploads
+                unlink($this->getParameter('images_directory').'/'.$nom);
+            }
+            // ********************************
+
+
+            // on met ensuite à jour le nom de l'objet ImagesCarouselAccueil (notre slide) dans la BDD
             $imagesCarouselAccueil->setName($fichier);    
 
             // On stocke ensuite l'image dans la base de données (simplement son nom) :
