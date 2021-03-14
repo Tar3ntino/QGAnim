@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion du Carousel d'Accueil{% endblock %}
+
+{% block body %}
+<h1 class="text-center">Gestion du Carousel d'Accueil</h1>
+    <a class="btn btn-secondary" href="{{path('admin_images_carousel_accueil_ajout')}}" role="button">Ajouter un slide</a>
+<table class="table table-striped table-dark my-1">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Aperçu</th>
+                <th scope="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+        {% for slideCarousel in imagesCarouselAccueil %}
+			<tr>
+				<td>{{slideCarousel.id}}</td>
+                <td>
+                    <img src="{{ asset('/uploads/' ~ slideCarousel.name) }}" alt="Image" width="150">
+                    <a href="#" data-delete data-token="{{ csrf_token('delete' ~ slideCarousel.id) }}"> Supprimer </a>
+                </td>
+				<td class="text-center">
+                    <a class="btn btn-secondary my-1" href="{{path("admin_images_carousel_accueil_modifier", {id: slideCarousel.id})}}" role="button">Modifier</a>
+                <!-- Button trigger modal -->
+                    <a href="#" type="button" class="btn btn-secondary modal-trigger my-1" data-toggle="modal" data-target="#modal-delete" data-id="{{slideCarousel.id}}" data-titre="#" >Supprimer</a>
+                </td>
+			</tr>
+            {% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

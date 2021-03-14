@@ -24,7 +24,7 @@ class Images
 
     /**
      * @ORM\ManyToOne(targetEntity=Animations::class, inversedBy="images")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     protected $animations;
 
@@ -56,4 +56,5 @@ class Images
 
         return $this;
     }
+    
 }

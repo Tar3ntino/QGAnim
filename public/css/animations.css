@@ -14,7 +14,8 @@
     position: relative;
     width: 210px;
     height: 140px;
-    margin-top: 75px;
+    margin-top: 100px;
+    margin-bottom: 100px;
     margin-left: auto;
     margin-right: auto;
     perspective: 1000px;
@@ -50,7 +51,7 @@
 }
 
 /* Titre dynamique de l'animation : */
-#title_animation{
+#title_animation {
     text-align: center;
     font-size: 25px;
     margin-top: 30px;
@@ -163,6 +164,4 @@ nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
 }
 
 /* CSS mobile : Format portrait */
-@media screen and (max-width: 700px) {
-    
-}
+@media screen and (max-width: 700px) {}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Demande;
 use App\Form\DemandeType;
+use App\Repository\DemandeRepository;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,6 +50,27 @@ class DemandeController extends AbstractController
 
         return $this->render('main/contact.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("admin/demandes", name="admin_demandes_home")
+     */
+    public function adminDemandesIndex(DemandeRepository $demandesRepo, Request $request)
+    {
+        $demandes = $demandesRepo->findAll();
+        $form = $this->createForm(DemandeType::class, $demandes);
+        $search = $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            // On recherche les demandes correspondant aux mots clés
+            $demandes = $demandesRepo->search($search->get('mots')->getData());
+        }
+
+        return $this->render('admin/demandes/index.html.twig', [
+            'demandes' => $demandes,
+            'form' => $form->createView()
         ]);
     }
 }

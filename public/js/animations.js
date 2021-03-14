@@ -1,29 +1,16 @@
-/* CAROUSSEL 3D POUR MON SITE - Commentaires et explications de code :
-
-// On récupère dans la variable:
-    - "carousel" : l'intégralité de la div parent qui contient toutes les div enfants de photo
-    - "cells" : collection des cellules (l'intégralité des div enfants dans un tableau array)
-    - "cellCount" :  définit le nombre de cellule désirée, on affecte la value de cells-range définit dans les options carousels html
-    - "selectedIndex" : définit l'index de lecture de la cellule actuelle
-    - "cellWidth = carousel.offsetWidth" : propriété en lecture seule qui renvoie la largeur totale d'un élément
-    - "cellHeight = carousel.offsetHeight" : propriété en lecture seule, elle renvoie la hauteur totale d'un élément
-*/
-var carousel = document.querySelector('.carousel');        // on récupère la div parent carousel
-var cells = carousel.querySelectorAll('.carousel__cell');  // idem avec toutes les animations
-var cellCount;                                             // variable pour définir nombre d'animations                          
-var selectedIndex = 0;                                     // initialisation index de lecture
-var cellWidth = carousel.offsetWidth;                      // width à 100% du parent .scene (300px)
-var cellHeight = carousel.offsetHeight;                    // height à 100% du parent .scene (200px)
-var isHorizontal = true;                                   // Initialisation position carousel défaut horizontal
-var rotateFn = isHorizontal ? 'rotateY' : 'rotateX';       // Variable rotateFn prend la valeur de la propriété css de la rotation a effectuer selon orientation carousel. Cette variable sera nécessaire pour le changement d'affichage responsive.
-var radius, theta;                                          
-//console.log(cellWidth, cellHeight);
-
+// Initialisation de isHorizontal va dépendre du mode paysage ou portrait du mobile et de la taille de l'écran, on ne va pas le mettre par défaut à horizontal=true sinon le mode portrait sera en horizontal au chargement de la page car la rotation vertical/horizontal ne se fait quavec le changement d'etat 
+console.log('largeur de la fenetre : ' + window.innerWidth); // 393
+if (window.innerWidth < 600){
+    var isHorizontal = false;                                   // Initialisation position carousel défaut vertical
+}
+else{
+    var isHorizontal = true;                                   // Initialisation position carousel défaut horizontal
+}
+console.log("isHorizontal : " + isHorizontal);
 
 // MDN WEB Docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/addListener
 // Retourne BOOLEN -> matchMedia() : C'est une méthode qui dépend de l'objet window (la fenêtre du navigateur) et qui prend en argument une chaîne de texte contenant l'expression à tester, pour retourner true ou false via sa propriété matches.
 var mediaQueryList = window.matchMedia('(min-width: 600px)'); 
-
 
 function screenTest(e) {                                    // Notre fonction de rappel que l'on exécute lorsque l'état de notre requête multimédia change.
   if (e.matches) {                                          /* the viewport is more than than 600 pixels wide */
@@ -50,7 +37,41 @@ function screenTest(e) {                                    // Notre fonction de
     changeCarousel();
   }
 }
+
+// On lance une première fois le ScreenTest même si aucun "évènement de rotation / changement "" de largeur de l'apparail pour savoir si affichage vertical ou horizontal du carousel
 mediaQueryList.addListener(screenTest);
+
+var rotateFn = isHorizontal ? 'rotateY' : 'rotateX';       // Variable rotateFn prend la valeur de la propriété css de la rotation a effectuer selon orientation carousel. Cette variable sera nécessaire pour le changement d'affichage responsive.
+var radius, theta; 
+
+
+// Vérifie si l'événement touchstart existe et est le premier déclenché
+var clickedEvent = "click"; // Au clic si "touchstart" n'est pas détecté
+window.addEventListener('touchstart', function detectTouch() {
+	clickedEvent = "touchstart"; // Transforme l'événement en "touchstart"
+	window.removeEventListener('touchstart', detectTouch, false);
+}, false);
+
+
+/* CAROUSSEL 3D POUR MON SITE - Commentaires et explications de code :
+
+// On récupère dans la variable:
+    - "carousel" : l'intégralité de la div parent qui contient toutes les div enfants de photo
+    - "cells" : collection des cellules (l'intégralité des div enfants dans un tableau array)
+    - "cellCount" :  définit le nombre de cellule désirée, on affecte la value de cells-range définit dans les options carousels html
+    - "selectedIndex" : définit l'index de lecture de la cellule actuelle
+    - "cellWidth = carousel.offsetWidth" : propriété en lecture seule qui renvoie la largeur totale d'un élément
+    - "cellHeight = carousel.offsetHeight" : propriété en lecture seule, elle renvoie la hauteur totale d'un élément
+*/
+var carousel = document.querySelector('.carousel');        // on récupère la div parent carousel
+var cells = carousel.querySelectorAll('.carousel__cell');  // idem avec toutes les animations
+var cellCount;                                             // variable pour définir nombre d'animations                          
+var selectedIndex = 0;                                     // initialisation index de lecture
+var cellWidth = carousel.offsetWidth;                      // width à 100% du parent .scene (300px)
+var cellHeight = carousel.offsetHeight;                    // height à 100% du parent .scene (200px)
+
+ 
+//console.log(cellWidth, cellHeight);
 
 /*
 if (window.matchMedia("(min-width: 600px)").matches) {
@@ -66,7 +87,7 @@ function rotateCarousel() {
 }
 
 var prevButton = document.querySelector('.previous-button');
-prevButton.addEventListener('click', function() {
+prevButton.addEventListener(clickedEvent, function() {
     selectedIndex--;
     rotateCarousel();
     console.log("index select :" + selectedIndex);
@@ -85,13 +106,12 @@ prevButton.addEventListener('click', function() {
 
     /*On récupère le titre de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
     var scenarioAnimationPlayed = document.getElementById('scenario'+index_played).textContent;
-    console.log(scenarioAnimationPlayed);
     document.getElementById('scenario_animation').innerHTML = scenarioAnimationPlayed;
-    console.log("scenarioAnimationplayed");
+
 });
 
 var nextButton = document.querySelector('.next-button');
-nextButton.addEventListener('click', function() {
+nextButton.addEventListener(clickedEvent, function() {
     selectedIndex++;
     rotateCarousel();
     console.log("index select :" + selectedIndex);
@@ -102,6 +122,14 @@ nextButton.addEventListener('click', function() {
     /*On récupère le titre se situant à l'intérieur de la balise h2 généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'title_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
     var titleAnimationPlayed = document.getElementById('titre'+index_played).textContent
     document.getElementById('title_animation').innerHTML = titleAnimationPlayed;
+
+    var scenarioAnimationPlayed = document.getElementById('scenario'+index_played).textContent
+    
+    // On "écrase/ réinitialise" le contenu du précédent scenario lu avec le contenu de scenarioAnimationPlayed pour ne pas qu'il vienne se rajouter au précédent visionnage :
+    var scenario_animation = document.getElementById('scenario_animation');   // Soit "scenario_animation" la div ciblé par son Id qui accueillera le scenario à lire
+    scenario_animation.textContent = "";                                      // On écrase le scenario précédemment lu
+    scenario_animation.innerHTML = scenarioAnimationPlayed;                   // On injecte le nouveau à lire
+
 });
 
 // cellsRange : On récupère dans cette variable la balise input (class.cells-range). Au sein de celle ci se trouve la valeur du nombre d'animations existantes calculée en récupérant la taille de l'array des animations existantes. Nous utiliserons cette variable dans la fonction changeCaroussel (cf *)

@@ -34,7 +34,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
          */
         public function ajoutAnimation(Request $request)
         {
-
         /* Creation d'une nouvelle animation : */
         $animation = new Animations;
         /* Creation d'un formulaire pour pouvoir ajouter la nouvelle animation que l'on va renvoyer dans la vue pour la saisie : */
@@ -49,7 +48,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
             // trouve dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
             $images = $form->get('images')->getData();
 
-            // On boucle sur les images: 
+            // Etant donnée que "Multiple" = true, on peut avoir plusieurs images de chargées
+            // Pour "Animation", Il faut donc boucler sur les images: 
             foreach($images as $image){
                 // on génére un nouveau nom de fichier
                 $fichier = md5(uniqid()). '.' . $image->guessExtension();

@@ -15,8 +15,6 @@ $('#myInput').trigger('focus')
 })
 
 
-
-
 // Ecouteur d'évènement pour la confirmation de suppression d'une annonce :
 let supprimer = document.querySelectorAll('.modal-trigger');
 console.log(supprimer)
@@ -28,4 +26,4 @@ for (let bouton of supprimer){
     document.querySelector(".modal-body").innerText = `Etes-vous sûr(e) de vouloir supprimer l'annonce"${this.dataset.titre}"?`
     })
 }
-
+color: green;

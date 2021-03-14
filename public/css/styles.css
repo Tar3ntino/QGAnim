@@ -51,7 +51,7 @@ body {
     border-radius: 5px;
 }
 
-#link-admin{
+#link-admin {
     color: rgb(167, 39, 39);
 }
 
@@ -176,7 +176,7 @@ body {
 /* *************************************************************** */
 /* On masque les boutons burger et de connexion si l'écran >1080px :  */
 /* *************************************************************** */
-@media screen and (min-width: 1080px) {
+@media screen and (min-width: 600px) {
     .navbar-toggle {
         display: none;
     }
@@ -311,14 +311,14 @@ a { text-decoration: none; }
 }
 
 /* Disparition du bouton burger à partir d'une largeur min de 1080px */
-@media screen and (min-width: 1080px) {
+@media screen and (min-width: 600px) {
     .navbar-toggle {
         display: none;
     }
 }
 
 /* CSS mobile : portrait */
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 600px) {
 
     /* base.html.twig : */
     #myheader {
