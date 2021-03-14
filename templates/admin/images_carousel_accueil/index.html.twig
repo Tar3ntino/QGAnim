@@ -24,10 +24,32 @@
 					<td class="text-center">
 						<a class="btn btn-secondary my-1" href="{{path("admin_images_carousel_accueil_modifier", {id: slideCarousel.id})}}" role="button">Modifier</a>
 						<!-- Button trigger modal -->
-						<a href="#" type="button" class="btn btn-secondary modal-trigger my-1" data-toggle="modal" data-target="#modal-delete" data-id="{{slideCarousel.id}}" data-titre="#">Supprimer</a>
+						<a href="admin_images_carousel_accueil_supprimer" type="button" class="btn btn-secondary modal-trigger-imgAccueil my-1" data-toggle="modal" data-target="#modal-delete" data-id="{{slideCarousel.id}}">Supprimer</a>
 					</td>
 				</tr>
 			{% endfor %}
 		</tbody>
 	</table>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="modal-delete" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Supprimer une slide Carousel Accueil</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body"> </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                            <a href="" type="button" class="btn btn-primary">Oui</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
 {% endblock %}

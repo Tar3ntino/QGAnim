@@ -14,16 +14,30 @@ $('modal-delete').on('shown.bs.modal', function () {
 $('#myInput').trigger('focus')
 })
 
+// Ecouteur d'évènement pour la confirmation de SUPPRESSION d'une ANNONCE :
 
-// Ecouteur d'évènement pour la confirmation de suppression d'une annonce :
-let supprimer = document.querySelectorAll('.modal-trigger');
-console.log(supprimer)
-for (let bouton of supprimer){
+// On stocke tous les boutons qui ont la classe "modal-trigger-animation" :
+let supprimerAnim = document.querySelectorAll('.modal-trigger-animation');
 
+// On passe en revue l'ensemble de ces boutons :
+for (let bouton of supprimerAnim){
+
+    // Dès que l'on rencontre un bouton ayant été cliqué :
     bouton.addEventListener("click", function () {  
-        
+
+    // On change son attribut, on modifie le lien (initialement vide avec '#' par le lien de suppression)
     document.querySelector(".modal-footer a").href = `/admin/animations/supprimer/${this.dataset.id}`
-    document.querySelector(".modal-body").innerText = `Etes-vous sûr(e) de vouloir supprimer l'annonce"${this.dataset.titre}"?`
+
+    // On met à jour le contenu de la modal :
+    document.querySelector(".modal-body").innerText = `Etes-vous sûr(e) de vouloir supprimer l'animation "${this.dataset.titre}"?`
     })
 }
-color: green;
+
+// Ecouteur d'évènement pour la confirmation de SUPPRESSION d'une SLIDE CAROUSEL IMAGE ACCUEIL :
+let supprimerSlide = document.querySelectorAll('.modal-trigger-imgAccueil');
+for (let bouton of supprimerSlide){
+    bouton.addEventListener("click", function () {  
+    document.querySelector(".modal-footer a").href = `/admin/images_carousel_accueil/supprimer/${this.dataset.id}`
+    document.querySelector(".modal-body").innerText = `Etes-vous sûr(e) de vouloir supprimer le slide "${this.dataset.id}"?`
+    })
+}
