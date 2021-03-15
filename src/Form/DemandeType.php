@@ -46,7 +46,7 @@ class DemandeType extends AbstractType
                 'label'=> "Votre budget pour couvrir l'évènement: (€)",
             ])
             ->add('otherComments', TextType::class,[
-                'label'=> "Quelque chose à rajouter ? - Préciser le contexte de cette animation, cela nous aidera à mieux cerner votre demande:",
+                'label'=> "Renseignements complémentaires :",
             ])
             ->add('nameRequester', TextType::class,[
                 'label'=> "Votre nom:",
@@ -64,6 +64,16 @@ class DemandeType extends AbstractType
             ->add('phoneRequester', TextType::class,[
                 'label'=> "Numéro de téléphone:",
             ])
+            ->add('status', ChoiceType::class,  [
+                'choices'  => [
+                    'Demande : Reçue' => 'Demande : Reçue',
+                    'Demande : Déclinée' => 'Demande : Déclinée',
+                    'Devis : En Attente d’acceptation client' => 'Devis : En Attente d’acceptation client',
+                    'Prépayée' => 'Prépayée',
+                    'Facturée' => 'Facturée',
+                ],
+                'label'=> "Statut de la demande:",
+            ],)
             ->add('Valider', SubmitType::class)
         ;
     }

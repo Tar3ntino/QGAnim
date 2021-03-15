@@ -59,17 +59,33 @@ class DemandeController extends AbstractController
      */
     public function adminDemandesIndex(DemandeRepository $demandesRepo, Request $request)
     {
-        $demandes = $demandesRepo->findAll();
-        $form = $this->createForm(DemandeType::class, $demandes);
-        $search = $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            // On recherche les demandes correspondant aux mots clés
-            $demandes = $demandesRepo->search($search->get('mots')->getData());
-        }
-
         return $this->render('admin/demandes/index.html.twig', [
-            'demandes' => $demandes,
+            'demandes' => $demandesRepo->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("admin/demandes/modifier/{id}", name="admin_demandes_modifier")
+     * Pour créer un formulaire, il est nécessaire d'avoir en paramètre l'objet Request
+     * provenant de la classe HttpFoundation à importer use...
+     */
+    public function modifDemande(Demande $demande, Request $request)
+    {
+        /* Creation d'un formulaire pour pouvoir modifier la demande déjà existante que l'on va renvoyer dans la vue une fois éditée: */
+        $form = $this->createForm(DemandeType::class, $demande);
+
+        /* Traitement de la request du formulaire une fois le bouton 'valider' cliqué : */
+        $form->handleRequest($request);
+
+        /* Dans le cas ou le formulaire est soumis ET valide : */
+        if ($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($demande);
+            $em->flush();
+            return $this->redirectToRoute('admin_demandes_home');
+        }
+        return $this->render('admin/demandes/edit.html.twig', [
+            'demande' => $demande,
             'form' => $form->createView()
         ]);
     }

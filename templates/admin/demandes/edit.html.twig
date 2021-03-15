@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    {% if app.request.attributes.get('_route') == 'admin_demandes_modifier' %}
+    Détails de la Demande
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if app.request.attributes.get('_route') == 'admin_demandes_modifier' %}
+        <h1 class="text-center"> Détails de la Demande </h1>
+    {% endif %}
+
+<div class="container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3">
+                Lieu / Ville de l'évènement :
+            </div>
+            <div class="col-9">
+                {{demande.eventLocation}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Nombre de personnes:
+            </div>
+            <div class="col-9">
+                {{demande.numberPeople}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Type d'évènement:</div>
+            <div class="col-9">
+                {{demande.eventType}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Date de l'évènement:</div>
+            <div class="col-9">
+                {{demande.eventDate | date('d-m-Y') }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Horaires souhaités de l'animation:</div>
+            <div class="col-9">
+                {{demande.animationSchedules}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Budget pour l'évènement: (€)</div>
+            <div class="col-9">
+                {{demande.budgetClient}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Renseignements complémentaires :</div>
+            <div class="col-9">
+                {{demande.otherComments}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Nom du demandeur :</div>
+            <div class="col-9">
+                {{demande.nameRequester}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Prénom du demandeur :</div>
+            <div class="col-9">
+                {{demande.firstNameRequester}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Entreprise / organisation / association :</div>
+            <div class="col-9">
+                {{demande.nameCompanyOrAssociation}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Email du demandeur :</div>
+            <div class="col-9">
+                {{demande.emailRequester}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Téléphone :</div>
+            <div class="col-9">
+                {{demande.phoneRequester}}
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form_start(demande) }}
+{{ form_row(demande.status) }}
+<button type="submit" class="btn btn-secondary" id="btnRegister">Modifier le statut de la demande</button>
+{{ form_end(demande) }}
+
+{% endblock %} 
+
+{% block javascripts %}
+    <script src="{{ asset('js/images.js')}}"></script>
+{% endblock %}

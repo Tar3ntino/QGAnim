@@ -26,14 +26,14 @@
 							{{animation.title}}
 						</h2>
 						<p id="scenario{{i}}" style="display:none">
-							SCÉNARIO : {{animation.scenario |striptags }}
+							SCÉNARIO : {{animation.scenario |striptags |raw }}
 						</p>
 
 
 						{% if ((animations|length)-1) == i %}
 							{% set i = 0 %}
 						{% else %}
-							{% set i = i+1 %}
+                    {% set i = i+1 %}
 						{% endif %}
 					{% endfor %}
 				</div>

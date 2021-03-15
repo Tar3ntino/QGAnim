@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\AnimationsRepository;
+use App\Repository\ImagesCarouselAccueilRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,9 +13,10 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="app_home")
      */
-    public function index(AnimationsRepository $animationsRepo): Response
+    public function index(AnimationsRepository $animationsRepo, ImagesCarouselAccueilRepository $imagesCarouselRepo): Response
     {
         return $this->render('main/index.html.twig', [
+            'imagesCarousel' => $imagesCarouselRepo->findAll(),
             'animations' => $animationsRepo->findAll()
         ]);
     }

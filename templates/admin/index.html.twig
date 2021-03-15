@@ -13,37 +13,45 @@
 	<div class="container-fluid">
 		<div class="container text-center">
 
-
-			<h2>
-				Administration générale :</h2>
-			<a class="btn btn-secondary my-2" href="{{path('admin_users_home')}}" role="button" style="color: rgb(70, 220, 70);">Administration | Gestion des utilisateurs</a>
-			<br>
-			<a class="btn btn-secondary my-2" href="#" role="button" style="color: rgb(167, 39, 39);">Administration | Gestion du Planning (Full Calendar) (A venir...)
-			</a>
+			<h2> Administration générale :</h2>
+            <div class="row">
+                <div class="col-12">
+                    <a href="{{path('admin_users_home')}}">
+                        <img src="{{ asset('/images/100x100/AdminUsers100x100.png')}}" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="{{ asset('/images/100x100/AdminCalendar100x100.png')}}" alt="">
+                    </a>
+                </div>
+            </div>
 			<br>
 
 			<h2> Site internet - Gestion du contenu :</h2>
-			<a class="btn btn-secondary my-2" href="{{path('admin_images_carousel_accueil_home')}}" role="button">Administration | Gestion du Carousel Accueil (En cours...)
-			</a>
-			<br>
-			<a class="btn btn-secondary my-2" href="#" role="button" style="color: rgb(167, 39, 39);">Administration | Page Présentation (A venir...)</a>
-			<br>
-			<a class="btn btn-secondary my-2" href="{{path('admin_categories_home')}}" role="button" style="color: rgb(70, 220, 70);">Administration | Gestion des catégories</a>
-			<br>
-			<a class="btn btn-secondary my-2" href="{{path('admin_animations_home')}}" role="button" style="color: rgb(70, 220, 70);">Administration | Gestion des animations</a>
-			<br>
-			<h2>
-				Administratif :</h2>
-			<a class="btn btn-secondary my-2" href="{{path('admin_demandes_home')}}" role="button" style="color: rgb(167, 39, 39);">Gestion des demandes (A venir...)
-			</a>
-			<br>
-			<a class="btn btn-secondary my-2" href="#" role="button" style="color: rgb(167, 39, 39);">Gestion des devis (A venir...)
-			</a>
-			<br>
-			<a class="btn btn-secondary my-2" href="#" role="button" style="color: rgb(167, 39, 39);">Gestion des factures (A venir...)
-			</a>
-			<br>
-		</div>
+            <div class="row">
+                <div class="col-12">
+                    <a href="{{path('admin_images_carousel_accueil_home')}}">
+                        <img src="{{ asset('/images/100x100/AdminCarouselAccueil100x100.png')}}" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="{{ asset('/images/100x100/AdminPresentation100x100.png')}}" alt="">
+                    </a>
+                    <a href="{{path('admin_categories_home')}}">
+                        <img src="{{ asset('/images/100x100/AdminCategories100x100.png')}}" alt="">
+                    </a>
+                    <a href="{{path('admin_animations_home')}}">
+                        <img src="{{ asset('/images/100x100/AdminAnimations100x100.png')}}" alt="">
+                    </a>
+                </div>
+            </div>
+
+			<h2>Administratif :</h2>
+			<div class="row">
+                <div class="col-12">
+                    <a href="{{path('admin_demandes_home')}}">
+                        <img src="{{ asset('/images/100x100/AdminDemandes100x100.png')}}" alt="">
+                    </a>
+                </div>
+            </div>
 	</div>
 
 {% endblock %}
