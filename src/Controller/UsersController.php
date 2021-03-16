@@ -170,4 +170,58 @@ class UsersController extends AbstractController
     ]);
     }
 
+/**
+     * @Route("admin/users/modifier/{id}", name="admin_users_modifier")
+     * Pour créer un formulaire, il est nécessaire d'avoir en paramètre l'objet Request
+     * provenant de la classe HttpFoundation à importer use...
+     */
+    public function adminUsersEdit(Users $user, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UsersAuthenticator $authenticator)
+    {
+
+    /* Creation d'un formulaire pour pouvoir modifier l'utilisateur que l'on va renvoyer dans la vue pour la saisie : */
+    $form = $this->createForm(RegistrationFormType::class, $user);
+    /* Traitement de la request du formulaire une fois le bouton 'valider' cliqué : */
+    $form->handleRequest($request);
+
+    /* Dans le cas ou le formulaire est soumis ET valide : */
+    if ($form->isSubmitted() && $form->isValid()){
+
+        // encode the plain password
+        $user->setPassword(
+            $passwordEncoder->encodePassword(
+                $user,
+                $form->get('plainPassword')->getData()
+            )
+        );
+
+        /* Entity manager = em */
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        // generate a signed url and email it to the user
+        $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+        (new TemplatedEmail())
+            ->from(new Address('contact@qganimations.fun', 'QG Animations'))
+            ->to($user->getEmail())
+            ->subject('Please Confirm your Email')
+            ->htmlTemplate('registration/confirmation_email.html.twig')
+        );
+
+        return $guardHandler->authenticateUserAndHandleSuccess(
+            $user,
+            $request,
+            $authenticator,
+            'main' // firewall name in security.yaml
+        );
+
+        return $this->redirectToRoute('admin_users_home'); // Redirection une fois l'utilisateur ajouté
+    }
+    // Page formulaire d'ajout utilisateur si non envoyé : 
+    return $this->render('admin/users/ajout.html.twig', [
+        'user' => $user,
+        'registrationForm' => $form->createView()
+    ]);
+    }
+
 }

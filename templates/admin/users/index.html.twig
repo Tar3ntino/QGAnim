@@ -36,9 +36,8 @@
 					<td>{{user.isVerified  ? 'Oui':'Non'}}</td>
 					<td>{{user.roles | join('|')}}</td>
 					<td class="text-center">
-						<a class="btn btn-secondary my-1" href="#" role="button">Modifier</a>
-						{# {{path("admin_users_modifier", {id: user.id})}} #}
-
+						<a class="btn btn-secondary my-1" href="{{ path("admin_users_modifier", {id: user.id})}}" role="button">Modifier</a>
+						
 						<!-- Button trigger modal -->
 						<a href="#" type="button" class="btn btn-secondary modal-trigger my-1" data-toggle="modal" data-target="#modal-delete" data-id="{{user.id}}" data-titre="{{user.firstname}}">Supprimer</a>
 					</td>

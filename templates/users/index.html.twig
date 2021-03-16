@@ -13,47 +13,71 @@
 		</div>
 	{% endfor %}
 
-	<div class="row">
-		<div class="col-3">
-			Titre de civilité :
-		</div>
-		<div class="col-9">
-			{{app.user.gender}}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-3">
-			Prénom :
-		</div>
-		<div class="col-9">
-			{{app.user.firstname}}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-3">
-			Nom	:</div>
-		<div class="col-9">
-			{{app.user.name}}</div>
-	</div>
-	<div class="row">
-		<div class="col-3">
-			Date de naissance :</div>
-		<div class="col-9">
-			{{app.user.dateBirth | date('d-m-Y') }}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-3">
-			Email :</div>
-		<div class="col-9">
-			{{app.user.email}}
-		</div>
-	</div>
+<div class="container mb-3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="row">
+                    <div class="col-6">
+                        Titre de civilité :
+                    </div>
+                    <div class="col-6">
+                        {{app.user.gender}}
+                    </div>
+                </div>
 
+                <div class="row">
+                    <div class="col-6">
+                        Prénom :
+                    </div>
+                    <div class="col-6">
+                        {{app.user.firstname}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        Nom	:</div>
+                    <div class="col-6">
+                        {{app.user.name}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        Date de naissance :</div>
+                    <div class="col-6">
+                        {{app.user.dateBirth | date('d-m-Y') }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        Email :</div>
+                    <div class="col-6">
+                        {{app.user.email}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-4">
+                <a href="{{ path('users_profil_modifier')}}" class="btn btn-dark mr-1">Modifier mes informations personnelles</a>
+            </div>
+            <div class="col-4">
+                <a href="{{ path('users_password_modifier')}}" class="btn btn-dark">Modifier mon mot de passe</a>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+</div>
+        
+
+<p class="text-center"> Mes demandes </p>
 <table class="table">
     <thead class="thead-dark">
     <tr>
         <th scope="col">Envoyé le</th>
+        <th scope="col">Statut</th>
         <th scope="col">Type évènement</th>
         <th scope="col">Lieu évènement</th>
         <th scope="col">Date évènement</th>
@@ -80,16 +104,8 @@
     </tbody>
 </table>
     
-    <div class="row">
-        <div class="col-12">
-            <a href="{{ path('users_profil_modifier')}}" class="btn btn-dark mr-1">Modifier mes informations personnelles</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <a href="{{ path('users_password_modifier')}}" class="btn btn-dark">Modifier mon mot de passe</a>
-        </div>
-    </div>
+
+
 
 
 {% endblock %}
