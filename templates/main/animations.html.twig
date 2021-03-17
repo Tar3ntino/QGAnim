@@ -71,13 +71,18 @@
 	<div style="display:none" id="readIdImage"></div>
 	<div class="container">
 		<h1 id="title_animation">
-			{{animations[0].title}}
+            {% if animations is not empty %} 
+                {{animations[0].title}}
+            {% endif %}
 		</h1>
 	</div>
 	<div class="container-fluid">
 		<p id="scenario_animation">
+        {% if animations is not empty %}
+            <!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
 			{{ 'SCÉNARIO : ' ~ animations[0].scenario|striptags|convert_encoding('UTF-8', 'ISO-8859-1') }}
-			<!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
+        {% endif %}
+			
 		</p>
 	</div>
 	<div class="container-fluid">
