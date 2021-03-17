@@ -91,7 +91,8 @@
     {# Remplissage tableau si demandes existantes : #}
     {% for demande in demandes %}
         <tr>
-            <th scope="row">{{ demande.createdAt | date('d-m-Y') }}</th>
+            <td scope="row">{{ demande.createdAt | date('d-m-Y') }}</td>
+            <td>{{ demande.status}}</td>
             <td>{{ demande.eventType}}</td>
             <td>{{ demande.eventLocation }}</td>
             <td>{{ demande.eventDate | date('d-m-Y') }}</td>

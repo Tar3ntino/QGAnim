@@ -1,5 +1,5 @@
 :root {
-    --navbar-bg-color: hsl(0, 6%, 7%);
+    --navbar-bg-color: hsl(0, 0%, 0%);
     --navbar-text-color: hsl(0, 0%, 85%);
     --navbar-text-color-focus: white;
     --navbar-bg-contrast: hsl(0, 0%, 25%);
@@ -17,11 +17,15 @@ body {
     line-height: 1.6;
 }
 
+#navHead {
+    height: 166px;
+}
+
 #navbar {
-    --navbar-height: 50px;
+    height: 226px;
+    /* Nécessaire au bon fonctionnement du slide carousel / NE PAS SUPPRIMER */
     /* position: fixed; */
     position: relative;
-    height: var(--navbar-height);
     background-color: var(--navbar-bg-color);
     left: 0;
     right: 0;
@@ -31,8 +35,9 @@ body {
 .navbar-container {
     display: flex;
     justify-content: space-between;
-    height: 100%;
+    height: 60px;
     align-items: center;
+    background-color: var(--navbar-bg-color);
 }
 
 .navbar-link {
@@ -111,7 +116,7 @@ body {
 
 .navbar-menu {
     position: fixed;
-    top: var(--navbar-height);
+    top: 60px;
     bottom: 0;
     transition: opacity 0.2s ease-in-out,
         visibility 0.2s ease-in-out,
@@ -265,9 +270,12 @@ a { text-decoration: none; }
     list-style: none;
 }
 
-.connect ul {
-    text-align: right;
-    margin-bottom: 0;
+#liensConnection {
+    margin-right: 50px;
+    float: right;
+    padding-top: 50px;
+    list-style: none;
+    /*retrait des puces*/
 }
 
 .sousmenu {
@@ -321,6 +329,16 @@ a { text-decoration: none; }
 @media screen and (max-width: 600px) {
 
     /* base.html.twig : */
+
+    #navHead {
+        display: none;
+    }
+
+    #navbar {
+        margin-bottom: 0px;
+        height: 60px;
+    }
+
     #myheader {
         height: 60px;
         position: relative;
@@ -377,9 +395,10 @@ a { text-decoration: none; }
     #btnRegister {
         border-radius: 20px;
     }
+
     /* Carousel Bootstrap (page index) */
     .carousel-inner {
-        height:180px;
+        height: 180px;
         max-height: 500px !important;
     }
 }
