@@ -41,8 +41,7 @@
 		</div>
 	</div>
 	<div class="container-fluid" id="myselector">
-		<div
-			class="carousel-options">
+		<div class="carousel-options">
 			{# Options de la balise input retirées provisoirement car non nécessaires:
 			            type="range" : sert à afficher une jauge avec un curseur
 			            min="1" max="100" : délimite la jauge de sélection avec un curseur
@@ -76,15 +75,20 @@
             {% endif %}
 		</h1>
 	</div>
-	<div class="container-fluid">
-		<p id="scenario_animation">
-        {% if animations is not empty %}
-            <!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
-			{{ 'SCÉNARIO : ' ~ animations[0].scenario|striptags|convert_encoding('UTF-8', 'ISO-8859-1') }}
-        {% endif %}
-			
-		</p>
-	</div>
+
+
+    <div class="container">
+    	<div class="container-fluid">
+            <p id="scenario_animation">
+            {% if animations is not empty %}
+                <!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
+                {{ 'SCÉNARIO :' ~ animations[0].scenario|striptags|convert_encoding('UTF-8', 'ISO-8859-1') }}
+            {% endif %}
+                
+            </p>
+	    </div>
+    </div>
+
 	<div class="container-fluid">
 		CARACTÉRISTIQUES TECHNIQUES :
 

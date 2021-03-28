@@ -34,6 +34,7 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    # En mode production, rajouter ", requires_channel: https" sur chaque path
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/users, roles: ROLE_USER }

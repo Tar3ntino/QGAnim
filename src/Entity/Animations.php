@@ -56,6 +56,16 @@ class Animations
      */
     private $images;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $technical_info;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $games;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -166,6 +176,30 @@ class Animations
                 $image->setAnimations(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTechnicalInfo(): ?string
+    {
+        return $this->technical_info;
+    }
+
+    public function setTechnicalInfo(?string $technical_info): self
+    {
+        $this->technical_info = $technical_info;
+
+        return $this;
+    }
+
+    public function getGames(): ?string
+    {
+        return $this->games;
+    }
+
+    public function setGames(?string $games): self
+    {
+        $this->games = $games;
 
         return $this;
     }

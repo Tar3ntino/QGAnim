@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 
-
 {% block title %}
     {% if app.request.attributes.get('_route') == 'admin_animations_modifier' %}
     Modifier une animation
@@ -10,22 +9,24 @@
 {% endblock %}
 
 {% block body %}
-    {% if app.request.attributes.get('_route') == 'admin_animations_modifier' %}
-        <h1> Modifier une animation </h1>
-    {% else %}
-        <h1> Ajouter une animation </h1>
-    {% endif %}
-    
-    {# Vérifier si la route est "admin_animations_modifier", on affiche les images #}
-    {% if app.request.attributes.get('_route') == 'admin_animations_modifier' %}
-        {% for image in animation.images %}
-            <div>
-                <img src="{{ asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
-                <a href="{{ path ('admin_animations_delete_image', {'id': image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}"> Supprimer </a>
-            </div>            
-        {% endfor %}
-    {% endif %}
-    {{form(form)}}
+    <div class="container-fluid">
+        {% if app.request.attributes.get('_route') == 'admin_animations_modifier' %}
+            <h1> Modifier une animation </h1>
+        {% else %}
+            <h1> Ajouter une animation </h1>
+        {% endif %} 
+        
+        {# Vérifier si la route est "admin_animations_modifier", on affiche les images #}
+        {% if app.request.attributes.get('_route') == 'admin_animations_modifier' %}
+            {% for image in animation.images %}
+                <div>
+                    <img src="{{ asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
+                    <a href="{{ path ('admin_animations_delete_image', {'id': image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}"> Supprimer </a>
+                </div>            
+            {% endfor %}
+        {% endif %}
+        {{form(form)}}
+    </div>
 {% endblock %} 
 
 {% block javascripts %}
