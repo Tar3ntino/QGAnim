@@ -24,6 +24,9 @@
             <div class="col-md-4 col-sm-12 my-3">
                 {{ form_start(registrationForm) }}
                 {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.gender) }}
+                {{ form_row(registrationForm.firstname) }}
+                {{ form_row(registrationForm.name) }}
                 {{ form_row(registrationForm.plainPassword) }}
                 {{ form_row(registrationForm.dateBirth) }}
                 <button type="submit" class="btn btn-secondary" id="btnRegister">Enregistrer le nouvel utilisateur</button>

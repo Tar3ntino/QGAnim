@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Users;
 use App\Form\SearchUserType;
+use App\Security\EmailVerifier;
+use App\Form\RegistrationFormType;
 use App\Repository\UsersRepository;
 use Symfony\Component\Mime\Address;
 use App\Security\UsersAuthenticator;
@@ -17,6 +19,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UsersController extends AbstractController
 {
+
+    private $emailVerifier;
+
+    public function __construct(EmailVerifier $emailVerifier)
+    {
+        $this->emailVerifier = $emailVerifier;
+    }
+
     /**
      * @Route("admin/users", name="admin_users_home")
      */
@@ -50,6 +60,8 @@ class UsersController extends AbstractController
     $user = new Users;
     /* Creation d'un formulaire pour pouvoir ajouter un nouvel utilisateur que l'on va renvoyer dans la vue pour la saisie : */
     $form = $this->createForm(RegistrationFormType::class, $user);
+    $form->remove('agreeTerms'); // On retire le champs d'acceptation des termes et conditions vu que l'on intervient en ADMIN
+
     /* Traitement de la request du formulaire une fois le bouton 'valider' cliqué : */
     $form->handleRequest($request);
 
