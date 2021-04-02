@@ -1,0 +1,8 @@
+	{# Code générique d'affichage de messages flash pour tous les types success, danger..... #}
+	{% for label, messages in app.flashes %}
+		{% for message in messages %}
+			<div class="alert alert-{{ label }} text-center">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endfor %}

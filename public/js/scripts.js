@@ -15,7 +15,6 @@ $('#myInput').trigger('focus')
 })
 
 // Ecouteur d'évènement pour la confirmation de SUPPRESSION d'une ANNONCE :
-
 // On stocke tous les boutons qui ont la classe "modal-trigger-animation" :
 let supprimerAnim = document.querySelectorAll('.modal-trigger-animation');
 
@@ -40,4 +39,23 @@ for (let bouton of supprimerSlide){
     document.querySelector(".modal-footer a").href = `/admin/images_carousel_accueil/supprimer/${this.dataset.id}`
     document.querySelector(".modal-body").innerText = `Etes-vous sûr(e) de vouloir supprimer le slide "${this.dataset.id}"?`
     })
+}
+
+// Ecouteur d'évènement pour la confirmation de SUPPRESSION d'un UTILISATEUR :
+// On stocke tous les boutons qui ont la classe "modal-trigger-user" :
+let supprimerUtil = document.querySelectorAll('.modal-trigger-user');
+console.log("supprimerUtil :" + supprimerUtil);
+
+// On passe en revue l'ensemble de ces boutons :
+for (let bouton of supprimerUtil){
+
+    // Dès que l'on rencontre un bouton ayant été cliqué :
+    bouton.addEventListener("click", function () {  
+
+    // On change son attribut, on modifie le lien (initialement vide avec '#' par le lien de suppression)
+    document.querySelector(".modal-footer a").href = `/admin/users/supprimer/${this.dataset.id}`
+
+    // On met à jour le contenu de la modal :
+    document.querySelector(".modal-body").innerText = `Etes-vous sûr(e) de vouloir supprimer l'utilisateur : "${this.dataset.email}"?`
+    }) 
 }

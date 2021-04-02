@@ -93,6 +93,7 @@ prevButton.addEventListener(clickedEvent, function() {
     console.log("index select :" + selectedIndex);
     console.log("nb animations :" + cellsRange.value);
     console.log("index_played = selectedIndex % NbAnimation :" + (selectedIndex % cellsRange.value));
+    
 
     // Si la valeur de l'index devient négative, alors on l'index de la dernière vignette du carousel correspond à l'index du nombre de vignettes du carousel autrement dit la dernière:
     if (selectedIndex < 0) {
@@ -104,10 +105,17 @@ prevButton.addEventListener(clickedEvent, function() {
     var titleAnimationPlayed = document.getElementById('titre'+index_played).textContent;
     document.getElementById('title_animation').innerHTML = titleAnimationPlayed;
 
-    /*On récupère le titre de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
+    /*On récupère le scenario de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
     var scenarioAnimationPlayed = document.getElementById('scenario'+index_played).textContent;
     document.getElementById('scenario_animation').innerHTML = scenarioAnimationPlayed;
 
+    /*On récupère les caracteristiques techniques de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
+    var technicalInfoAnimationPlayed = document.getElementById('technical_info'+index_played).textContent;
+    document.getElementById('technical_info_animation').innerHTML = technicalInfoAnimationPlayed;
+
+    /*On récupère les caracteristiques techniques de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
+    var gameAnimationPlayed = document.getElementById('game'+index_played).textContent;
+    document.getElementById('game_animation').innerHTML = gameAnimationPlayed;
 });
 
 var nextButton = document.querySelector('.next-button');
@@ -130,6 +138,19 @@ nextButton.addEventListener(clickedEvent, function() {
     scenario_animation.textContent = "";                                      // On écrase le scenario précédemment lu
     scenario_animation.innerHTML = scenarioAnimationPlayed;                   // On injecte le nouveau à lire
 
+    var technicalInfoAnimationPlayed = document.getElementById('technical_info'+index_played).textContent
+
+    // On "écrase/ réinitialise" le contenu du précédent scenario lu avec le contenu de technicalInfoAnimationPlayed pour ne pas qu'il vienne se rajouter au précédent visionnage :
+    var technical_info_animation = document.getElementById('technical_info_animation');   // Soit "technical_info_animation" la div ciblé par son Id qui accueillera les caracteristiques à lire
+    technical_info_animation.textContent = "";                                            // On écrase les caracteristiques précédemment lues
+    technical_info_animation.innerHTML = technicalInfoAnimationPlayed;                    // On injecte les nouvelles à lire
+
+    var gameAnimationPlayed = document.getElementById('game'+index_played).textContent
+
+    // On "écrase/ réinitialise" le contenu du précédent scenario lu avec le contenu de gameAnimationPlayed pour ne pas qu'il vienne se rajouter au précédent visionnage :
+    var game_animation = document.getElementById('game_animation');   // Soit "game_animation" la div ciblé par son Id qui accueillera le jeu à lire
+    game_animation.textContent = "";                                            // On écrase le jeu précédemment lu
+    game_animation.innerHTML = gameAnimationPlayed;                    // On injecte le nouveau à lire
 });
 
 // cellsRange : On récupère dans cette variable la balise input (class.cells-range). Au sein de celle ci se trouve la valeur du nombre d'animations existantes calculée en récupérant la taille de l'array des animations existantes. Nous utiliserons cette variable dans la fonction changeCaroussel (cf *)

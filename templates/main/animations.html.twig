@@ -28,6 +28,12 @@
 						<p id="scenario{{i}}" style="display:none">
 							SCÉNARIO : {{animation.scenario |striptags |raw }}
 						</p>
+                        <p id="technical_info{{i}}" style="display:none">
+							CARACTERISTIQUES TECHNIQUES : {{animation.technicalInfo |striptags |raw }}
+						</p>
+                        <p id="game{{i}}" style="display:none">
+							JEUX : {{animation.games |striptags |raw }}
+						</p>
 
 
 						{% if ((animations|length)-1) == i %}
@@ -82,20 +88,29 @@
             <p id="scenario_animation">
             {% if animations is not empty %}
                 <!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
-                {{ 'SCÉNARIO :' ~ animations[0].scenario|striptags|convert_encoding('UTF-8', 'ISO-8859-1') }}
+                <p> SCÉNARIO : <span>{{ animations[0].scenario | raw }} </span> </p>
             {% endif %}
-                
+            </p>
+	    </div>
+        <div class="container-fluid">
+            <p id="technical_info_animation">
+                {% if animations is not empty %}
+                    <!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
+                    {{ 'CARACTERISTIQUES TECHNIQUES:' ~ animations[0].technicalInfo | raw }}
+                {% endif %}
+            </p>
+        </div>
+        <div class="container-fluid">
+		    <p id="game_animation">
+            {% if animations is not empty %}
+                <!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
+                {{ 'JEUX:' ~ animations[0].games | raw }}
+            {% endif %}
             </p>
 	    </div>
     </div>
-
-	<div class="container-fluid">
-		CARACTÉRISTIQUES TECHNIQUES :
-
-	</div>
-	<div class="container-fluid">
-		JEUX :
-	</div>
-</div>{% endblock %}{% block javascripts %}
+</div>
+{% endblock %}
+{% block javascripts %}
 
 <script src="{{ asset('js/animations.js')}}"></script>{% endblock %}

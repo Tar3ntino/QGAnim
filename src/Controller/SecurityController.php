@@ -14,9 +14,10 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        // Si l'utilisateur s'est authentifié, il est redirigé sur son espace personnel pour l'inciter à MAJ son profil.
+        if ($this->getUser()) {
+            return $this->redirectToRoute('users');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

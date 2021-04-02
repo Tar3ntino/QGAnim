@@ -7,11 +7,7 @@
 
 {% block body %}
 
-	{% for message in app.flashes('message') %}
-		<div class="row">
-			<div class="col-12 alert alert-success" role="alert">{{message}}</div>
-		</div>
-	{% endfor %}
+{% include('_partials/flashs.html.twig') %}
 
 <div class="container mb-3">
     <div class="container-fluid">
@@ -105,8 +101,4 @@
     </tbody>
 </table>
     
-
-
-
-
 {% endblock %}

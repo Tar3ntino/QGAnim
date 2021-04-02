@@ -139,7 +139,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
             $em->remove($animation);
             $em->flush();
 
-            $this->addFlash('message', 'Animation supprimée avec succès');
+            $this->addFlash('success', 'Animation supprimée avec succès');
             return $this->redirectToRoute('admin_animations_home');
     }
 

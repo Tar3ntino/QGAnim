@@ -46,16 +46,18 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-
+        
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('contact@qganimations.fun', 'QG Animations'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Veuillez confirmer votre adresse email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
+
+            $this->addFlash('success', 'Inscription effectuée. Un email de vérification vous a été envoyé à '.$user->getEmail());
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
@@ -82,13 +84,12 @@ class RegistrationController extends AbstractController
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $exception->getReason());
-
-            return $this->redirectToRoute('app_register');
+            return $this->redirectToRoute('app_register'); // app_register : la route de redirection une fois si l'email n'est pas bon
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'Votre adresse email est maintenant vérifiée !');
 
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('users'); // users : la route de redirection à atteindre une fois que l'email est vérifié
     }
 }

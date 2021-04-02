@@ -60,7 +60,7 @@ class UsersController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('message', 'Profil mis à jour');
+            $this->addFlash('success', 'Profil mis à jour !');
             return $this->redirectToRoute('users');
         }
 
@@ -85,10 +85,10 @@ class UsersController extends AbstractController
             if ($request->request->get('pass') == $request->request->get('pass2')){
                 $user->setPassword($passwordEncoder->encodePassword($user,$request->request->get('pass')));
                 $em->flush(); // Pour MAJ dans la BDD
-                $this->addFlash('message', 'Mot de passe MAJ avec succès');
+                $this->addFlash('success', 'Mot de passe mis à jour avec succès !');
                 return $this->redirectToRoute('users');
             }else{
-                $this->addFlash('error', 'Les 2 mots de passe ne sont pas identiques');
+                $this->addFlash('danger', 'Les 2 mots de passe ne sont pas identiques');
             }
         } 
         return $this->render('users/editpassword.html.twig');
@@ -151,7 +151,7 @@ class UsersController extends AbstractController
         (new TemplatedEmail())
             ->from(new Address('contact@qganimations.fun', 'QG Animations'))
             ->to($user->getEmail())
-            ->subject('Please Confirm your Email')
+            ->subject('Merci de confirmer votre adresse email')
             ->htmlTemplate('registration/confirmation_email.html.twig')
         );
 
@@ -170,7 +170,7 @@ class UsersController extends AbstractController
     ]);
     }
 
-/**
+    /**
      * @Route("admin/users/modifier/{id}", name="admin_users_modifier")
      * Pour créer un formulaire, il est nécessaire d'avoir en paramètre l'objet Request
      * provenant de la classe HttpFoundation à importer use...
@@ -222,6 +222,20 @@ class UsersController extends AbstractController
         'user' => $user,
         'registrationForm' => $form->createView()
     ]);
+    }
+
+    /**
+     * @Route("admin/users/supprimer/{id}", name="admin_users_supprimer")
+     */
+    public function adminUsersDelete(Users $user)
+    {   
+            /* Entity manager = em */
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($user);
+            $em->flush();
+
+            $this->addFlash('danger', 'Utilisateur supprimé avec succès');
+            return $this->redirectToRoute('admin_users_home');
     }
 
 }
