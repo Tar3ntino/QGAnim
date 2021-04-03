@@ -47,4 +47,12 @@ class MainController extends AbstractController
         return $this->render('main/presentation.html.twig');
     }
 
+    /**
+     * @Route("/cgu", name="app_cgu")
+     */
+    public function cgu()
+    {
+        return $this->render('main/conditions-generales-utilisation.html.twig');
+    }
+
 }

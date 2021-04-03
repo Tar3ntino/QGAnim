@@ -6,6 +6,34 @@
 		<title>
 			{% block title %}{% endblock %}
 		</title>
+        {# Gestion des cookies avec Tarteaucitron.js : Le script est placé en tout début de page le plus tôt possible car il faut pouvoir intéragir avec les cookies afin de pouvoir les bloquer à l'avance. Il faut que le Javascript soit chargé dès le départ. #}
+        <script src="tarteaucitron/tarteaucitron.js"></script>
+            <script>
+                tarteaucitron.init({
+                    "privacyUrl": "", /* URL de la page de la politique de vie privée */
+
+                    "hashtag": "#tarteaucitron", /* Ouvrir le panneau contenant ce hashtag */
+                    "cookieName": "tarteaucitron", /* Nom du Cookie */
+
+                    "orientation": "middle", /* Position de la bannière (top - bottom) */
+                    "showAlertSmall": true, /* Voir la bannière réduite en bas à droite */
+                    "cookieslist": true, /* Voir la liste des cookies */
+
+                    "adblocker": false, /* Voir une alerte si un bloqueur de publicités est détecté */
+                    "AcceptAllCta": true, /* Voir le bouton accepter tout (quand highPrivacy est à true) */
+                    "highPrivacy": true, /* Désactiver le consentement automatique */
+                    "handleBrowserDNTRequest": false, /* Si la protection du suivi du navigateur est activée, tout interdire */
+
+                    "removeCredit": false, /* Retirer le lien vers tarteaucitron.js */
+                    "moreInfoLink": true, /* Afficher le lien "voir plus d'infos" */
+                    "useExternalCss": false, /* Si false, tarteaucitron.css sera chargé */
+
+                    //"cookieDomain": ".my-multisite-domaine.fr", /* Cookie multisite */
+
+                    "readmoreLink": "/cookiespolicy" /* Lien vers la page "Lire plus" */
+                });
+            </script>
+
 		{# Run `composer require symfony/webpack-encore-bundle`and uncomment the following Encore helpers to start using Symfony UX #}
 
 		<!-- Bootstrap CSS CDN -->

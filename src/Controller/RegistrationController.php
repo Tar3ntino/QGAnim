@@ -33,6 +33,9 @@ class RegistrationController extends AbstractController
         $user = new Users();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+        // $form->remove('gender');
+        // $form->remove('firstname');
+        // $form->remove('name');
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
