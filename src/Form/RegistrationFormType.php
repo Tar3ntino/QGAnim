@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Users;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
@@ -20,21 +21,21 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegistrationFormType extends AbstractType
 {
+
+    private Security $security;
+
+    public function __construct(Security $security)
+    {
+      $this->security = $security;
+    }
+  // access a l'utilisateur dans les methode => $this->security->getUser();
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('email', EmailType::class,[
                 'label' => 'Email :'
             ])
-            ->add('gender', ChoiceType::class, [
-                'label'=>'Titre de civilité :',
-                'choices'  => [
-                    'Monsieur' => 'Mr',
-                    'Madame' => 'Mme'
-                ],
-            ])
-            ->add('firstname', TextType::class, array('label'=>'Prénom :',))
-            ->add('name', TextType::class, array('label'=>'Nom :',))
             ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -66,13 +67,26 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => false,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter nos conditions.',
                     ]),
                 ],
+            ]);
+            
+        if (null!=$this->security->getUser() && $this->security->getUser()->getRoles()[0] === "ROLE_ADMIN"){
+            $builder
+            ->add('gender', ChoiceType::class, [
+                'label'=>'Titre de civilité :',
+                'choices'  => [
+                    'Monsieur' => 'Mr',
+                    'Madame' => 'Mme'
+                ],
             ])
-            ;
+            ->add('firstname', TextType::class, array('label'=>'Prénom :',))
+            ->add('name', TextType::class, array('label'=>'Nom :',));
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

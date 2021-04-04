@@ -365,10 +365,6 @@ a { text-decoration: none; }
         display: flex;
     }
 
-    #titreDernieresAnimations {
-        font-size: 15px;
-    }
-
     .topnav a {
         display: none;
     }
