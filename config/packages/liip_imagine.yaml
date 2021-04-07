@@ -9,3 +9,9 @@ liip_imagine:
               thumbnail:
                   size: [300, 300]
                   mode: outbound
+        rectangle:
+            quality: 75
+            filters:
+              thumbnail:
+                  size: [940, 280]
+                  mode: outbound

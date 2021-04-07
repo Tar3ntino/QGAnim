@@ -414,3 +414,65 @@ a { text-decoration: none; }
     text-align: right;
     width: 65%;
 }
+
+.footer {
+    background: black;
+    color: whitesmoke;
+    text-decoration: none;
+    /* supprime la ligne des liens contenu dans le footer */
+}
+
+.checkboxAndTextDispFlex {
+    display: flex;
+}
+
+/* ******************************************* */
+/* CSS DE MENU ACCORDEON HTML CSS SEULEMENT */
+/* ******************************************* */
+.cgu h5,
+h2 {
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.card-header {
+    height: 105px;
+    display: flex;
+    align-items: center;
+    /* center verticalement, fonctionne ssi Display flex*/
+}
+
+li {
+    display: block;
+}
+
+.accordion label {
+    cursor: pointer;
+    display: block;
+    padding: 0.7em 1em;
+    overflow: hidden;
+    background: linear-gradient(#555, #444);
+    border-bottom: 1px solid #333;
+    box-shadow: inset 0 1px 1px rgba(#fff, 0.2);
+}
+
+.sub>li {
+    height: 0;
+    overflow: hidden;
+}
+
+.accordion input[type="checkbox"] {
+    display: none
+}
+
+input:checked+.sub>li {
+    height: 28rem;
+    /* 28 rem en mode ordinateur - Si l'on considère que l'on n'affiche une section contenant 5 "demandes" */
+}
+
+.sub>li {
+    transition: all 0.30s ease-in-out
+        /*n\'hésitez pas à jouer avec ces valeurs */
+}

@@ -7,98 +7,155 @@
 
 {% block body %}
 
-{% include('_partials/flashs.html.twig') %}
+	{% include('_partials/flashs.html.twig') %}
 
-<div class="container mb-3">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-                <div class="row">
-                    <div class="col-6">
-                        Titre de civilité :
-                    </div>
-                    <div class="col-6">
-                        {{app.user.gender}}
-                    </div>
-                </div>
+	<div class="container mb-3">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-8">
+					<div class="row">
+						<div class="col-6">
+							Titre de civilité :
+						</div>
+						<div class="col-6">
+							{{app.user.gender}}
+						</div>
+					</div>
 
-                <div class="row">
-                    <div class="col-6">
-                        Prénom :
-                    </div>
-                    <div class="col-6">
-                        {{app.user.firstname}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        Nom	:</div>
-                    <div class="col-6">
-                        {{app.user.name}}</div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        Date de naissance :</div>
-                    <div class="col-6">
-                        {{app.user.dateBirth | date('d-m-Y') }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        Email :</div>
-                    <div class="col-6">
-                        {{app.user.email}}
-                    </div>
-                </div>
-            </div>
-            <div class="col-2"></div>
-        </div>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-4">
-                <a href="{{ path('users_profil_modifier')}}" class="btn btn-dark mr-1">Modifier mes informations personnelles</a>
-            </div>
-            <div class="col-4">
-                <a href="{{ path('users_password_modifier')}}" class="btn btn-dark">Modifier mon mot de passe</a>
-            </div>
-            <div class="col-2"></div>
-        </div>
-    </div>
-</div>
-        
+					<div class="row">
+						<div class="col-6">
+							Prénom :
+						</div>
+						<div class="col-6">
+							{{app.user.firstname}}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							Nom	:</div>
+						<div class="col-6">
+							{{app.user.name}}</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							Date de naissance :</div>
+						<div class="col-6">
+							{{app.user.dateBirth | date('d-m-Y') }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							Email :</div>
+						<div class="col-6">
+							{{app.user.email}}
+						</div>
+					</div>
+				</div>
+				<div class="col-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-4">
+					<a href="{{ path('users_profil_modifier')}}" class="btn btn-dark mr-1">Modifier mes informations personnelles</a>
+				</div>
+				<div class="col-4">
+					<a href="{{ path('users_password_modifier')}}" class="btn btn-dark">Modifier mon mot de passe</a>
+				</div>
+				<div class="col-2"></div>
+			</div>
+		</div>
+	</div>
 
-<p class="text-center"> Mes demandes </p>
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Envoyé le</th>
-        <th scope="col">Statut</th>
-        <th scope="col">Type évènement</th>
-        <th scope="col">Lieu évènement</th>
-        <th scope="col">Date évènement</th>
-        <th scope="col">Nombre personnes</th>
-        <th scope="col">Horaires animation</th>
-        <th scope="col">Budget</th>
-        <th scope="col">Autres commentaires</th>
-    </tr>
-    </thead>
-    <tbody>
-    {# Remplissage tableau si demandes existantes : #}
-    {% for demande in demandes %}
-        <tr>
-            <td scope="row">{{ demande.createdAt | date('d-m-Y') }}</td>
-            <td>{{ demande.status}}</td>
-            <td>{{ demande.eventType}}</td>
-            <td>{{ demande.eventLocation }}</td>
-            <td>{{ demande.eventDate | date('d-m-Y') }}</td>
-            <td>{{ demande.numberPeople }}</td>
-            <td>{{ demande.animationSchedules }}</td>
-            <td>{{ demande.budgetClient }}</td>
-            <td>{{ demande.otherComments }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-    
+	<ul class="accordion">
+		<li class="has-sub">
+			<label for="menu1" style="color:white;">Mes demandes</label><input id="menu1" name="menu" type="checkbox"/>
+			<ul class="sub">
+				<li>
+					<table class="table">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">Envoyé le</th>
+								<th scope="col">Statut</th>
+								<th scope="col">Type évènement</th>
+								<th scope="col">Lieu évènement</th>
+								<th scope="col">Date évènement</th>
+								<th scope="col">Nombre personnes</th>
+								<th scope="col">Horaires animation</th>
+								<th scope="col">Budget</th>
+								<th scope="col">Autres commentaires</th>
+							</tr>
+						</thead>
+						<tbody>
+							{# Remplissage tableau si demandes existantes : #}
+							{% for demande in demandes %}
+								<tr>
+									<td scope="row">{{ demande.createdAt | date('d-m-Y') }}</td>
+									<td>{{ demande.status}}</td>
+									<td>{{ demande.eventType}}</td>
+									<td>{{ demande.eventLocation }}</td>
+									<td>{{ demande.eventDate | date('d-m-Y') }}</td>
+									<td>{{ demande.numberPeople }}</td>
+									<td>{{ demande.animationSchedules }}</td>
+									<td>{{ demande.budgetClient }}</td>
+									<td>{{ demande.otherComments }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</li>
+			</ul>
+		</li>
+		<li class="has-sub">
+			<label for="menu2">Mes Devis</label><input id="menu2" name="menu" type="checkbox"/>
+			<ul class="sub">
+				<li>
+					<a>Item #1</a>
+				</li>
+				<li>
+					<a>Item #2</a>
+				</li>
+			</ul>
+		</li>
+		<li class="has-sub">
+			<label for="menu3">Mes factures</label><input id="menu3" name="menu" type="checkbox"/>
+			<ul class="sub"></ul>
+		</li>
+	</ul>
+
+	<p class="text-center">
+		Mes demandes
+	</p>
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">Envoyé le</th>
+				<th scope="col">Statut</th>
+				<th scope="col">Type évènement</th>
+				<th scope="col">Lieu évènement</th>
+				<th scope="col">Date évènement</th>
+				<th scope="col">Nombre personnes</th>
+				<th scope="col">Horaires animation</th>
+				<th scope="col">Budget</th>
+				<th scope="col">Autres commentaires</th>
+			</tr>
+		</thead>
+		<tbody>
+			{# Remplissage tableau si demandes existantes : #}
+			{% for demande in demandes %}
+				<tr>
+					<td scope="row">{{ demande.createdAt | date('d-m-Y') }}</td>
+					<td>{{ demande.status}}</td>
+					<td>{{ demande.eventType}}</td>
+					<td>{{ demande.eventLocation }}</td>
+					<td>{{ demande.eventDate | date('d-m-Y') }}</td>
+					<td>{{ demande.numberPeople }}</td>
+					<td>{{ demande.animationSchedules }}</td>
+					<td>{{ demande.budgetClient }}</td>
+					<td>{{ demande.otherComments }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
 {% endblock %}

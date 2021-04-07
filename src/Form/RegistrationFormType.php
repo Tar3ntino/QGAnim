@@ -26,7 +26,7 @@ class RegistrationFormType extends AbstractType
 
     public function __construct(Security $security)
     {
-      $this->security = $security;
+        $this->security = $security;
     }
   // access a l'utilisateur dans les methode => $this->security->getUser();
 
