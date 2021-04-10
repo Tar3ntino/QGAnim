@@ -3,6 +3,9 @@
 {% block title %}Gérer les catégories{% endblock %}
 
 {% block body %}
+
+{% include('_partials/flashs.html.twig') %}
+
 	<h1 class="text-center">Gérer les catégories</h1>
     <a class="btn btn-secondary" href=" {{path("admin_categories_ajout")}}" role="button">Ajouter une catégorie</a>
 	<table class="table table-striped table-dark">
@@ -19,7 +22,8 @@
 				<td>{{categorie.id}}</th>
 				<td>{{categorie.name}}</td>
 				<td class="text-center">
-                    <a class="btn btn-secondary" href="{{path("admin_categories_modifier", {id: categorie.id})}}" role="button">Modifier</a>
+                    <a class="btn btn-secondary" href="{{path("admin_categories_modifier", {slug: categorie.slug})}}" role="button">Modifier</a>
+                    <a class="btn btn-secondary" href="{{path("admin_categories_supprimer", {slug: categorie.slug})}}" role="button">Supprimer</a>
                 </td>
 			</tr>
         {% endfor %}

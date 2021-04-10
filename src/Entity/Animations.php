@@ -10,9 +10,11 @@ use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=AnimationsRepository::class)
+ * @UniqueEntity(fields={"title"}, message="Il existe déjà une animation sous ce nom")
  * @Vich\Uploadable
  */
 class Animations
@@ -65,6 +67,11 @@ class Animations
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $games;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -200,6 +207,18 @@ class Animations
     public function setGames(?string $games): self
     {
         $this->games = $games;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

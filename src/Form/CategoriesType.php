@@ -17,7 +17,9 @@ class CategoriesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('Name', TextType::class, [
+                'label' => 'Nom'
+            ])
             //->add('animations')
             ->add('Valider', SubmitType::class)
         ;

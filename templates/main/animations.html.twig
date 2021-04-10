@@ -20,7 +20,7 @@
 					{% for animation in animations %}
 						<div class="carousel__cell" id="img{{i}}"><img src="{{ asset('/uploads/') ~ animation.images[0].name }}"></div>
 
-						{# Creation de "X" balises titre h2 stockant le nom de chaque animation avec un affichage masqué display:none : #}
+						{# A chaque tour de boucle, nous allons venir créer un titre ainsi que plusieurs paragraphes qui stockeront les propriétés titre, scénario, infos techniques et jeux propre à chacune des animations. Nous appliquerons un display:none à chacun de ces éléments afin de masquer l'affichage dans la vue.  Cela nous permettra d'exploiter ces données dans un second temps en appelant l'identifiant généré #}
 						<h2 id="titre{{i}}" style="display:none">
 							{{animation.title}}
 						</h2>

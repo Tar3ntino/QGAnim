@@ -437,7 +437,7 @@ h2 {
     padding-top: 20px;
 }
 
-.card-header {
+.accordion .card-header {
     height: 105px;
     display: flex;
     align-items: center;
@@ -475,4 +475,23 @@ input:checked+.sub>li {
 .sub>li {
     transition: all 0.30s ease-in-out
         /*n\'hésitez pas à jouer avec ces valeurs */
+}
+
+/* CSS CHAT */
+.messages {
+    background-color: rgb(183, 183, 184);
+    border-radius: 30px;
+    padding: 10px;
+}
+
+/* Carousel accueil bootstrap, test wrapping*/
+.carousel-inner {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+.image{
+    height: auto;
+    width : 100%;
+    display: block;
 }

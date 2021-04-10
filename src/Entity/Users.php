@@ -98,14 +98,12 @@ class Users implements UserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
+
+    public function setRoles(array $roles): self
     {
-        return (string) $this->email;
+        $this->roles = $roles;
+
+        return $this;
     }
 
     /**
@@ -120,26 +118,12 @@ class Users implements UserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
     /**
      * @see UserInterface
      */
     public function getPassword(): string
     {
         return (string) $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
     }
 
     /**
@@ -151,6 +135,22 @@ class Users implements UserInterface
     public function getSalt(): ?string
     {
         return null;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+        return $this;
     }
 
     /**

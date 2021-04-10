@@ -168,4 +168,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
         }
     }
 
+    /**
+     * @Route("/supprime/image/{id}", name="delete_image", methods={"DELETE"})
+     */
+
+
 } 

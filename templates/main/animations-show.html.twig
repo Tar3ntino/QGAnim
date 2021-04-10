@@ -1,0 +1,20 @@
+{# templates/animations.html.twig #}
+{% extends "base.html.twig" %}
+
+{% block title %}
+	QG Animation | Animations
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/animations.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<h1>{{animations.title}}</h1>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{{ asset('js/animations.js')}}"></script>{% endblock %}
