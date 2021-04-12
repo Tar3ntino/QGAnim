@@ -334,6 +334,13 @@ a { text-decoration: none; }
         display: none;
     }
 
+    .navbar-container {
+        position: fixed;
+        /* On bloque l'entête lors du scrol si le menu est ouvert*/
+        z-index: 40;
+        /*On sort la navbar du flux pour qu'elle reste en "avant plan" du contenu principal de la page */
+    }
+
     #navbar {
         margin-bottom: 0px;
         height: 60px;
@@ -477,12 +484,6 @@ input:checked+.sub>li {
         /*n\'hésitez pas à jouer avec ces valeurs */
 }
 
-/* CSS CHAT */
-.messages {
-    background-color: rgb(183, 183, 184);
-    border-radius: 30px;
-    padding: 10px;
-}
 
 /* Carousel accueil bootstrap, test wrapping*/
 .carousel-inner {
@@ -490,8 +491,18 @@ input:checked+.sub>li {
     width: 100%;
     overflow: hidden;
 }
-.image{
+
+.image {
     height: auto;
-    width : 100%;
+    width: 100%;
     display: block;
+}
+
+/* Mise en page Animation Detail */
+
+.title_details::after {
+    display: block;
+    width: 50px;
+    content: "____";
+    margin-top: -30px;
 }

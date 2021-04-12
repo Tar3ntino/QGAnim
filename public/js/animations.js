@@ -127,6 +127,18 @@ nextButton.addEventListener(clickedEvent, function() {
     console.log("index_played = selectedIndex % NbAnimation :" + (selectedIndex % cellsRange.value));
     var index_played = selectedIndex % cellsRange.value;
 
+    /* On récupère le lien se situant à l'intérieur de la balise <a> généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'more_info'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées. */
+    var linkDetailsAnimationPlayed = document.getElementById('more_info'+index_played).textContent
+    
+    console.log(linkDetailsAnimationPlayed);
+
+    // On "écrase/ réinitialise" le contenu de la div qui contient le lien avec le bouton + d'infos de l'animation actuel :
+
+    var more_detail_animation = document.getElementById('more_info');
+    more_detail_animation.textContent = "";
+    more_detail_animation.innerHTML = '<a href= "/animations/'+ linkDetailsAnimationPlayed +'" class="btn btn-primary"> + d\'infos </a>';
+    console.log(more_detail_animation) ;
+
     /*On récupère le titre se situant à l'intérieur de la balise h2 généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'title_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
     var titleAnimationPlayed = document.getElementById('titre'+index_played).textContent
     document.getElementById('title_animation').innerHTML = titleAnimationPlayed;

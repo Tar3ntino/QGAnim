@@ -5,7 +5,7 @@
 
 {% block body %}
 
-{% include('_partials/flashs.html.twig') %}
+	{% include('_partials/flashs.html.twig') %}
 
 	<h1>Gérer les animations</h1>
 	<a class="btn btn-secondary" href="{{path("admin_animations_ajout")}}" role="button">Ajouter une animation</a>
@@ -39,10 +39,12 @@
 					<td>{{animation.scenario | raw }}</td>
 					<td>{{animation.createdAt|date}}</td>
 					<td class="text-center">
-						<a class="btn btn-secondary my-1" href="{{path("admin_animations_modifier", {id: animation.id})}}" role="button">Modifier</a>
+						<a class="btn btn-secondary my-1" href="{{path("admin_animations_modifier", {slug: animation.slug})}}" role="button">Modifier</a>
+
+						{# <a class="btn btn-secondary" href="{{path("admin_animations_supprimer", {slug: animation.slug})}}" role="button">Supprimer</a> #}
 
 						<!-- Button trigger modal -->
-						<a href="admin_animations_supprimer" type="button" class="btn btn-secondary modal-trigger-animation my-1" data-toggle="modal" data-target="#modal-delete" data-id="{{animation.id}}" data-titre="{{animation.title}}">Supprimer</a>
+						<a href="{{path("admin_animations_supprimer", {slug: animation.slug})}}" type="button" class="btn btn-secondary modal-trigger-animation my-1" data-toggle="modal" data-target="#modal-delete" data-id="{{animation.slug}}" data-titre="{{animation.title}}">Supprimer</a>
 					</td>
 				</tr>
 			{% endfor %}

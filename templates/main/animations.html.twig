@@ -21,7 +21,10 @@
 						<div class="carousel__cell" id="img{{i}}"><img src="{{ asset('/uploads/') ~ animation.images[0].name }}"></div>
 
 						{# A chaque tour de boucle, nous allons venir créer un titre ainsi que plusieurs paragraphes qui stockeront les propriétés titre, scénario, infos techniques et jeux propre à chacune des animations. Nous appliquerons un display:none à chacun de ces éléments afin de masquer l'affichage dans la vue.  Cela nous permettra d'exploiter ces données dans un second temps en appelant l'identifiant généré #}
-						<h2 id="titre{{i}}" style="display:none">
+
+						<a id="more_info{{i}}">{{animation.id}}</a>
+                        
+                        <h2 id="titre{{i}}" style="display:none">
 							{{animation.title}}
 						</h2>
 						<p id="scenario{{i}}" style="display:none">
@@ -36,6 +39,7 @@
 							JEUX :
 							{{animation.games |striptags |raw }}
 						</p>
+
 						{% if ((animations|length)-1) == i %}
 							{% set i = 0 %}
 						{% else %}
@@ -46,6 +50,18 @@
 				{# Fin carousel  #}
 			</div>
 			{# Fin scene  #}
+
+			{# On initialise notre bouton "En savoir plus" avec la première animation du tableau si celui ci n'est pas vide : On viendra modifier le lien avec du JS au clic des boutons gauche et droite #}
+			<div id="more_info" class="text-center">
+				{% if animations is not empty %}
+					<a href="{{path('app_animations_details',{id: animations[0].id})}}" class="btn btn-primary">
+						+ d'infos
+					</a>
+				{% endif %}
+
+			</div>
+
+
 			<div class="container-fluid" id="myselector">
 				<div
 					class="carousel-options">
@@ -63,6 +79,7 @@
 						<button class="previous-button">Previous</button>
 						<button class="next-button">Next</button>
 					</p>
+
 					<div style="display:none" value="0"></div>
 					<p style="display:none">
 						<label><input type="radio" name="orientation" value="horizontal" checked/></label>
