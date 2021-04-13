@@ -92,7 +92,7 @@
 													{# {{ animation.scenario|striptags|u.truncate(50, '...') }} #}
 													{{ animation.scenario|raw }}
 												</p>
-												<a href="{{path('app_animations_details',{id: animation.id})}}" class="btn btn-primary">
+												<a href="{{path('app_animations_details',{slug: animation.slug})}}" class="btn btn-primary">
 													+ d'infos
 												</a>
 											</div>

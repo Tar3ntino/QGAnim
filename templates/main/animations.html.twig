@@ -22,7 +22,7 @@
 
 						{# A chaque tour de boucle, nous allons venir créer un titre ainsi que plusieurs paragraphes qui stockeront les propriétés titre, scénario, infos techniques et jeux propre à chacune des animations. Nous appliquerons un display:none à chacun de ces éléments afin de masquer l'affichage dans la vue.  Cela nous permettra d'exploiter ces données dans un second temps en appelant l'identifiant généré #}
 
-						<a id="more_info{{i}}">{{animation.id}}</a>
+						<a id="more_info{{i}}" style="display:none">{{animation.slug}}</a>
                         
                         <h2 id="titre{{i}}" style="display:none">
 							{{animation.title}}
@@ -54,7 +54,7 @@
 			{# On initialise notre bouton "En savoir plus" avec la première animation du tableau si celui ci n'est pas vide : On viendra modifier le lien avec du JS au clic des boutons gauche et droite #}
 			<div id="more_info" class="text-center">
 				{% if animations is not empty %}
-					<a href="{{path('app_animations_details',{id: animations[0].id})}}" class="btn btn-primary">
+					<a href="{{path('app_animations_details',{slug: animations[0].slug})}}" class="btn btn-primary">
 						+ d'infos
 					</a>
 				{% endif %}
@@ -128,41 +128,6 @@
 	</div>
 	{# Fin row #}
 
-
-	<div class="container">
-		<h1 id="title_animation">
-			{% if animations is not empty %}
-				{{animations[0].title}}
-			{% endif %}
-		</h1>
-	</div>
-
-	<div class="container">
-		<div class="container-fluid">
-			<p id="scenario_animation">
-				{% if animations is not empty %}
-					<!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
-					{{ 'SCÉNARIO :' ~ animations[0].scenario | raw }}
-				{% endif %}
-			</p>
-		</div>
-		<div class="container-fluid">
-			<p id="technical_info_animation">
-				{% if animations is not empty %}
-					<!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
-					{{ 'CARACTERISTIQUES TECHNIQUES:' ~ animations[0].technicalInfo | raw }}
-				{% endif %}
-			</p>
-		</div>
-		<div class="container-fluid">
-			<p id="game_animation">
-				{% if animations is not empty %}
-					<!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
-					{{ 'JEUX:' ~ animations[0].games | raw }}
-				{% endif %}
-			</p>
-		</div>
-	</div>
 </div>{% endblock %}{% block javascripts %}
 
 <script src="{{ asset('js/animations.js')}}"></script>{% endblock %}

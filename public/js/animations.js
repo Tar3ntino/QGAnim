@@ -1,58 +1,6 @@
 // Initialisation de isHorizontal va dépendre du mode paysage ou portrait du mobile et de la taille de l'écran, on ne va pas le mettre par défaut à horizontal=true sinon le mode portrait sera en horizontal au chargement de la page car la rotation vertical/horizontal ne se fait quavec le changement d'etat 
-console.log('largeur de la fenetre : ' + window.innerWidth); // 393
-if (window.innerWidth < 600){
-    var isHorizontal = false;                                   // Initialisation position carousel défaut vertical
-}
-else{
-    var isHorizontal = true;                                   // Initialisation position carousel défaut horizontal
-}
-console.log("isHorizontal : " + isHorizontal);
-
-// MDN WEB Docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/addListener
-// Retourne BOOLEN -> matchMedia() : C'est une méthode qui dépend de l'objet window (la fenêtre du navigateur) et qui prend en argument une chaîne de texte contenant l'expression à tester, pour retourner true ou false via sa propriété matches.
-var mediaQueryList = window.matchMedia('(min-width: 600px)'); 
-
-function screenTest(e) {                                    // Notre fonction de rappel que l'on exécute lorsque l'état de notre requête multimédia change.
-  if (e.matches) {                                          /* the viewport is more than than 600 pixels wide */
-    console.log('C\'est un plus grand écran - 600 px de large ou plus');
-    angle = theta * selectedIndex * -1;                     // Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1
-    isHorizontal = true;
-    rotateFn = isHorizontal ? 'rotateY' : 'rotateX';        // "RotateFn" prend la propriété Css de la rotation verticale car carousel actuellement horizontal
-    carousel.style.transform = 'translateZ(' + -radius + 'px) ' + rotateFn + '(' + angle + 'deg)'; 
-    console.log("radius : " + radius)
-    console.log("angle : " + angle)
-    changeCarousel();
-
-  } else {
-    /* the viewport is 600 pixels wide or less */
-    console.log('C\'est un petit écran - 600 px de large ou moins');
-    // document.body.style.backgroundColor = 'aquamarine';
-
-    angle = theta * selectedIndex * -1;
-    isHorizontal = false;
-    rotateFn = isHorizontal ? 'rotateY' : 'rotateX'; // Si le carousel est horizontal, la rotation se fera horizontalement
-    carousel.style.transform = 'translateZ(' + -radius + 'px) ' + rotateFn + '(' + angle + 'deg)';
-    console.log("radius : " + radius)
-    console.log("angle : " + angle)
-    changeCarousel();
-  }
-}
-
-// On lance une première fois le ScreenTest même si aucun "évènement de rotation / changement "" de largeur de l'apparail pour savoir si affichage vertical ou horizontal du carousel
-mediaQueryList.addListener(screenTest);
-
-var rotateFn = isHorizontal ? 'rotateY' : 'rotateX';       // Variable rotateFn prend la valeur de la propriété css de la rotation a effectuer selon orientation carousel. Cette variable sera nécessaire pour le changement d'affichage responsive.
-var radius, theta; 
-
-
-// Vérifie si l'événement touchstart existe et est le premier déclenché
-var clickedEvent = "click"; // Au clic si "touchstart" n'est pas détecté
-window.addEventListener('touchstart', function detectTouch() {
-	clickedEvent = "touchstart"; // Transforme l'événement en "touchstart"
-	window.removeEventListener('touchstart', detectTouch, false);
-}, false);
-
-
+var isHorizontal;
+var angle;
 /* CAROUSSEL 3D POUR MON SITE - Commentaires et explications de code :
 
 // On récupère dans la variable:
@@ -69,54 +17,11 @@ var cellCount;                                             // variable pour déf
 var selectedIndex = 0;                                     // initialisation index de lecture
 var cellWidth = carousel.offsetWidth;                      // width à 100% du parent .scene (300px)
 var cellHeight = carousel.offsetHeight;                    // height à 100% du parent .scene (200px)
+console.log('largeur de la fenetre : ' + window.innerWidth); // 393
 
- 
-//console.log(cellWidth, cellHeight);
-
-/*
-if (window.matchMedia("(min-width: 600px)").matches) {
-    
-} else { // Sinon affichage < 600px de large : Rotation verticale
-    console.log('On passe en mode vertical');
-
-}*/
-
-function rotateCarousel() {
-    var angle = theta * selectedIndex * -1; //Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1   
-    carousel.style.transform = 'translateZ(' + -radius + 'px) ' + rotateFn + '(' + angle + 'deg)';
-}
-
-var prevButton = document.querySelector('.previous-button');
-prevButton.addEventListener(clickedEvent, function() {
-    selectedIndex--;
-    rotateCarousel();
-    console.log("index select :" + selectedIndex);
-    console.log("nb animations :" + cellsRange.value);
-    console.log("index_played = selectedIndex % NbAnimation :" + (selectedIndex % cellsRange.value));
-    
-
-    // Si la valeur de l'index devient négative, alors on l'index de la dernière vignette du carousel correspond à l'index du nombre de vignettes du carousel autrement dit la dernière:
-    if (selectedIndex < 0) {
-        selectedIndex = cellsRange.value;
-    }
-    var index_played = selectedIndex % cellsRange.value;
-
-    /*On récupère le titre se situant à l'intérieur de la balise h2 généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'title_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
-    var titleAnimationPlayed = document.getElementById('titre'+index_played).textContent;
-    document.getElementById('title_animation').innerHTML = titleAnimationPlayed;
-
-    /*On récupère le scenario de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
-    var scenarioAnimationPlayed = document.getElementById('scenario'+index_played).textContent;
-    document.getElementById('scenario_animation').innerHTML = scenarioAnimationPlayed;
-
-    /*On récupère les caracteristiques techniques de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
-    var technicalInfoAnimationPlayed = document.getElementById('technical_info'+index_played).textContent;
-    document.getElementById('technical_info_animation').innerHTML = technicalInfoAnimationPlayed;
-
-    /*On récupère les caracteristiques techniques de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
-    var gameAnimationPlayed = document.getElementById('game'+index_played).textContent;
-    document.getElementById('game_animation').innerHTML = gameAnimationPlayed;
-});
+// MDN WEB Docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/addListener
+// Retourne BOOLEN -> matchMedia() : C'est une méthode qui dépend de l'objet window (la fenêtre du navigateur) et qui prend en argument une chaîne de texte contenant l'expression à tester, pour retourner true ou false via sa propriété matches.
+var mediaQueryList = window.matchMedia('(min-width: 600px)'); 
 
 var nextButton = document.querySelector('.next-button');
 nextButton.addEventListener(clickedEvent, function() {
@@ -177,6 +82,118 @@ cellsRange.addEventListener('input', changeCarousel);
     - "cellSize" = isHorizontal ? cellWidth : cellHeight : si le booleen isHorizontal est true, cellSize= largeur sinon hauteur
 */
 
+// Etape 1 :
+// Lecture des boutons orientations:
+// Dans le tour de boucle, on va lire les évènements pour les 2 boutons orientations avec l'appel d'une autre méthode onOrientationChange
+var orientationRadios = document.querySelectorAll('input[name="orientation"]'); // Vaut 2
+
+if (window.innerWidth < 600){
+    isHorizontal = false;                                   // Initialisation position carousel défaut vertical
+}
+else{
+    isHorizontal = true;                                   // Initialisation position carousel défaut horizontal
+}
+var rotateFn = isHorizontal ? 'rotateY' : 'rotateX';        // "RotateFn" prend la propriété Css de la rotation verticale car carousel actuellement horizontal
+    // carousel.style.transform = 'translateZ(' + -radius + 'px) ' + rotateFn + '(' + angle + 'deg)'; 
+    console.log("rotateFn : " + rotateFn)
+    changeCarousel();
+console.log("isHorizontal : " + isHorizontal);
+
+function screenTest(e) {                                    // Notre fonction de rappel que l'on exécute lorsque l'état de notre requête multimédia change.
+  if (e.matches) {     
+    /* the viewport is more than than 600 pixels wide */
+
+    console.log('largeur de la fenetre : ' + window.innerWidth); // 393
+    isHorizontal = true;                                   // Initialisation position carousel défaut horizontal
+console.log("isHorizontal : " + isHorizontal);
+    console.log('C\'est un plus grand écran - 600 px de large ou plus');
+    angle = theta * selectedIndex * -1;                     // Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1
+    console.log('ma valeur horizontal screenTest :' + isHorizontal);
+    rotateFn = isHorizontal ? 'rotateY' : 'rotateX';        // "RotateFn" prend la propriété Css de la rotation verticale car carousel actuellement horizontal
+    carousel.style.transform = 'translateZ(' + -radius + 'px) ' + rotateFn + '(' + angle + 'deg)'; 
+    console.log("radius : " + radius)
+    console.log("angle : " + angle)
+    changeCarousel();
+
+  } else {
+    /* the viewport is 600 pixels wide or less */
+    console.log('C\'est un petit écran - 600 px de large ou moins');
+    // document.body.style.backgroundColor = 'aquamarine';
+
+    angle = theta * selectedIndex * -1;
+    isHorizontal = false;
+    rotateFn = isHorizontal ? 'rotateY' : 'rotateX'; // Si le carousel est horizontal, la rotation se fera horizontalement
+    carousel.style.transform = 'translateZ(' + -radius + 'px) ' + rotateFn + '(' + angle + 'deg)';
+    console.log("radius : " + radius)
+    console.log("angle : " + angle)
+    changeCarousel();
+  }
+}
+
+// On lance une première fois le ScreenTest même si aucun "évènement de rotation / changement "" de largeur de l'apparail pour savoir si affichage vertical ou horizontal du carousel
+mediaQueryList.addListener(screenTest);
+
+rotateFn = isHorizontal ? 'rotateY' : 'rotateX';       // Variable rotateFn prend la valeur de la propriété css de la rotation a effectuer selon orientation carousel. Cette variable sera nécessaire pour le changement d'affichage responsive.
+var radius, theta; 
+
+
+// Vérifie si l'événement touchstart existe et est le premier déclenché
+var clickedEvent = "click"; // Au clic si "touchstart" n'est pas détecté
+window.addEventListener('touchstart', function detectTouch() {
+	clickedEvent = "touchstart"; // Transforme l'événement en "touchstart"
+	window.removeEventListener('touchstart', detectTouch, false);
+}, false);
+
+
+ 
+//console.log(cellWidth, cellHeight);
+
+/*
+if (window.matchMedia("(min-width: 600px)").matches) {
+    
+} else { // Sinon affichage < 600px de large : Rotation verticale
+    console.log('On passe en mode vertical');
+
+}*/
+
+function rotateCarousel() {
+    var angle = theta * selectedIndex * -1; //Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1   
+    console.log("angle= " + angle);
+    carousel.style.transform = 'translateZ(' + -radius + 'px) ' + rotateFn + '(' + angle + 'deg)';
+}
+
+var prevButton = document.querySelector('.previous-button');
+prevButton.addEventListener(clickedEvent, function() {
+    selectedIndex--;
+    rotateCarousel();
+    console.log("index select :" + selectedIndex);
+    console.log("nb animations :" + cellsRange.value);
+    console.log("index_played = selectedIndex % NbAnimation :" + (selectedIndex % cellsRange.value));
+    
+
+    // Si la valeur de l'index devient négative, alors on l'index de la dernière vignette du carousel correspond à l'index du nombre de vignettes du carousel autrement dit la dernière:
+    if (selectedIndex < 0) {
+        selectedIndex = cellsRange.value;
+    }
+    var index_played = selectedIndex % cellsRange.value;
+
+    /*On récupère le titre se situant à l'intérieur de la balise h2 généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'title_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
+    var titleAnimationPlayed = document.getElementById('titre'+index_played).textContent;
+    document.getElementById('title_animation').innerHTML = titleAnimationPlayed;
+
+    /*On récupère le scenario de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
+    var scenarioAnimationPlayed = document.getElementById('scenario'+index_played).textContent;
+    document.getElementById('scenario_animation').innerHTML = scenarioAnimationPlayed;
+
+    /*On récupère les caracteristiques techniques de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
+    var technicalInfoAnimationPlayed = document.getElementById('technical_info'+index_played).textContent;
+    document.getElementById('technical_info_animation').innerHTML = technicalInfoAnimationPlayed;
+
+    /*On récupère les caracteristiques techniques de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
+    var gameAnimationPlayed = document.getElementById('game'+index_played).textContent;
+    document.getElementById('game_animation').innerHTML = gameAnimationPlayed;
+});
+
 /* Function verif lecture evenement*/
 function testFunction(){
     console.log ("la fonction s'active")
@@ -203,10 +220,6 @@ function changeCarousel() {
     }
     rotateCarousel();
 }
-// Etape 1 :
-// Lecture des boutons orientations:
-// Dans le tour de boucle, on va lire les évènements pour les 2 boutons orientations avec l'appel d'une autre méthode onOrientationChange
-var orientationRadios = document.querySelectorAll('input[name="orientation"]'); // Vaut 2
 
 (function() {
     for (var i = 0; i < orientationRadios.length; i++) {        
@@ -232,7 +245,7 @@ function onOrientationChange() {
 }
 
 // set initials
-onOrientationChange();
+// onOrientationChange();
 
 // Récuperation des infos de l'animation selectionnée du carousel avecc JS :
 document.getElementById('readIdImage');
