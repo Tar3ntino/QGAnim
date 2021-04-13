@@ -8,6 +8,21 @@
     <div class="container-fluid">
       Modifier la page de présentation
     </div>
+
+{# Vérifier si la route est "admin_presentation_edit", on affiche les images #}
+        {% if app.request.attributes.get('_route') == 'admin_presentation_edit' %}
+            {% for image in presentation.images %}
+                <div>
+                    <img src="{{ asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
+                    <a href="{{ path ('admin_animations_delete_image', {'id': image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}"> Supprimer </a>
+                </div>            
+            {% endfor %}
+        {% endif %}
+
+
+
+
+    {{form(form)}}
 {% endblock %} 
 
 {% block javascripts %}

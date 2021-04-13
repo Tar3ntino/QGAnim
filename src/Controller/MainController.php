@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Animations;
 use App\Repository\AnimationsRepository;
 use App\Repository\ImagesCarouselAccueilRepository;
+use App\Repository\PresentationRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +19,7 @@ class MainController extends AbstractController
     {
         return $this->render('main/index.html.twig', [
             'imagesCarousel' => $imagesCarouselRepo->findAll(),
-            'animations' => $animationsRepo->findAll()
+            'animations' => $animationsRepo->findAll(),
         ]);
     }
 

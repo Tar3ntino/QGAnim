@@ -28,6 +28,11 @@ class Images
      */
     protected $animations;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Presentation::class, inversedBy="images")
+     */
+    private $presentation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +58,18 @@ class Images
     public function setAnimations(?Animations $animations): self
     {
         $this->animations = $animations;
+
+        return $this;
+    }
+
+    public function getPresentation(): ?Presentation
+    {
+        return $this->presentation;
+    }
+
+    public function setPresentation(?Presentation $presentation): self
+    {
+        $this->presentation = $presentation;
 
         return $this;
     }
