@@ -27,7 +27,7 @@ class AnimationsType extends AbstractType
             ->add('images', FileType::class, [
                 'label' => "Aperçu de l'animation :",
                 'multiple' => true,
-                'mapped' => false,
+                'mapped' => false, 
                 'required' => false
             ])
             ->add('scenario', CKEditorType::class,[

@@ -33,7 +33,8 @@
                     <td>{{ demande.eventType}}</td>
                     <td>{{ demande.status}}</td>
                    <td class="text-center">
-                        <a class="btn btn-secondary my-1" href="{{path("admin_demandes_modifier", {id: demande.id})}}" role="button">Modifier</a>
+                        <a class="btn btn-secondary my-1" href="{{path("admin_demandes_modifier", {id: demande.id})}}" role="button">Modifier statut</a>
+                        <a class="btn btn-secondary my-1" href="{{path("admin_devis_creer", {id: demande.id})}}" role="button">Créer un devis</a>
                         <!-- Button trigger modal -->
                         <a href="admin_demandes_supprimer" type="button" class="btn btn-secondary modal-trigger-animation my-1" data-toggle="modal" data-target="#modal-delete" data-id="{{demande.id}}">Supprimer</a>
                     </td>

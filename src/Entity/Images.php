@@ -33,6 +33,11 @@ class Images
      */
     private $presentation;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Devis::class, inversedBy="logo")
+     */
+    private $devis;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +75,18 @@ class Images
     public function setPresentation(?Presentation $presentation): self
     {
         $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function getDevis(): ?Devis
+    {
+        return $this->devis;
+    }
+
+    public function setDevis(?Devis $devis): self
+    {
+        $this->devis = $devis;
 
         return $this;
     }

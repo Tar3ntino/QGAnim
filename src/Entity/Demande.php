@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DemandeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -93,6 +95,21 @@ class Demande
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $status;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Devis::class, mappedBy="demande")
+     */
+    private $devis;
+
+    public function __toString()
+    {
+        return $this->eventType;
+    }
+
+    public function __construct()
+    {
+        $this->devis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -268,6 +285,36 @@ class Demande
     public function setStatus(?string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Devis[]
+     */
+    public function getDevis(): Collection
+    {
+        return $this->devis;
+    }
+
+    public function addDevi(Devis $devi): self
+    {
+        if (!$this->devis->contains($devi)) {
+            $this->devis[] = $devi;
+            $devi->setDemande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevi(Devis $devi): self
+    {
+        if ($this->devis->removeElement($devi)) {
+            // set the owning side to null (unless already changed)
+            if ($devi->getDemande() === $this) {
+                $devi->setDemande(null);
+            }
+        }
 
         return $this;
     }

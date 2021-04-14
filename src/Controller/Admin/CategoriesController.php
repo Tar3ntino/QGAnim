@@ -77,7 +77,7 @@ class CategoriesController extends AbstractController
         }
 
         return $this->render('admin/categories/ajout.html.twig', [
-            'form' => $form->createView()
+            'Categorieform' => $form->createView()
         ]);
     }
 
@@ -109,7 +109,7 @@ class CategoriesController extends AbstractController
         }
 
         return $this->render('admin/categories/ajout.html.twig', [
-            'form' => $form->createView()
+            'Categorieform' => $form->createView()
         ]);
     }
 

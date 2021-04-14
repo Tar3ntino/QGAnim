@@ -12,16 +12,13 @@
 {% block body %}
 	<div class="container-fluid">
 		<div class="container" id="containerTopPresentation">
+        {% for presentation in presentations %}
 			<div class="row">
 				<div class="col-sm-4">
 					<img src="{{ asset('/images/portrait_presentation.png') }}" alt="Photo de présentation">
 				</div>
 				<div class="col-sm-8 d-flex align-items-center">
-					<p style="text-align: right">
-						QG Animations vous propose d’animer vos évènements :
-						<br><br>
-						Anniversaires, mariage, retraite mais pas que …toutes les occasions sont bonnes pour se retrouver, s’évader, s’amuser et partager un moment unique axé sur la convivialité, le partage, le plaisir et la bonne humeur.
-					</p>
+                    {{ presentation.topDescription |raw }}
 				</div>
 			</div>
 		</div>
@@ -30,9 +27,7 @@
 		<div class="container" id="containerBottomPresentation">
 			<div class="row">
 				<div class="col-8 d-flex align-items-center">
-					<p style="text-align: left">
-						Tous publics, petits et grands, jeunes et moins jeunes, QG Animations s’adaptera et saura vous écouter et vous proposer un divertissement adapté, à vos attentes. <br> <br> Alors, n’hésitez plus, n’attendez plus, contactez-moi. <br> <br> QG Animations gère tout, chez vous pour vous, avec vous
-					</p>
+					{{ presentation.bottomDescription |raw }}
 				</div>
                 <div class="col-4">
 					<img id="photoAtelier" src="{{ asset('/images/preparation_presentation.png') }}" alt="Photo atelier">
@@ -40,6 +35,7 @@
 			</div>
 		</div>
 	</div>
+    {% endfor %}
 {% endblock %}
 
 

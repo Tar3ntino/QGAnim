@@ -8,6 +8,7 @@ use App\Form\PresentationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -18,15 +19,16 @@ class PresentationController extends AbstractController
 {
 /**
  * @Route("/ajout", name="ajout")
- * Pour créer un formulaire, il est nécessaire d'avoir en paramètre l'objet Request
- * provenant de la classe HttpFoundation à importer use...
+ * Pour créer un formulaire, il est nécessaire d'avoir en paramètre l'objet Request provenant de la classe HttpFoundation à importer use...
  */
     public function ajoutPresentation(Request $request)
     {
-    /* Creation d'une nouvelle animation : */
+    /* Creation d'une nouvel objet Présentation : */
     $presentation = new Presentation;
+    
     /* Creation d'un formulaire pour pouvoir ajouter un objet presentation qui contiendra les infos de notre page que l'on va renvoyer dans la vue pour la saisie : */
     $form = $this->createForm(PresentationType::class, $presentation);
+    
     /* Traitement de la request du formulaire une fois le bouton 'valider' cliqué : */
     $form->handleRequest($request);
 
@@ -37,8 +39,7 @@ class PresentationController extends AbstractController
         // trouve dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
         $images = $form->get('images')->getData();
 
-        // Etant donnée que "Multiple" = true, on peut avoir plusieurs images de chargées
-        // Pour "Animation", Il faut donc boucler sur les images: 
+        // Etant donnée que "Multiple" = true, on peut avoir plusieurs images de chargées pour 1 "Animation", il faut donc boucler sur les images: 
         foreach($images as $image){
             // on génére un nouveau nom de fichier
             $fichier = md5(uniqid()). '.' . $image->guessExtension();
@@ -59,7 +60,7 @@ class PresentationController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->persist($presentation);
         $em->flush();
-        $this->addFlash('success', 'Presentation ajoutée avec succès');
+        $this->addFlash('success', 'Présentation ajoutée avec succès');
         return $this->redirectToRoute('admin_home'); // Redirection une fois l'animation ajoutée
     }
     // Page formulaire d'ajout d'une presentation si non envoyée : 
@@ -116,5 +117,32 @@ class PresentationController extends AbstractController
             'presentation' => $presentation,
             'form' => $form->createView()
         ]);
+    }
+
+        /**
+     * @Route("/supprime/image/{id}", name="delete_image", methods={"DELETE"})
+     */
+    public function deleteImage(Images $image, Request $request){
+        $data = json_decode($request->getContent(), true);
+        
+        // On vérifie si le token est valide
+        if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
+
+            // On récupère le nom de l'image
+            $nom = $image->getName();
+
+            // On supprime le fichier du dossier Uploads
+            unlink($this->getParameter('images_directory').'/'.$nom);
+            
+            // On supprime l'entrée de la base
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($image);
+            $em->flush();
+
+            // On répond en json
+            return new JsonResponse(['success' => 1]);
+        }else{
+            return new JsonResponse(['error' => 'Token Invalide'], 400);
+        }
     }
 }

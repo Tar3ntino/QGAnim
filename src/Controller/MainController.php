@@ -57,10 +57,12 @@ class MainController extends AbstractController
      * Cette route renvoie sur la page de presentation du site
      */
 
-    public function presentation()
+    public function presentation(PresentationRepository $presentationRepository)
     {
          // on affiche notre template (plus tard on pourra lui passer des variables et autres 
-        return $this->render('main/presentation.html.twig');
+        return $this->render('main/presentation.html.twig',[
+            'presentations' => $presentationRepository ->findAll()
+        ]);
     }
 
     /**

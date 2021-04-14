@@ -30,8 +30,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
         /**
          * @Route("/ajout", name="ajout")
-         * Pour créer un formulaire, il est nécessaire d'avoir en paramètre l'objet Request
-         * provenant de la classe HttpFoundation à importer use...
+         * Pour créer un formulaire, il est nécessaire d'avoir en paramètre l'objet Request provenant de la classe HttpFoundation à importer use...
          */
         public function ajoutAnimation(Request $request, SluggerInterface $slugger)
         {
@@ -44,9 +43,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
         /* Dans le cas ou le formulaire est soumis ET valide : */
         if ($form->isSubmitted() && $form->isValid()){
-
-            // On récupère les images transmises: on déclare une variable $images, on lui affecte(=) la donnée qui se 
-            // trouve dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
+            // On récupère les images transmises: on déclare une variable $images, on lui affecte(=) la donnée qui se trouve dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
             $images = $form->get('images')->getData();
 
             // Etant donnée que "Multiple" = true, on peut avoir plusieurs images de chargées
@@ -77,7 +74,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         }
         // Page formulaire d'ajout d'animation si non envoyé : 
         return $this->render('admin/animations/ajout.html.twig', [ 
-            'form' => $form->createView()
+            'AnimationForm' => $form->createView()
         ]);
         }
 
@@ -130,7 +127,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         }
         return $this->render('admin/animations/ajout.html.twig', [
             'animation' => $animation,
-            'form' => $form->createView()
+            'AnimationForm' => $form->createView()
         ]);
     }
 
@@ -155,8 +152,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         
         // On vérifie si le token est valide
         if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
+
             // On récupère le nom de l'image
             $nom = $image->getName();
+
             // On supprime le fichier du dossier Uploads
             unlink($this->getParameter('images_directory').'/'.$nom);
             
@@ -171,10 +170,5 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
             return new JsonResponse(['error' => 'Token Invalide'], 400);
         }
     }
-
-    /**
-     * @Route("/supprime/image/{id}", name="delete_image", methods={"DELETE"})
-     */
-
 
 } 

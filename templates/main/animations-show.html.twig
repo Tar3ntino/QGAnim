@@ -19,11 +19,11 @@
 				<h1 class="title_details">{{animations.title}}</h1>
 				<p>
 					Categorie :
-                    
+
 					{# {{ dump(animations.categories) }} #}
-                    {{ animations.categories|map (c => c.name)|join(', ') }}
-                    
-                    </p>
+					{{ animations.categories|map (c => c.name)|join(', ') }}
+
+				</p>
 
 				<p
 					class="card-text">
@@ -45,8 +45,15 @@
 		<h1>
 			Nos réalisations
 		</h1>
+		<div class="row">
+			{% for img in animations.images %}
+				<div class="col">
+					<img src="{{ asset('uploads/' ~ img.name)|imagine_filter('square') }}" class="card-img-top" alt="{{ animations.title }}">
+				</div>
+			{% endfor %}
+		</div>
 	</div>
-    <div class="container">
+	<div class="container">
 		<h1>
 			Vous aimerez peut être aussi...
 		</h1>

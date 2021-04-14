@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Presentation;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,8 +23,8 @@ class PresentationType extends AbstractType
                 'mapped' => false,  
                 'required' => false
             ])
-            ->add('topDescription')
-            ->add('bottomDescription')
+            ->add('topDescription', CKEditorType::class)
+            ->add('bottomDescription', CKEditorType::class)
             ->add('Valider', SubmitType::class)
         ;
     }
