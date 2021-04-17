@@ -67,101 +67,179 @@
 		</div>
 	</div>
 
-	<ul class="accordion">
-		<li class="has-sub">
-			<label for="menu1" style="color:white;">Mes demandes</label><input id="menu1" name="menu" type="checkbox"/>
-			<ul class="sub">
-				<li>
-					<table class="table">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">Envoyé le</th>
-								<th scope="col">Statut</th>
-								<th scope="col">Type évènement</th>
-								<th scope="col">Lieu évènement</th>
-								<th scope="col">Date évènement</th>
-								<th scope="col">Nombre personnes</th>
-								<th scope="col">Horaires animation</th>
-								<th scope="col">Budget</th>
-								<th scope="col">Autres commentaires</th>
-								<th scope="col">Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							{# Remplissage tableau si demandes existantes : #}
-							{% for demande in demandes %}
-								<tr>
-									<td scope="row">{{ demande.createdAt | date('d-m-Y') }}</td>
-									<td>{{ demande.status}}</td>
-									<td>{{ demande.eventType}}</td>
-									<td>{{ demande.eventLocation }}</td>
-									<td>{{ demande.eventDate | date('d-m-Y') }}</td>
-									<td>{{ demande.numberPeople }}</td>
-									<td>{{ demande.animationSchedules }}</td>
-									<td>{{ demande.budgetClient }}</td>
-									<td>{{ demande.otherComments }}</td>
-									<td>
-										<a href="#">Voir la demande</a>
-										<a href="#">Consulter le devis
-										</a>
-									</td>
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</li>
-			</ul>
-		</li>
-		<li class="has-sub">
-			<label for="menu2">Mes Devis</label><input id="menu2" name="menu" type="checkbox"/>
-			<ul class="sub">
-				<li>
-					<a>Item #1</a>
-				</li>
-				<li>
-					<a>Item #2</a>
-				</li>
-			</ul>
-		</li>
-		<li class="has-sub">
-			<label for="menu3">Mes factures</label><input id="menu3" name="menu" type="checkbox"/>
-			<ul class="sub"></ul>
-		</li>
-	</ul>
-
-	<p class="text-center">
-		Mes demandes
-	</p>
-	<table class="table">
-		<thead class="thead-dark">
-			<tr>
-				<th scope="col">Envoyé le</th>
-				<th scope="col">Statut</th>
-				<th scope="col">Type évènement</th>
-				<th scope="col">Lieu évènement</th>
-				<th scope="col">Date évènement</th>
-				<th scope="col">Nombre personnes</th>
-				<th scope="col">Horaires animation</th>
-				<th scope="col">Budget</th>
-				<th scope="col">Autres commentaires</th>
-			</tr>
-		</thead>
-		<tbody>
-			{# Remplissage tableau si demandes existantes : #}
-			{% for demande in demandes %}
+	<div class="container">
+		<table class="table table-striped">
+			<thead>
 				<tr>
-					<td scope="row">{{ demande.createdAt | date('d-m-Y') }}</td>
-					<td>{{ demande.status}}</td>
-					<td>{{ demande.eventType}}</td>
-					<td>{{ demande.eventLocation }}</td>
-					<td>{{ demande.eventDate | date('d-m-Y') }}</td>
-					<td>{{ demande.numberPeople }}</td>
-					<td>{{ demande.animationSchedules }}</td>
-					<td>{{ demande.budgetClient }}</td>
-					<td>{{ demande.otherComments }}</td>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+                    <th scope="col">Handle</th>
+                    <th scope="col">Handle</th>
+                    <th scope="col">Handle</th>
+                    <th scope="col">Handle</th>
+                    <th scope="col">Handle</th>
 				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+                    <td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+                    <td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+                    <td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+                    <td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>Larry</td>
+					<td>the Bird</td>
+					<td>@twitter</td>
+                    <td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+                    <td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+                <tr>
+					<th scope="row">3</th>
+					<td>Larry</td>
+					<td>the Bird</td>
+					<td>@twitter</td>
+                    <td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+                    <td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="container">
+		<ul class="accordion">
+			<li class="has-sub">
+				<label for="menu1" style="color:white;">Mes demandes
+					<i class="fas fa-sort-amount-down"></i>
+				</label><input id="menu1" name="menu" type="checkbox"/>
+				<ul class="sub">
+					<li>
+						<table class="table">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">Envoyé le</th>
+									<th scope="col">Statut</th>
+									<th scope="col">Type évènement</th>
+									<th scope="col">Lieu évènement</th>
+									<th scope="col">Date évènement</th>
+									<th scope="col">Nombre personnes</th>
+									<th scope="col">Horaires animation</th>
+									<th scope="col">Budget</th>
+									<th scope="col">Autres commentaires</th>
+									<th scope="col">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{# Remplissage tableau si demandes existantes : #}
+								{% for demande in demandes %}
+									<tr>
+										<td scope="row">{{ demande.createdAt | date('d-m-Y') }}</td>
+										<td>{{ demande.status}}</td>
+										<td>{{ demande.eventType}}</td>
+										<td>{{ demande.eventLocation }}</td>
+										<td>{{ demande.eventDate | date('d-m-Y') }}</td>
+										<td>{{ demande.numberPeople }}</td>
+										<td>{{ demande.animationSchedules }}</td>
+										<td>{{ demande.budgetClient }}</td>
+										<td>{{ demande.otherComments }}</td>
+										<td>
+											<a href="#">Voir la demande</a>
+											<a href="#">Consulter le devis
+											</a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</li>
+				</ul>
+			</li>
+			<li class="has-sub">
+				<label for="menu2">Mes Devis
+					<i class="fas fa-sort-amount-down"></i>
+				</label><input id="menu2" name="menu" type="checkbox"/>
+				<ul class="sub">
+					<li>
+						<a>Item #1</a>
+					</li>
+					<li>
+						<a>Item #2</a>
+					</li>
+				</ul>
+			</li>
+			<li class="has-sub">
+				<label for="menu3">Mes factures
+					<i class="fas fa-sort-amount-down"></i>
+				</label><input id="menu3" name="menu" type="checkbox"/>
+				<ul class="sub"></ul>
+			</li>
+		</ul>
+
+		<p class="text-center">
+			Mes demandes
+		</p>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Envoyé le</th>
+					<th scope="col">Statut</th>
+					<th scope="col">Type évènement</th>
+					<th scope="col">Lieu évènement</th>
+					<th scope="col">Date évènement</th>
+					<th scope="col">Nombre personnes</th>
+					<th scope="col">Horaires animation</th>
+					<th scope="col">Budget</th>
+					<th scope="col">Autres commentaires</th>
+				</tr>
+			</thead>
+			<tbody>
+				{# Remplissage tableau si demandes existantes : #}
+				{% for demande in demandes %}
+					<tr>
+						<td scope="row">{{ demande.createdAt | date('d-m-Y') }}</td>
+						<td>{{ demande.status}}</td>
+						<td>{{ demande.eventType}}</td>
+						<td>{{ demande.eventLocation }}</td>
+						<td>{{ demande.eventDate | date('d-m-Y') }}</td>
+						<td>{{ demande.numberPeople }}</td>
+						<td>{{ demande.animationSchedules }}</td>
+						<td>{{ demande.budgetClient }}</td>
+						<td>{{ demande.otherComments }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 
 {% endblock %}

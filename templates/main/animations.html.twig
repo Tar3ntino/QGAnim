@@ -10,6 +10,18 @@
 {% endblock %}
 
 {% block body %}
+
+<style>
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: black;
+    border-radius: 50%;
+    display: inline-block;
+}
+</style>
+
+
 	<div class="row">
 		<div class="col">
 			<div
@@ -76,8 +88,9 @@
 
 					{# Boutons de sélections qui vont permettre un changement d'affichage du carousel par rotation. Le clic sur ce bouton viendra également incrémenter ou décrémenter l'index de lecture de la diapositive centréé (initialisée à zéro au chargement de la page) #}
 					<p>
-						<button class="previous-button">Previous</button>
-						<button class="next-button">Next</button>
+                    <span><i class="fas fa-caret-left previous-button dot"></i></span>
+			        <span><i class="fas fa-caret-right previous-button dot"></i></span>
+					
 					</p>
 
 					<div style="display:none" value="0"></div>

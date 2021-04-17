@@ -513,3 +513,13 @@ input:checked+.sub>li {
     content: "____";
     margin-top: -30px;
 }
+
+/* fleche carousel 3d */
+
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: black;
+    border-radius: 50%;
+    display: inline-block;
+}

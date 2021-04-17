@@ -37,6 +37,6 @@ security:
     # En mode production, rajouter ", requires_channel: https" sur chaque path
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/users, roles: ROLE_USER }
+        - { path: ^/users, roles: [ROLE_ADMIN , ROLE_USER] }
         # - { path: ^/, requires_channel: https }
         #- { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY}
