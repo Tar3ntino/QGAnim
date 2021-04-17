@@ -19,25 +19,46 @@
 			Ajouter un utilisateur
 		</h1>
 	{% endif %}
-    <div class="row">
-        <div class="col-md-4"></div>
-            <div class="col-md-4 col-sm-12 my-3">
-                {{ form_start(registrationForm) }}
-                {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.gender) }}
-                {{ form_row(registrationForm.firstname) }}
-                {{ form_row(registrationForm.name) }}
-                {{ form_row(registrationForm.plainPassword) }}
-                {{ form_row(registrationForm.dateBirth) }}
 
-                <button type="submit" class="btn btn-secondary" id="btnRegister">Enregistrer le nouvel utilisateur</button>
+	<div class="container-fluid">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">Email</th>
+					<th scope="col">Titre de civilité</th>
+					<th scope="col">Prénom</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Mot de passe</th>
+					<th scope="col">Date Naissance</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row"></th>
+					{{ form_start(registrationForm) }}
+					<td>{{ form_row(registrationForm.email) }}</td>
+					<td>{{ form_row(registrationForm.gender) }}</td>
+					<td>{{ form_row(registrationForm.firstname) }}</td>
+					<td>{{ form_row(registrationForm.name) }}</td>
+					<td>{{ form_row(registrationForm.plainPassword) }}</td>
+					<td>{{ form_row(registrationForm.dateBirth) }}</td>
+					{{ form_end(registrationForm) }}
+				</tr>
+			</tbody>
+		</table>
 
-                {{ form_end(registrationForm) }}
-            </div>
-        <div class="col-md-4"></div>
-    </div>
+		{% if app.request.attributes.get('_route') == 'admin_users_modifier' %}
+			<button type="submit" class="btn btn-secondary float-right mb-5" id="btnRegister">Modifier l'utilisateur</button>
+		{% else %}
+			<button type="submit" class="btn btn-secondary float-right mb-5" id="btnRegister">Enregistrer le nouvel utilisateur</button>
+		{% endif %}
+
+	</div>
+
+
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('js/images.js')}}"></script>
+	<script src="{{ asset('js/images.js')}}"></script>
 {% endblock %}

@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="container-fluid">
-            <h1> Création de devis </h1>
+            <h1 class="text-center my-3"> Création de devis </h1>
     </div>
     {# {{ dump(demande) }} #}
     {# Logo entreprise QG :</br>
@@ -24,6 +24,8 @@
     Montant : </br> #}
 
 <div class="container">
+
+
 {{form_start(DevisForm)}}
 {{form_end(DevisForm)}}
 </div>

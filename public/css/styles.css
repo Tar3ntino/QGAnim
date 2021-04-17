@@ -519,7 +519,7 @@ input:checked+.sub>li {
 .dot {
     height: 25px;
     width: 25px;
-    background-color: black;
+    background-color: whitesmoke;
     border-radius: 50%;
     display: inline-block;
 }

@@ -1,10 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une categorie{% endblock %}
+{% block title %}Ajouter une categorie
+{% endblock %}
 
 {% block body %}
- <h1> Ajouter une categorie </h1>
+	<div class="container">
+		<h1 class="text-center my-3">
+			Ajouter une categorie
+		</h1>
 
- {{ form(Categorieform) }}
- 
-{% endblock %}
+		{{ form(Categorieform) }}
+
+		</div>
+	{% endblock %}

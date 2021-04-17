@@ -1,52 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}> Traitenement des demandes clients {% endblock %}
+{% block title %}> Traitenement des demandes clients
+{% endblock %}
 
 {% block body %}
-	<h1 class="text-center">Traitement des demandes clients</h1>
-    
-	<table class="table table-striped table-dark">
-		<thead class="thead-dark">
-            <tr>
-                <th scope="col">Reçu le</th>
-                <th scope="col">Nom du demandeur</th>
-                <th scope="col">Prénom du demandeur</th>
-                <th scope="col">Type évènement</th>
-                <th scope="col">Statut</th>
-                <th scope="col">Actions</th>
-                <!-- <th scope="col">Lieu évènement</th>
-                <th scope="col">Date évènement</th>
-                <th scope="col">Nombre personnes</th>
-                <th scope="col">Horaires animation</th>
-                <th scope="col">Budget</th>
-                <th scope="col">Autres commentaires</th> -->
-            </tr>
-        </thead>
-		 <tbody>
-        {# Remplissage tableau si demandes existantes : #}
 
-            {% for demande in demandes %}
-                <tr>
-                    <th scope="row">{{ demande.createdAt | date('d-m-Y') }}</th>
-                    <td>{{ demande.nameRequester}}</td>
-                    <td>{{ demande.firstnameRequester}}</td>
-                    <td>{{ demande.eventType}}</td>
-                    <td>{{ demande.status}}</td>
-                   <td class="text-center">
-                        <a class="btn btn-secondary my-1" href="{{path("admin_demandes_modifier", {id: demande.id})}}" role="button">Modifier statut</a>
-                        <a class="btn btn-secondary my-1" href="{{path("admin_devis_creer", {id: demande.id})}}" role="button">Créer un devis</a>
-                        <!-- Button trigger modal -->
-                        <a href="admin_demandes_supprimer" type="button" class="btn btn-secondary modal-trigger-animation my-1" data-toggle="modal" data-target="#modal-delete" data-id="{{demande.id}}">Supprimer</a>
-                    </td>
+	<div class="container">
+		<h1 class="text-center my-3">Traitement des demandes clients</h1>
 
-                    <!-- <td>{{ demande.eventLocation }}</td>
-                    <td>{{ demande.eventDate | date('d-m-Y') }}</td>
-                    <td>{{ demande.numberPeople }}</td>
-                    <td>{{ demande.animationSchedules }}</td>
-                    <td>{{ demande.budgetClient }}</td>
-                    <td>{{ demande.otherComments }}</td> -->
-                </tr>
-            {% endfor %}
-        </tbody>
-	</table>
+		<table class="table table-striped table-light">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">Reçu le</th>
+					<th scope="col">Nom du demandeur</th>
+					<th scope="col">Prénom du demandeur</th>
+					<th scope="col">Type évènement</th>
+					<th scope="col">Statut</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{# Remplissage tableau si demandes existantes : #}
+
+				{% for demande in demandes %}
+					<tr>
+						<th scope="row">{{ demande.createdAt | date('d-m-Y') }}</th>
+						<td>{{ demande.nameRequester}}</td>
+						<td>{{ demande.firstnameRequester}}</td>
+						<td>{{ demande.eventType}}</td>
+						<td>{{ demande.status}}</td>
+						<td class="text-center">
+							<a class="btn btn-primary my-1" href="{{path("admin_demandes_modifier", {id: demande.id})}}" role="button"><i class="far fa-edit"></i></a>
+							<a class="btn btn-success my-1" href="{{path("admin_devis_creer", {id: demande.id})}}" role="button"><i class="fas fa-plus"></i> Créer un devis</a>
+							<!-- Button trigger modal -->
+							<a href="admin_demandes_supprimer" type="button" class="btn btn-danger modal-trigger-animation my-1" data-toggle="modal" data-target="#modal-delete" data-id="{{demande.id}}"><i class="fas fa-trash-alt"></i></a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}

@@ -33,7 +33,7 @@ class DevisController extends AbstractController
         }
 
         // Creation d'un formulaire
-        $form = $this->createForm(DevisType::class, $devis, $demande); 
+        $form = $this->createForm(DevisType::class, $devis); 
 
         /* Traitement de la request du formulaire une fois le bouton 'valider' cliqué : */
         $form->handleRequest($request);
