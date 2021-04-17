@@ -6,6 +6,7 @@ use App\Entity\Devis;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class DevisType extends AbstractType
 {
@@ -21,6 +22,7 @@ class DevisType extends AbstractType
             ->add('tax')
             ->add('amount')
             ->add('demande')
+            ->add('Valider', SubmitType::class)
         ;
     }
 

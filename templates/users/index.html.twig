@@ -84,6 +84,7 @@
 								<th scope="col">Horaires animation</th>
 								<th scope="col">Budget</th>
 								<th scope="col">Autres commentaires</th>
+								<th scope="col">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -99,6 +100,11 @@
 									<td>{{ demande.animationSchedules }}</td>
 									<td>{{ demande.budgetClient }}</td>
 									<td>{{ demande.otherComments }}</td>
+									<td>
+										<a href="#">Voir la demande</a>
+										<a href="#">Consulter le devis
+										</a>
+									</td>
 								</tr>
 							{% endfor %}
 						</tbody>

@@ -65,14 +65,16 @@ class Devis
     private $amount;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Demande::class, inversedBy="devis")
+     * @ORM\ManyToOne(targetEntity=Demande::class, inversedBy="devis", cascade={"persist"})
      */
     private $demande;
 
     public function __construct()
     {
         $this->logo = new ArrayCollection();
-    }
+        $this->date_Of_Issue = new \DateTime('NOW');
+        // Cette ligne nous permet de mettre la date actuelle au champ date_Of_Issue lors de la génération de l'entité
+    } 
 
     public function getId(): ?int
     {

@@ -8,7 +8,26 @@
     <div class="container-fluid">
             <h1> Création de devis </h1>
     </div>
-    {{ dump(demande) }}
+    {# {{ dump(demande) }} #}
+    {# Logo entreprise QG :</br>
+    Adresse entreprise QG :</br>
+    Slogan QG :</br>
+
+    Nom client demande :</br>
+    Numéro devis :</br>
+    Date devis : {{ "now"|date("m/d/Y") }} </br>
+    Date d'échéance : </br>
+    Description : Demande pour un {{demande.eventType}}, situé à {{demande.eventLocation}}</br>
+    Quantité : </br>
+    Prix unitaire : </br>
+    Taxe : </br>
+    Montant : </br> #}
+
+<div class="container">
+{{form_start(DevisForm)}}
+{{form_end(DevisForm)}}
+</div>
+
 {% endblock %} 
 
 

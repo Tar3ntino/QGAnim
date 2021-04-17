@@ -26,8 +26,14 @@ class DevisController extends AbstractController
         // Creation d'un nouveau devis :
         $devis = new Devis;
 
+        // Si l'on a bien une demande en entrée d'url, alors
+    
+        if ($demande){
+            $devis->setDemande($demande); // On MAJ le champs Demande de l'entité "Devis" avant de l'envoyer en Base
+        }
+
         // Creation d'un formulaire
-        $form = $this->createForm(DevisType::class, $devis); 
+        $form = $this->createForm(DevisType::class, $devis, $demande); 
 
         /* Traitement de la request du formulaire une fois le bouton 'valider' cliqué : */
         $form->handleRequest($request);
