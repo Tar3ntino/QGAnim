@@ -31,6 +31,7 @@
 					<th scope="col">Nom</th>
 					<th scope="col">Mot de passe</th>
 					<th scope="col">Date Naissance</th>
+					<th scope="col">Compte actif</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -43,6 +44,12 @@
 					<td>{{ form_row(registrationForm.name) }}</td>
 					<td>{{ form_row(registrationForm.plainPassword) }}</td>
 					<td>{{ form_row(registrationForm.dateBirth) }}</td>
+					<td>{{ form_row(registrationForm.activate) }}
+						<div class="custom-control custom-switch">
+							<input type="checkbox" class="custom-control-input" id="customSwitch1">
+							<label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
+						</div>
+					</td>
 					{{ form_end(registrationForm) }}
 				</tr>
 			</tbody>

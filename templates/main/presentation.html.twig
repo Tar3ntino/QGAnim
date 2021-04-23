@@ -15,7 +15,8 @@
         {% for presentation in presentations %}
 			<div class="row">
 				<div class="col-sm-4">
-					<img src="{{ asset('/images/portrait_presentation.png') }}" alt="Photo de présentation">
+                <img src="{{ asset('uploads/' ~ presentation.imageTop )|imagine_filter('square') }}" class="card-img-top" alt="#">
+					
 				</div>
 				<div class="col-sm-8 d-flex align-items-center">
                     {{ presentation.topDescription |raw }}
@@ -26,11 +27,11 @@
     <div class="container-fluid">
 		<div class="container" id="containerBottomPresentation">
 			<div class="row">
-				<div class="col-8 d-flex align-items-center">
+				<div class="col-sm-8 d-flex align-items-center">
 					{{ presentation.bottomDescription |raw }}
 				</div>
-                <div class="col-4">
-					<img id="photoAtelier" src="{{ asset('/images/preparation_presentation.png') }}" alt="Photo atelier">
+                <div class="col-sm-4">
+					<img src="{{ asset('uploads/' ~ presentation.imageBottom )|imagine_filter('square') }}" class="card-img-top" alt="#">
 				</div>
 			</div>
 		</div>

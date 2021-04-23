@@ -17,14 +17,20 @@ class PresentationType extends AbstractType
         $builder
         // On ajoute le champ "images" dans le formulaire
             // Il n'est pas lié à la Base De Données (mapped à false)
-            ->add('images', FileType::class, [
-                'label' => "Aperçu des images de présentation :",
-                'multiple' => true,
+            ->add('imageTop', FileType::class, [
+                'label' => "Aperçu de l'image de présentation - Section Haut de Page :",
+                'multiple' => false,
                 'mapped' => false,  
                 'required' => false
             ])
             ->add('topDescription', CKEditorType::class)
             ->add('bottomDescription', CKEditorType::class)
+            ->add('imageBottom', FileType::class, [
+                'label' => "Aperçu de l'image de présentation - Section Bas de Page :",
+                'multiple' => false,
+                'mapped' => false,  
+                'required' => false
+            ])
             ->add('Valider', SubmitType::class)
         ;
     }

@@ -103,7 +103,7 @@ class Demande
 
     public function __toString()
     {
-        return $this->eventType;
+        return $this->eventType . "organisé par" . $this->getUser()->__toString;
     }
 
     public function __construct()

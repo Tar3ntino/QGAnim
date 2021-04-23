@@ -11,6 +11,11 @@
 
 	<div class="container mb-3">
 		<div class="container-fluid">
+<div class="row">
+<div class="col text-center my-5"><h1>Mon Profil</h1></div>
+</div>
+
+
 			<div class="row">
 				<div class="col-2"></div>
 				<div class="col-8">
@@ -72,65 +77,40 @@
 			<thead>
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">First</th>
-					<th scope="col">Last</th>
-					<th scope="col">Handle</th>
-                    <th scope="col">Handle</th>
-                    <th scope="col">Handle</th>
-                    <th scope="col">Handle</th>
-                    <th scope="col">Handle</th>
-                    <th scope="col">Handle</th>
+					<th scope="col">Envoyé le</th>
+					<th scope="col">Statut</th>
+					<th scope="col">Type évènement</th>
+					<th scope="col">Lieu évènement</th>
+					<th scope="col">Date évènement</th>
+					<th scope="col">Nombre personnes</th>
+					<th scope="col">Horaires animation</th>
+					<th scope="col">Budget</th>
+					<th scope="col">Autres commentaires</th>
+					<th scope="col">Actions</th>
+
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-                    <td>Mark</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-                    <td>Mark</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-                    <td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-                    <td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>Larry</td>
-					<td>the Bird</td>
-					<td>@twitter</td>
-                    <td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-                    <td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-				</tr>
-                <tr>
-					<th scope="row">3</th>
-					<td>Larry</td>
-					<td>the Bird</td>
-					<td>@twitter</td>
-                    <td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-                    <td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-				</tr>
+				{# Remplissage tableau si demandes existantes : #}
+				{% for demande in demandes %}
+					<tr>
+						<td></td>
+						<td scope="row">{{ demande.createdAt | date('d-m-Y') }}</td>
+						<td>{{ demande.status}}</td>
+						<td>{{ demande.eventType}}</td>
+						<td>{{ demande.eventLocation }}</td>
+						<td>{{ demande.eventDate | date('d-m-Y') }}</td>
+						<td>{{ demande.numberPeople }}</td>
+						<td>{{ demande.animationSchedules }}</td>
+						<td>{{ demande.budgetClient }}</td>
+						<td>{{ demande.otherComments }}</td>
+						<td>
+							<a href="#">Voir la demande</a>
+							<a href="#">Consulter le devis
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
 
 			</tbody>
 		</table>
@@ -205,41 +185,6 @@
 				<ul class="sub"></ul>
 			</li>
 		</ul>
-
-		<p class="text-center">
-			Mes demandes
-		</p>
-		<table class="table">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">Envoyé le</th>
-					<th scope="col">Statut</th>
-					<th scope="col">Type évènement</th>
-					<th scope="col">Lieu évènement</th>
-					<th scope="col">Date évènement</th>
-					<th scope="col">Nombre personnes</th>
-					<th scope="col">Horaires animation</th>
-					<th scope="col">Budget</th>
-					<th scope="col">Autres commentaires</th>
-				</tr>
-			</thead>
-			<tbody>
-				{# Remplissage tableau si demandes existantes : #}
-				{% for demande in demandes %}
-					<tr>
-						<td scope="row">{{ demande.createdAt | date('d-m-Y') }}</td>
-						<td>{{ demande.status}}</td>
-						<td>{{ demande.eventType}}</td>
-						<td>{{ demande.eventLocation }}</td>
-						<td>{{ demande.eventDate | date('d-m-Y') }}</td>
-						<td>{{ demande.numberPeople }}</td>
-						<td>{{ demande.animationSchedules }}</td>
-						<td>{{ demande.budgetClient }}</td>
-						<td>{{ demande.otherComments }}</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
 	</div>
 
 {% endblock %}

@@ -5,16 +5,22 @@
     --navbar-bg-contrast: hsl(0, 0%, 25%);
 }
 
-* {
+* { 
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* Activation de la police pour le text suite à l'insertion de la bibliothèque en <link> dans le fichier base.html.twig */
+/* Typography */
+h1, h2, h3, h4, h5, h6 {font-family:"Open Sans", sans-serif, Helvetica, Arial;}
 body {
     height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
+}
+.h3{
+    font-size: 24px;
 }
 
 #navHead {
@@ -227,17 +233,9 @@ body {
 /* Fin du code de la navbar */
 /*****************************
 
-
-
-
-
-
 a { text-decoration: none; }
 
 /* Container-fluid bande LOGO: 100% large avec des "gouttières" padding de 15 px de large à gauche et droite */
-.myheader {
-    background-color: black
-}
 
 .row {
     padding-top: 15px;
@@ -326,9 +324,13 @@ a { text-decoration: none; }
     /* center verticalement, fonctionne ssi Display flex*/
 }
 
-/* Disparition du bouton burger à partir d'une largeur min de 1080px */
+/* Disparition du bouton burger à partir d'une largeur min de 600px */
 @media screen and (min-width: 600px) {
     .navbar-toggle {
+        display: none;
+    }
+
+    .selectLandscape {
         display: none;
     }
 }
@@ -411,6 +413,10 @@ a { text-decoration: none; }
         height: 180px;
         max-height: 500px !important;
     }
+
+    .emptyRight {
+        display: none;
+    }
 }
 
 
@@ -430,10 +436,15 @@ a { text-decoration: none; }
 }
 
 .footer {
-    background: black;
+    background: #232323;
     color: whitesmoke;
     text-decoration: none;
     /* supprime la ligne des liens contenu dans le footer */
+}
+
+.footer a{
+    color: whitesmoke;
+    text-decoration: none;
 }
 
 .checkboxAndTextDispFlex {
@@ -523,3 +534,9 @@ input:checked+.sub>li {
     border-radius: 50%;
     display: inline-block;
 }
+
+/* Jumbotron page accueil sous le carousel */
+.thin{
+    font-weight: 300;
+}
+

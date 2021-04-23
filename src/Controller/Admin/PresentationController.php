@@ -23,38 +23,49 @@ class PresentationController extends AbstractController
  */
     public function ajoutPresentation(Request $request)
     {
-    /* Creation d'une nouvel objet Présentation : */
-    $presentation = new Presentation;
-    
-    /* Creation d'un formulaire pour pouvoir ajouter un objet presentation qui contiendra les infos de notre page que l'on va renvoyer dans la vue pour la saisie : */
-    $form = $this->createForm(PresentationType::class, $presentation);
-    
-    /* Traitement de la request du formulaire une fois le bouton 'valider' cliqué : */
-    $form->handleRequest($request);
+        $presentation = new Presentation;
+        $form = $this->createForm(PresentationType::class, $presentation);
+        $form->handleRequest($request);
 
-    /* Dans le cas ou le formulaire est soumis ET valide : */
-    if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()){
 
-        // On récupère les images transmises: on déclare une variable $images, on lui affecte(=) la donnée qui se 
-        // trouve dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
-        $images = $form->get('images')->getData();
+        // RECUPERATION DES IMAGES TRANSMISES : 
+        // On déclare une variable $imageTop et $imageBottom, on leur affecte(=) les données qui se trouvent dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'imagePost' et 'imageBottom' et on va aller chercher les données getdata
 
-        // Etant donnée que "Multiple" = true, on peut avoir plusieurs images de chargées pour 1 "Animation", il faut donc boucler sur les images: 
-        foreach($images as $image){
-            // on génére un nouveau nom de fichier
-            $fichier = md5(uniqid()). '.' . $image->guessExtension();
+        $imageTop = $form->get('imageTop')->getData();
+        $imageBottom = $form->get('imageBottom')->getData();
 
-            // On copie le fichier dans le dossier uploads
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier
+        // on génére un nouveau nom de fichier : 
+        // md5 (hashage d'un string) et uniqid sont 2 fonctions PHP
+        // Le MD5, pour Message Digest 5, est une fonction de hachage cryptographique qui permet d'obtenir l'empreinte numérique d'un fichier (on parle souvent de message). Il a été inventé par Ronald Rivest en 1991.
+        // Enfin on va lui rajouter une méthode guessextension qui va récupérer l'extension du fichier uploadé qui sera concaténée dans le nom du fichier
+
+        $fichierTop = md5(uniqid()). '.' . $imageTop->guessExtension();
+        $fichierBottom = md5(uniqid()). '.' . $imageBottom->guessExtension();
+
+        $originImages = [
+            1 => $imageTop,
+            2 => $imageBottom
+        ];
+        
+        $uploadedImages = [
+            1 => $fichierTop,
+            2 => $fichierBottom
+        ];
+
+        // COPIE PHYSIQUE DU FICHIER du dossier temporaire vers le dossier d'uploads 'images_directory'
+
+        for ($i=1; $i<3; $i++) {
+        $originImages[$i]->move(
+            $this->getParameter('images_directory'),
+            $uploadedImages[$i]
             );
-
-            // On stocke l'image dans la base de données (son nom)
-            $img = new Images();
-            $img->setName($fichier);
-            $presentation->addImage($img);
         }
+        
+        // On stocke l'image dans la base de données (son nom)
+
+        $presentation->setImageTop($fichierTop);
+        $presentation->setImageBottom($fichierBottom);
 
         /* Entity manager = em */
         $em = $this->getDoctrine()->getManager();
@@ -62,8 +73,9 @@ class PresentationController extends AbstractController
         $em->flush();
         $this->addFlash('success', 'Présentation ajoutée avec succès');
         return $this->redirectToRoute('admin_home'); // Redirection une fois l'animation ajoutée
-    }
-    // Page formulaire d'ajout d'une presentation si non envoyée : 
+        }
+
+        // Page formulaire d'ajout d'une presentation si non envoyée : 
         return $this->render('admin/presentation/edit.html.twig', [
             'form' => $form->createView()
         ]);
@@ -74,52 +86,65 @@ class PresentationController extends AbstractController
  */
     public function modifPresentation(Presentation $presentation, Request $request)
     {
+        $form = $this->createForm(PresentationType::class, $presentation);
+        $form->handleRequest($request);
 
-    /* Creation d'un formulaire pour pouvoir modifier la présentation déjà existante que l'on va renvoyer dans la vue une fois éditée: */
-    $form = $this->createForm(PresentationType::class, $presentation);
+        if ($form->isSubmitted() && $form->isValid()){
 
-    /* Traitement de la request du formulaire une fois le bouton 'valider' cliqué : */
-    $form->handleRequest($request);
+        // RECUPERATION DES IMAGES TRANSMISES : 
+        // On déclare une variable $imageTop et $imageBottom, on leur affecte(=) les données qui se trouvent dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'imagePost' et 'imageBottom' et on va aller chercher les données getdata
+        
+        $imageTop = $form->get('imageTop')->getData();
+        $imageBottom = $form->get('imageBottom')->getData();
 
-    /* Dans le cas ou le formulaire est soumis ET valide : */
-    if ($form->isSubmitted() && $form->isValid()){
+        // on génére un nouveau nom de fichier : 
+        // md5 (hashage d'un string) et uniqid sont 2 fonctions PHP
+        // Le MD5, pour Message Digest 5, est une fonction de hachage cryptographique qui permet d'obtenir l'empreinte numérique d'un fichier (on parle souvent de message). Il a été inventé par Ronald Rivest en 1991.
+        // Enfin on va lui rajouter une méthode guessextension qui va récupérer l'extension du fichier uploadé qui sera concaténée dans le nom du fichier
 
-        // On récupère les images transmises: on déclare une variable $images, on lui affecte(=) la donnée qui se trouve dans 
-        //le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
-        $images = $form->get('images')->getData();
+        $fichierTop = md5(uniqid()). '.' . $imageTop->guessExtension();
+        $fichierBottom = md5(uniqid()). '.' . $imageBottom->guessExtension();
+        
+        $originImages = [
+            1 => $imageTop,
+            2 => $imageBottom
+        ];
+        
+        $uploadedImages = [
+            1 => $fichierTop,
+            2 => $fichierBottom
+        ];
 
-        // On boucle sur les images: 
-        foreach($images as $image){
-            // on génére un nouveau nom de fichier
-            $fichier = md5(uniqid()). '.' . $image->guessExtension();
+        // COPIE PHYSIQUE DU FICHIER du dossier temporaire vers le dossier d'uploads 'images_directory'
 
-            // On copie le fichier dans le dossier uploads
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier
+        for ($i=1; $i<3; $i++) {
+        $originImages[$i]->move(
+            $this->getParameter('images_directory'),
+            $uploadedImages[$i]
             );
-
-            // On stocke l'image dans la base de données (son nom)
-            $img = new Images();
-            $img->setName($fichier);
-            $presentation->addImage($img);
         }
+        
+        // On stocke l'image dans la base de données (son nom)
+
+        $presentation->setImageTop($fichierTop);
+        $presentation->setImageBottom($fichierBottom);
+
         /* Entity manager = em */
         $em = $this->getDoctrine()->getManager();
         $em->persist($presentation);
         $em->flush();
-        $this->addFlash('success', 'Presentation modifiée avec succès');
+        $this->addFlash('success', 'Présentation modifiée avec succès');
+        return $this->redirectToRoute('admin_home'); // Redirection une fois l'animation modifiée
+        }
 
-        return $this->redirectToRoute('admin_home');
-    }
-
+        // Page formulaire d'ajout d'une presentation si non envoyée : 
         return $this->render('admin/presentation/edit.html.twig', [
             'presentation' => $presentation,
             'form' => $form->createView()
         ]);
     }
 
-        /**
+    /**
      * @Route("/supprime/image/{id}", name="delete_image", methods={"DELETE"})
      */
     public function deleteImage(Images $image, Request $request){

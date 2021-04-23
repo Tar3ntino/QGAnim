@@ -10,8 +10,10 @@
 {% endblock %}
 
 {% block body %}
+
 	<div class="row">
-		<div class="col">
+		<div class="col-2" ></div>
+		<div class="col-6 col-md-8">
 			<div
 				class="scene">
 				{# Nous récuperons une variable "array" "animations" renvoyée par le controller dans cette vue pour pouvoir boucler dessus pour afficher une div à chaque animation. Lorsqu'un ajout ou suppression d'animation sera effectué dans l'espace Admin, les divs seront ajustées en conséquence #}
@@ -23,8 +25,8 @@
 						{# A chaque tour de boucle, nous allons venir créer un titre ainsi que plusieurs paragraphes qui stockeront les propriétés titre, scénario, infos techniques et jeux propre à chacune des animations. Nous appliquerons un display:none à chacun de ces éléments afin de masquer l'affichage dans la vue.  Cela nous permettra d'exploiter ces données dans un second temps en appelant l'identifiant généré #}
 
 						<a id="more_info{{i}}" style="display:none">{{animation.slug}}</a>
-                        
-                        <h2 id="titre{{i}}" style="display:none">
+
+						<h2 id="titre{{i}}" style="display:none">
 							{{animation.title}}
 						</h2>
 						<p id="scenario{{i}}" style="display:none">
@@ -50,83 +52,81 @@
 				{# Fin carousel  #}
 			</div>
 			{# Fin scene  #}
-
-			{# On initialise notre bouton "En savoir plus" avec la première animation du tableau si celui ci n'est pas vide : On viendra modifier le lien avec du JS au clic des boutons gauche et droite #}
-			<div id="more_info" class="text-center">
-				{% if animations is not empty %}
-					<a href="{{path('app_animations_details',{slug: animations[0].slug})}}" class="btn btn-primary">
-						+ d'infos
-					</a>
-				{% endif %}
-
-			</div>
-
-
-			<div class="container-fluid" id="myselector">
-				<div
-					class="carousel-options">
-					{# Options de la balise input retirées provisoirement car non nécessaires: type="range" : sert à afficher une jauge avec un curseur min="1" max="100" : délimite la jauge de sélection avec un curseur animations|length : indique le nombre d'animations présent dans la table (=nb de vignettes qui seront affichées) #}
-					<p>
-						<label
-							style="display:none">
-							<!-- Cells -->
-							<input class="cells-range" value="{{ animations|length }}"/>
-						</label>
-					</p>
-
-					{# Boutons de sélections qui vont permettre un changement d'affichage du carousel par rotation. Le clic sur ce bouton viendra également incrémenter ou décrémenter l'index de lecture de la diapositive centréé (initialisée à zéro au chargement de la page) #}
-					<p>
-						{# <button class="previous-button">Previous</button> #}
-						{# <button class="next-button">Next</button> #}
-                        <span class="previous-button dot"> <i class="far fa-caret-square-left"></i> </span>
-                        <span class="next-button dot"> <i class="far fa-caret-square-right"></i> </span>
-					</p>
-
-					<div style="display:none" value="0"></div>
-					<p style="display:none">
-						<label><input type="radio" name="orientation" value="horizontal" checked/></label>
-						<label><input type="radio" name="orientation" value="vertical"/></label>
-					</p>
-				</div>
-				{# Fin carousel-options #}
-			</div>
-			{# Fin container-fluid myselector #}
-
-			<div style="display:none" id="readIdImage"></div>
-
-			<div class="card border-light mb-3 mx-auto" style="max-width: 18rem;">
-				<div class="card-header justify-content-center" id="title_animation">
-					{% if animations is not empty %}
-						{{animations[0].title}}
-					{% endif %}
-				</div>
-				<div class="card-body">
-					<h5 class="card-title" id="scenario_animation">
-						{% if animations is not empty %}
-							<!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
-							<p>
-								SCÉNARIO :
-								<span>{{ animations[0].scenario | raw }}
-								</span>
-							</p>
-						{% endif %}
-					</h5>
-					<p class="card-text" id="technical_info_animation">
-						{% if animations is not empty %}
-							<!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
-							{{ 'CARACTERISTIQUES TECHNIQUES:' ~ animations[0].technicalInfo | raw }}
-						{% endif %}
-					</p>
-					<p class="card-text" id="game_animation">
-						{% if animations is not empty %}
-							<!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
-							{{ 'JEUX:' ~ animations[0].games | raw }}
-						{% endif %}
-					</p>
-				</div>
-			</div>
 		</div>
 		{# Fin col #}
+		<div class="col-4 selectLandscape text-center my-auto"><i class="fas fa-sort-up fa-5x d-block previous-button"></i><i class="fas fa-sort-down fa-5x d-block next-button"></i></div>
+        <div class="col-4 col-md-2 emptyRight"></div>
+
+		{# On initialise notre bouton "En savoir plus" avec la première animation du tableau si celui ci n'est pas vide : On viendra modifier le lien avec du JS au clic des boutons gauche et droite #}
+		<div id="more_info" class="mx-auto">
+			{% if animations is not empty %}
+				<a href="{{path('app_animations_details',{slug: animations[0].slug})}}" class="btn btn-primary">
+					+ d'infos
+				</a>
+			{% endif %}
+
+		</div>
+
+
+		<div class="container-fluid" id="myselector">
+			<div
+				class="carousel-options">
+				{# Options de la balise input retirées provisoirement car non nécessaires: type="range" : sert à afficher une jauge avec un curseur min="1" max="100" : délimite la jauge de sélection avec un curseur animations|length : indique le nombre d'animations présent dans la table (=nb de vignettes qui seront affichées) #}
+				<p>
+					<label
+						style="display:none">
+						<!-- Cells -->
+						<input class="cells-range" value="{{ animations|length }}"/>
+					</label>
+				</p>
+
+				{# Boutons de sélections qui vont permettre un changement d'affichage du carousel par rotation. Le clic sur ce bouton viendra également incrémenter ou décrémenter l'index de lecture de la diapositive centréé (initialisée à zéro au chargement de la page) #}
+
+
+				<div style="display:none" value="0"></div>
+				<p style="display:none">
+					<label><input type="radio" name="orientation" value="horizontal" checked/></label>
+					<label><input type="radio" name="orientation" value="vertical"/></label>
+				</p>
+			</div>
+			{# Fin carousel-options #}
+		</div>
+		{# Fin container-fluid myselector #}
+
+		<div style="display:none" id="readIdImage"></div>
+
+		<div class="card border-light mb-3 mx-auto" style="max-width: 18rem;">
+			<div class="card-header justify-content-center" id="title_animation">
+				{% if animations is not empty %}
+					{{animations[0].title}}
+				{% endif %}
+			</div>
+			<div class="card-body">
+				<h5 class="card-title" id="scenario_animation">
+					{% if animations is not empty %}
+						<!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
+						<p>
+							SCÉNARIO :
+							<span>{{ animations[0].scenario | raw }}
+							</span>
+						</p>
+					{% endif %}
+				</h5>
+				<p class="card-text" id="technical_info_animation">
+					{% if animations is not empty %}
+						<!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
+						{{ 'CARACTERISTIQUES TECHNIQUES:' ~ animations[0].technicalInfo | raw }}
+					{% endif %}
+				</p>
+				<p class="card-text" id="game_animation">
+					{% if animations is not empty %}
+						<!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
+						{{ 'JEUX:' ~ animations[0].games | raw }}
+					{% endif %}
+				</p>
+			</div>
+		</div>
+
 	</div>
 	{# Fin row #}
 

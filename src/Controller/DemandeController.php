@@ -41,8 +41,8 @@ class DemandeController extends AbstractController
         // Si mon formulaire est envoyé(soumis) et valide
         if($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($demande);
-            $em->flush();
+            $em->persist($demande); // persist() -> you are telling the entity manager to track changes to the object. 
+            $em->flush(); // flush() -> the em will push the changes of the entity objects the em tracks to the database in single transaction
 
             // Message de succès pour l'utilisateur : 
             $this->addFlash('message', 'Votre demande a bien été enregistrée. Nous reviendrons vers vous sous peu');

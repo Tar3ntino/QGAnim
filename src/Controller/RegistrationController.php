@@ -45,6 +45,8 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            // lorsqu'un utilisateur s'inscrit, on active son compte par défaut
+            $user->setEnabled(true);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

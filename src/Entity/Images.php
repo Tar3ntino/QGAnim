@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\ImagesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ImagesRepository;
+
 
 /**
  * @ORM\Entity(repositoryClass=ImagesRepository::class)
@@ -27,11 +28,6 @@ class Images
      * @ORM\JoinColumn(nullable=true)
      */
     protected $animations;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Presentation::class, inversedBy="images")
-     */
-    private $presentation;
 
     /**
      * @ORM\ManyToOne(targetEntity=Devis::class, inversedBy="logo")
@@ -67,18 +63,6 @@ class Images
         return $this;
     }
 
-    public function getPresentation(): ?Presentation
-    {
-        return $this->presentation;
-    }
-
-    public function setPresentation(?Presentation $presentation): self
-    {
-        $this->presentation = $presentation;
-
-        return $this;
-    }
-
     public function getDevis(): ?Devis
     {
         return $this->devis;
@@ -90,5 +74,5 @@ class Images
 
         return $this;
     }
-    
+
 }

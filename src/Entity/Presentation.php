@@ -2,10 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\PresentationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PresentationRepository;
 
 /**
  * @ORM\Entity(repositoryClass=PresentationRepository::class)
@@ -30,14 +28,14 @@ class Presentation
     private $bottomDescription;
 
     /**
-     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="presentation", cascade={"persist"})
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $images;
+    private $imageTop;
 
-    public function __construct()
-    {
-        $this->images = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $imageBottom;
 
     public function getId(): ?int
     {
@@ -69,31 +67,41 @@ class Presentation
     }
 
     /**
-     * @return Collection|Images[]
-     */
-    public function getImages(): Collection
+     * Get the value of imageBottom
+     */ 
+    public function getImageBottom()
     {
-        return $this->images;
+        return $this->imageBottom;
     }
 
-    public function addImage(Images $image): self
+    /**
+     * Set the value of imageBottom
+     *
+     * @return  self
+     */ 
+    public function setImageBottom($imageBottom)
     {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setPresentation($this);
-        }
+        $this->imageBottom = $imageBottom;
 
         return $this;
     }
 
-    public function removeImage(Images $image): self
+    /**
+     * Get the value of imageTop
+     */ 
+    public function getImageTop()
     {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getPresentation() === $this) {
-                $image->setPresentation(null);
-            }
-        }
+        return $this->imageTop;
+    }
+
+    /**
+     * Set the value of imageTop
+     *
+     * @return  self
+     */ 
+    public function setImageTop($imageTop)
+    {
+        $this->imageTop = $imageTop;
 
         return $this;
     }

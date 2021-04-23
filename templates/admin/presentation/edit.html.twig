@@ -21,23 +21,9 @@
 				<tr>
 					<th scope="row">Image (haut)</th>
 					<td>
-                    {{form_start(form)}}
-						{# Vérifier si la route est "admin_presentation_edit", on affiche les images #}
-						{% if app.request.attributes.get('_route') == 'admin_presentation_edit' %}
-							{% for image in presentation.images %}
-								<div>
-									<img src="{{ asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
-									<a href="{{ path ('admin_animations_delete_image', {'id': image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">
-										Supprimer
-									</a>
-								</div>
-							{% endfor %}
-						{% else %}
-							<td>{{form_row(form.images)}}</td>
-						{% endif %}
+						{{form_start(form)}}
+						{{form_row(form.imageTop)}}
 					</td>
-
-
 				</tr>
 				<tr>
 					<th scope="row">Descriptif (haut page)</th>
@@ -49,7 +35,15 @@
 				</tr>
 				<tr>
 					<th scope="row">Image (bas)</th>
-					<td></td>
+					<td>
+						{{form_row(form.imageBottom)}}
+					</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>
+						{{form_row(form.Valider)}}
+					</td>
 				</tr>
 				{{form_end(form)}}
 			</tbody>
