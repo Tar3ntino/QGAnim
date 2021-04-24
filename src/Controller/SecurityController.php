@@ -54,8 +54,9 @@ class SecurityController extends AbstractController
             // Si son compte est toujours actif
             if($user->getEnabled()){
                 // Si son compte n'a pas été "Supprimé"
-                if (!$user->getDeleted()){
+                if (is_null($user->getDeletedAt())){
                     $user->setDeleted('true'); // Alors on change la valeur du champ à "DELETED"
+                    $user->setDeletedAt(new \DateTime('NOW')); // Mettre un newDate \NOW puis redirect Route à LogOut avec un message flash
                     $em->flush();
                 }
             }

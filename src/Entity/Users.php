@@ -82,11 +82,6 @@ class Users implements UserInterface
     private $enabled;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $deleted;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $deleted_at;
@@ -293,18 +288,6 @@ class Users implements UserInterface
     public function setEnabled(?bool $enabled): self
     {
         $this->enabled = $enabled;
-
-        return $this;
-    }
-
-    public function getDeleted(): ?bool
-    {
-        return $this->deleted;
-    }
-
-    public function setDeleted(?bool $deleted): self
-    {
-        $this->deleted = $deleted;
 
         return $this;
     }

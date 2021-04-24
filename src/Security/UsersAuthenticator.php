@@ -74,7 +74,7 @@ class UsersAuthenticator extends AbstractFormLoginAuthenticator implements Passw
             throw new CustomUserMessageAuthenticationException('Email non trouvé.');
         }
 
-        if ($user->getdeleted()){
+        if (!is_null($user->getDeletedAt())){
             throw new CustomUserMessageAuthenticationException('Compte utilisateur supprimé.');
         }
 

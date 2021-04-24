@@ -60,14 +60,17 @@
 				<div class="col-2"></div>
 			</div>
 			<div class="row">
-				<div class="col-2"></div>
-				<div class="col-4">
+				<div class="col-1"></div>
+				<div class="col-3">
 					<a href="{{ path('users_profil_modifier')}}" class="btn btn-dark mr-1">Modifier mes informations personnelles</a>
 				</div>
-				<div class="col-4">
+				<div class="col-3">
 					<a href="{{ path('users_password_modifier')}}" class="btn btn-dark">Modifier mon mot de passe</a>
 				</div>
-				<div class="col-2"></div>
+                <div class="col-3">
+					<a href="{{ path('delete_user', {id: app.user.id})}}" class="btn btn-dark">Supprimer mon compte</a>
+				</div>
+				<div class="col-1"></div>
 			</div>
 		</div>
 	</div>
