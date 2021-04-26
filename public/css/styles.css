@@ -5,7 +5,7 @@
     --navbar-bg-contrast: hsl(0, 0%, 25%);
 }
 
-* { 
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -13,13 +13,22 @@
 
 /* Activation de la police pour le text suite à l'insertion de la bibliothèque en <link> dans le fichier base.html.twig */
 /* Typography */
-h1, h2, h3, h4, h5, h6 {font-family:"Open Sans", sans-serif, Helvetica, Arial;}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Open Sans", sans-serif, Helvetica, Arial;
+}
+
 body {
     height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
 }
-.h3{
+
+.h3 {
     font-size: 24px;
 }
 
@@ -184,10 +193,15 @@ body {
     width: 100%;
 }
 
+/*****************************
+/* Fin du code de la navbar */
+/*****************************
+
 /* *************************************************************** */
-/* On masque les boutons burger et de connexion si l'écran >1080px :  */
+/* On masque les boutons burger et de connexion si l'écran >600px :  */
+/* Disparition du bouton burger à partir d'une largeur min de 600px */
 /* *************************************************************** */
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 576px) {
     .navbar-toggle {
         display: none;
     }
@@ -221,17 +235,21 @@ body {
     #navbar .navbar-link:last-child {
         margin-right: 0;
     }
+
+    .navbar-toggle {
+        display: none;
+    }
+
+    #more_info_portrait {
+        display: none;
+    }
+    
 }
 
 #options {
     display: flex;
     flex-direction: column;
 }
-
-
-/*****************************
-/* Fin du code de la navbar */
-/*****************************
 
 a { text-decoration: none; }
 
@@ -324,19 +342,8 @@ a { text-decoration: none; }
     /* center verticalement, fonctionne ssi Display flex*/
 }
 
-/* Disparition du bouton burger à partir d'une largeur min de 600px */
-@media screen and (min-width: 600px) {
-    .navbar-toggle {
-        display: none;
-    }
-
-    .selectLandscape {
-        display: none;
-    }
-}
-
 /* CSS mobile : portrait */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 576px) {
 
     /* base.html.twig : */
 
@@ -414,11 +421,15 @@ a { text-decoration: none; }
         max-height: 500px !important;
     }
 
-    .emptyRight {
+    .emptyRightLandscape {
         display: none;
     }
-}
 
+    #more_info_landscape {
+        display: none;
+    }
+
+}
 
 /* Title Mes dernieres animations (page index) */
 #title_last_anim {
@@ -442,7 +453,7 @@ a { text-decoration: none; }
     /* supprime la ligne des liens contenu dans le footer */
 }
 
-.footer a{
+.footer a {
     color: whitesmoke;
     text-decoration: none;
 }
@@ -502,7 +513,6 @@ input:checked+.sub>li {
         /*n\'hésitez pas à jouer avec ces valeurs */
 }
 
-
 /* Carousel accueil bootstrap, test wrapping*/
 .carousel-inner {
     height: 100%;
@@ -536,7 +546,6 @@ input:checked+.sub>li {
 }
 
 /* Jumbotron page accueil sous le carousel */
-.thin{
+.thin {
     font-weight: 300;
 }
-

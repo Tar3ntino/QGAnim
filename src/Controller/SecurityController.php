@@ -55,9 +55,11 @@ class SecurityController extends AbstractController
             if($user->getEnabled()){
                 // Si son compte n'a pas été "Supprimé"
                 if (is_null($user->getDeletedAt())){
-                    $user->setDeleted('true'); // Alors on change la valeur du champ à "DELETED"
-                    $user->setDeletedAt(new \DateTime('NOW')); // Mettre un newDate \NOW puis redirect Route à LogOut avec un message flash
+                    $user->setDeletedAt(new \DateTime('NOW')); // On marque le compte comme supprimé en indiquant la date à laquelle la suppression a été faite. Il faudrait pouvoir maintenant déconnecter l'utilisateur en le redirigeant vers une Route LogOut.
                     $em->flush();
+
+                // Message de succès pour la suppression du compte utilisateur : 
+                $this->addFlash('success', 'Suppression de votre compte enregistrée. Nous regrettons de vous voir partir.');
                 }
             }
         }

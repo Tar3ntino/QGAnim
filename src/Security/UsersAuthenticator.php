@@ -75,7 +75,7 @@ class UsersAuthenticator extends AbstractFormLoginAuthenticator implements Passw
         }
 
         if (!is_null($user->getDeletedAt())){
-            throw new CustomUserMessageAuthenticationException('Compte utilisateur supprimé.');
+            throw new CustomUserMessageAuthenticationException('Compte utilisateur non disponible');
         }
 
         return $user;

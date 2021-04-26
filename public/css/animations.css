@@ -164,7 +164,7 @@ nth-child(9n+1) permet de cibler les éléments fils 1,10,19...etc.*/
 }
 
 /* CSS mobile : Format portrait */
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 576px) {
 
     .scene {
         margin-bottom: 100px;

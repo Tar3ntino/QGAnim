@@ -5,8 +5,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4">
-		<div class="container-fluid">
+		<div class="container-fluid px-0">
 			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 				<ol class="carousel-indicators">
 					{% set i = 0 %}
@@ -27,7 +26,7 @@
 							{% else %}
 								<div class="carousel-item">
 								{% endif %}
-								<img src="{{ asset('/uploads/' ~ image.name)|imagine_filter('rectangle')}}" class="image d-block w-100 rounded border border-secondary" alt="...">
+								<img src="{{ asset('/uploads/' ~ image.name)|imagine_filter('reduc')}}" class="image d-block w-100 rounded border border-secondary" alt="...">
 							</div>
 							{% set i = i+1 %}
 						{% endfor %}
@@ -47,10 +46,8 @@
 
 				</div>
 				{# Fin de container-fluid #}
-			</div>
-			{# Fin de container #}
 
-			.<div class="jumbotron jumbotron-fluid">
+			<div class="jumbotron jumbotron-fluid">
 				<div class="container">
 
 					<h3 class="text-center thin">QG Animations...</h3>

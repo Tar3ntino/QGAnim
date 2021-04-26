@@ -1,15 +1,20 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Ajouter une slide{% endblock %}
+{% block title %}Ajouter une slide
+{% endblock %}
 
 {% block body %}
-        <h1 class="text-center"> Ajouter une slide </h1>
-    
-    {{form(form)}}
+	<h1 class="text-center">
+		Ajouter une slide
+	</h1>
 
-{% endblock %} 
+	<div class="container">
+		{{form(form)}}
+	</div>
 
-{% block javascripts %}
-    <script src="{{ asset('js/images.js')}}"></script>
-{% endblock %}
+	{% endblock %}
+
+	{% block javascripts %}
+		<script src="{{ asset('js/images.js')}}"></script>
+	{% endblock %}

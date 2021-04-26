@@ -21,7 +21,7 @@ console.log('largeur de la fenetre : ' + window.innerWidth); // 393
 
 // MDN WEB Docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/addListener
 // Retourne BOOLEN -> matchMedia() : C'est une méthode qui dépend de l'objet window (la fenêtre du navigateur) et qui prend en argument une chaîne de texte contenant l'expression à tester, pour retourner true ou false via sa propriété matches.
-var mediaQueryList = window.matchMedia('(min-width: 600px)'); 
+var mediaQueryList = window.matchMedia('(min-width: 576px)'); 
 
 var nextButton = document.querySelector('.next-button');
 nextButton.addEventListener(clickedEvent, function() {
@@ -41,7 +41,7 @@ nextButton.addEventListener(clickedEvent, function() {
 
     var more_detail_animation = document.getElementById('more_info');
     more_detail_animation.textContent = "";
-    more_detail_animation.innerHTML = '<a href= "/animations/'+ linkDetailsAnimationPlayed +'" class="btn btn-primary"> + d\'infos </a>';
+    more_detail_animation.innerHTML = '<a href= "/animations/'+ linkDetailsAnimationPlayed +'" class="btn btn-primary mx-auto"> + d\'infos </a>';
     console.log(more_detail_animation) ;
 
     /*On récupère le titre se situant à l'intérieur de la balise h2 généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'title_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
@@ -87,7 +87,7 @@ cellsRange.addEventListener('input', changeCarousel);
 // Dans le tour de boucle, on va lire les évènements pour les 2 boutons orientations avec l'appel d'une autre méthode onOrientationChange
 var orientationRadios = document.querySelectorAll('input[name="orientation"]'); // Vaut 2
 
-if (window.innerWidth < 600){
+if (window.innerWidth < 576){
     isHorizontal = false;                                   // Initialisation position carousel défaut vertical
 }
 else{
@@ -101,12 +101,12 @@ console.log("isHorizontal : " + isHorizontal);
 
 function screenTest(e) {                                    // Notre fonction de rappel que l'on exécute lorsque l'état de notre requête multimédia change.
   if (e.matches) {     
-    /* the viewport is more than than 600 pixels wide */
+    /* the viewport is more than than 576 pixels wide */
 
     console.log('largeur de la fenetre : ' + window.innerWidth); // 393
     isHorizontal = true;                                   // Initialisation position carousel défaut horizontal
 console.log("isHorizontal : " + isHorizontal);
-    console.log('C\'est un plus grand écran - 600 px de large ou plus');
+    console.log('C\'est un plus grand écran - 576 px de large ou plus');
     angle = theta * selectedIndex * -1;                     // Si index=0 on a angle = (360 / nombre de diapo animations dispo) * 0 *-1
     console.log('ma valeur horizontal screenTest :' + isHorizontal);
     rotateFn = isHorizontal ? 'rotateY' : 'rotateX';        // "RotateFn" prend la propriété Css de la rotation verticale car carousel actuellement horizontal
@@ -116,8 +116,8 @@ console.log("isHorizontal : " + isHorizontal);
     changeCarousel();
 
   } else {
-    /* the viewport is 600 pixels wide or less */
-    console.log('C\'est un petit écran - 600 px de large ou moins');
+    /* the viewport is 576 pixels wide or less */
+    console.log('C\'est un petit écran - 576 px de large ou moins');
     // document.body.style.backgroundColor = 'aquamarine';
 
     angle = theta * selectedIndex * -1;
@@ -149,9 +149,9 @@ window.addEventListener('touchstart', function detectTouch() {
 //console.log(cellWidth, cellHeight);
 
 /*
-if (window.matchMedia("(min-width: 600px)").matches) {
+if (window.matchMedia("(min-width: 576px)").matches) {
     
-} else { // Sinon affichage < 600px de large : Rotation verticale
+} else { // Sinon affichage < 576px de large : Rotation verticale
     console.log('On passe en mode vertical');
 
 }*/

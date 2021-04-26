@@ -8,7 +8,6 @@ window.addEventListener('touchstart', function detectTouch() {
 // Script servant à l'ouverture du menu de connexion au clic sur l'élément
 // Logo pour accès à la connexion
 
-
 // Fonction pour que la modale puisse apparaître lorque l'on click sur supprimer :
 $('modal-delete').on('shown.bs.modal', function () {
 $('#myInput').trigger('focus')

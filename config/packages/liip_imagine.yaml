@@ -13,5 +13,10 @@ liip_imagine:
             quality: 75
             filters:
               thumbnail:
-                  size: [315, 95]
+                  size: [400, 150]
                   mode: outbound
+        reduc:
+          quality: 100
+          filters:
+              scale:
+                  dim: [ 1519, 323 ]
