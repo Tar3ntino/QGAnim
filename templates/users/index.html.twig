@@ -57,6 +57,13 @@
 							{{app.user.email}}
 						</div>
 					</div>
+                    <div class="row">
+						<div class="col-6">
+							Adresse :</div>
+						<div class="col-6">
+							{{app.user.address}}
+						</div>
+					</div>
 				</div>
 				<div class="col-2"></div>
 			</div>
@@ -87,108 +94,52 @@
 					<th scope="col">Lieu évènement</th>
 					<th scope="col">Date évènement</th>
 					<th scope="col">Nombre personnes</th>
-					<th scope="col">Horaires animation</th>
-					<th scope="col">Budget</th>
-					<th scope="col">Autres commentaires</th>
 					<th scope="col">Actions</th>
-
 				</tr>
 			</thead>
 			<tbody>
 				{# Remplissage tableau si demandes existantes : #}
-				{% for demande in demandes %}
-					<tr>
-						<td></td>
-						<td scope="row">{{ demande.createdAt | date('d-m-Y') }}</td>
+				{# A chaque tour de boucle, nous allons venir créer un titre ainsi que plusieurs paragraphes qui stockeront les propriétés de la demande. Nous appliquerons un display:none à chacun de ces éléments afin de masquer l'affichage dans la vue.  Cela nous permettra d'exploiter ces données dans un second temps en appelant l'identifiant généré #}
+
+				{% set i = 0 %}
+					{% for demande in demandes %}
+						<tr><td>
+						</td>
+							<td scope="row"> {{ demande.createdAt | date('d-m-Y') }}</td>
 						<td>{{ demande.status}}</td>
 						<td>{{ demande.eventType}}</td>
 						<td>{{ demande.eventLocation }}</td>
 						<td>{{ demande.eventDate | date('d-m-Y') }}</td>
 						<td>{{ demande.numberPeople }}</td>
-						<td>{{ demande.animationSchedules }}</td>
-						<td>{{ demande.budgetClient }}</td>
-						<td>{{ demande.otherComments }}</td>
 						<td>
-							<a href="#">Voir la demande</a>
-							<a href="#">Consulter le devis
+							<a href="#modal-detail-demande" type="button" class="btn btn-success modal-trigger-demande-detail my-1" data-toggle="modal" data-target="#modal-detail-demande" data-createdat="{{ demande.createdAt | date('d-m-Y') }}" data-status="{{demande.status}}" data-eventtype="{{demande.eventType}}" data-eventlocation="{{ demande.eventLocation }}" data-eventdate="{{ demande.eventDate | date('d-m-Y') }}" data-numberpeople="{{ demande.numberPeople }}" data-animationschedules="{{ demande.animationSchedules }}" data-budgetclient="{{ demande.budgetClient }}" data-othercomments="{{ demande.otherComments }}">
+								<i class="fas fa-book-reader"></i>
 							</a>
+							<a href="#">Consulter le devis</a>
 						</td>
 					</tr>
+					{% set i = i+1 %}
 				{% endfor %}
-
 			</tbody>
 		</table>
 	</div>
 
-
-	<div class="container">
-		<ul class="accordion">
-			<li class="has-sub">
-				<label for="menu1" style="color:white;">Mes demandes
-					<i class="fas fa-sort-amount-down"></i>
-				</label><input id="menu1" name="menu" type="checkbox"/>
-				<ul class="sub">
-					<li>
-						<table class="table">
-							<thead class="thead-dark">
-								<tr>
-									<th scope="col">Envoyé le</th>
-									<th scope="col">Statut</th>
-									<th scope="col">Type évènement</th>
-									<th scope="col">Lieu évènement</th>
-									<th scope="col">Date évènement</th>
-									<th scope="col">Nombre personnes</th>
-									<th scope="col">Horaires animation</th>
-									<th scope="col">Budget</th>
-									<th scope="col">Autres commentaires</th>
-									<th scope="col">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{# Remplissage tableau si demandes existantes : #}
-								{% for demande in demandes %}
-									<tr>
-										<td scope="row">{{ demande.createdAt | date('d-m-Y') }}</td>
-										<td>{{ demande.status}}</td>
-										<td>{{ demande.eventType}}</td>
-										<td>{{ demande.eventLocation }}</td>
-										<td>{{ demande.eventDate | date('d-m-Y') }}</td>
-										<td>{{ demande.numberPeople }}</td>
-										<td>{{ demande.animationSchedules }}</td>
-										<td>{{ demande.budgetClient }}</td>
-										<td>{{ demande.otherComments }}</td>
-										<td>
-											<a href="#">Voir la demande</a>
-											<a href="#">Consulter le devis
-											</a>
-										</td>
-									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</li>
-				</ul>
-			</li>
-			<li class="has-sub">
-				<label for="menu2">Mes Devis
-					<i class="fas fa-sort-amount-down"></i>
-				</label><input id="menu2" name="menu" type="checkbox"/>
-				<ul class="sub">
-					<li>
-						<a>Item #1</a>
-					</li>
-					<li>
-						<a>Item #2</a>
-					</li>
-				</ul>
-			</li>
-			<li class="has-sub">
-				<label for="menu3">Mes factures
-					<i class="fas fa-sort-amount-down"></i>
-				</label><input id="menu3" name="menu" type="checkbox"/>
-				<ul class="sub"></ul>
-			</li>
-		</ul>
+	<!-- Modal -->
+	<div class="modal fade" id="modal-detail-demande" tabindex="-1" role="dialog" aria-labelledby="modal-detail-demande" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="titleDetailDemande"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body text-justify" id="DetailDemandeContent"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+				</div>
+			</div>
+		</div>
 	</div>
-
+	{# Fin de la modal #}
 {% endblock %}

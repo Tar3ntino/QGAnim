@@ -8,19 +8,11 @@
             <div class="col-5 px-0">
                 <ul id="liensConnection">
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <li>
-                            <a href="{{path('users')}}">Mon compte</a>
-                        </li>
-                        <li>
-                            <a href="{{path('app_logout')}}">Se déconnecter</a>
-                        </li>
+                        <li> <a href="{{path('users')}}">Mon compte</a> </li>
+                        <li> <a href="{{path('app_logout')}}">Se déconnecter</a> </li>
                     {% else %}
-                        <li>
-                            <a href="{{path('app_register')}}">S'inscrire</a>
-                        </li>
-                        <li>
-                            <a href="{{path('app_login')}}">Se connecter</a>
-                        </li>
+                        <li> <a href="{{path('app_register')}}">S'inscrire</a> </li>
+                        <li> <a href="{{path('app_login')}}">Se connecter</a> </li>
                     {% endif %}
                 </ul>
             </div>
@@ -37,22 +29,12 @@
         <!-- Menu gauche déroulant: -->
         <div class="navbar-menu left sidebar">
             <ul class="navbar-links mb-0">
-                <li class="navbar-item">
-                    <a class="navbar-link" href="{{path('app_home')}}">Accueil</a>
-                </li>
-                <li class="navbar-item">
-                    <a class="navbar-link" href="{{path('app_presentation')}}">Présentation</a>
-                </li>
-                <li class="navbar-item">
-                    <a class="navbar-link" href="{{path('app_animations')}}">Animation</a>
-                </li>
-                <li class="navbar-item">
-                    <a class="navbar-link" href="{{path('app_contact')}}">Contact</a>
-                </li>
+                <li class="navbar-item"> <a class="navbar-link" href="{{path('app_home')}}">Accueil</a> </li>
+                <li class="navbar-item"> <a class="navbar-link" href="{{path('app_presentation')}}">Présentation</a> </li>
+                <li class="navbar-item"> <a class="navbar-link" href="{{path('app_animations')}}">Animation</a> </li>
+                <li class="navbar-item"> <a class="navbar-link" href="{{path('app_contact')}}">Contact</a> </li>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <li class="navbar-item">
-                        <a class="navbar-link" id="link-admin" href="{{path('admin_home')}}">Admin</a>
-                    </li>
+                    <li class="navbar-item"> <a class="navbar-link" id="link-admin" href="{{path('admin_home')}}">Admin</a> </li>
                 {% endif %}
             </ul>
         </div>
@@ -65,19 +47,11 @@
                     <i class="fas fa-sort-down"></i>
                     <ul class="sousmenu">
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                            <li>
-                                <a href="{{path('users')}}">Mon compte</a>
-                            </li>
-                            <li>
-                                <a href="{{path('app_logout')}}">Se déconnecter</a>
-                            </li>
+                            <li> <a href="{{path('users')}}">Mon compte</a> </li>
+                            <li> <a href="{{path('app_logout')}}">Se déconnecter</a> </li>
                         {% else %}
-                            <li>
-                                <a href="{{path('app_register')}}">S'inscrire</a>
-                            </li>
-                            <li>
-                                <a href="{{path('app_login')}}">Se connecter</a>
-                            </li>
+                            <li> <a href="{{path('app_register')}}">S'inscrire</a> </li>
+                            <li> <a href="{{path('app_login')}}">Se connecter</a> </li>
                         {% endif %}
                     </ul>
                 </li>

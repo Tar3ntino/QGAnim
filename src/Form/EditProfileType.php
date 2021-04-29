@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class EditProfileType extends AbstractType
 {
@@ -32,6 +33,7 @@ class EditProfileType extends AbstractType
                     'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
                 ]
             ])
+            ->add('address', TextareaType::class)
             ->add('Valider', SubmitType::class)
         ;
     }

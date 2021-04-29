@@ -5,47 +5,47 @@
 {% endblock %}
 
 {% block body %}
-		<div class="container-fluid px-0">
-			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-				<ol class="carousel-indicators">
-					{% set i = 0 %}
-					{% for image in imagesCarousel %}
-						{% if i == 0 %}
-							<li data-target="#carouselExampleIndicators" data-slide-to="{{i}}" class="active"></li>
+	<div class="container-fluid px-0">
+		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				{% set i = 0 %}
+				{% for image in imagesCarousel %}
+					{% if i == 0 %}
+						<li data-target="#carouselExampleIndicators" data-slide-to="{{i}}" class="active"></li>
+					{% else %}
+						<li data-target="#carouselExampleIndicators" data-slide-to="{{i}}"></li>
+					{% endif %}
+					{% set i = i+1 %}
+				{% endfor %}
+			</ol>
+			<div class="carousel-inner">
+				{% set i = 0 %}
+				{% for image in imagesCarousel %}
+					{% if i == 0 %}
+						<div class="carousel-item active">
 						{% else %}
-							<li data-target="#carouselExampleIndicators" data-slide-to="{{i}}"></li>
-						{% endif %}
+							<div class="carousel-item">
+							{% endif %}
+							<img src="{{ asset('/uploads/' ~ image.name)|imagine_filter('reduc')}}" class="image d-block w-100 rounded border border-secondary" alt="...">
+						</div>
 						{% set i = i+1 %}
 					{% endfor %}
-				</ol>
-				<div class="carousel-inner">
-					{% set i = 0 %}
-					{% for image in imagesCarousel %}
-						{% if i == 0 %}
-							<div class="carousel-item active">
-							{% else %}
-								<div class="carousel-item">
-								{% endif %}
-								<img src="{{ asset('/uploads/' ~ image.name)|imagine_filter('reduc')}}" class="image d-block w-100 rounded border border-secondary" alt="...">
-							</div>
-							{% set i = i+1 %}
-						{% endfor %}
-					</div>
-					{# Fin de carousel-inner #}
-					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true">
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
-						</a>
-
-					</div>
-					{# Fin de carouselExampleIndicators #}
+				</div>
+				{# Fin de carousel-inner #}
+				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true">
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
 
 				</div>
-				{# Fin de container-fluid #}
+				{# Fin de carouselExampleIndicators #}
+
+			</div>
+			{# Fin de container-fluid #}
 
 			<div class="jumbotron jumbotron-fluid">
 				<div class="container">
@@ -55,7 +55,7 @@
 						<div class="col-lg-4 col-md-3 col-sm-6">
 							<div class="h-caption text-center">
 								<i class="fas fa-home fa-5x"></i>
-								<h4>...Chez vous</h4>
+								<h4>Chez vous</h4>
 							</div>
 							<div class="h-body text-center">
 								<p>
@@ -66,7 +66,7 @@
 						<div class="col-lg-4 col-md-3 col-sm-6">
 							<div class="h-caption text-center">
 								<i class="fas fa-child fa-5x"></i>
-								<h4>...Pour vous</h4>
+								<h4>Pour vous</h4>
 							</div>
 							<div class="h-body text-center">
 								<p>
@@ -77,7 +77,7 @@
 						<div class="col-lg-4 col-md-3 col-sm-6">
 							<div class="h-caption text-center">
 								<i class="fab fa-angellist fa-5x"></i>
-								<h4>...Avec vous</h4>
+								<h4>Avec vous</h4>
 							</div>
 							<div class="h-body text-center">
 								<p>
@@ -92,20 +92,22 @@
 			<div class="container">
 				<div class="row">
 					<div class="col">
-						<h2 class="text-primary text-center">
+						<h2 class="text-primary text-center pb-3">
 							Nos dernières réalisations
 						</h2>
 						<div class="d-flex">
 							<div class="row">
 								{% for animation in animations|reverse [0:3] %}
 									<div class="col-sm-12 col-md-6 col-lg-4">
-										<div class="card text-center">
+										<div class="card text-center mb-3">
 											<div class="card-header">
 												{{ animation.title }}
 											</div>
 											<div class="card-body">
-												<img src="{{ asset('uploads/' ~ animation.images[0].name)|imagine_filter('square') }}" class="card-img-top" alt="{{ animation.title }}">
-												<p>
+												<div class="container-img">
+													<img src="{{ asset('uploads/' ~ animation.images[0].name)|imagine_filter('square') }}" class="card-img-top" alt="{{ animation.title }}">
+												</div>
+												<p class="animation-categorie mt-3">
 													Categorie :
 													{{ animation.categories[0].name }}</p>
 												<p

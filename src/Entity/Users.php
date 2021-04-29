@@ -86,6 +86,11 @@ class Users implements UserInterface
      */
     private $deleted_at;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $address;
+
 
     public function __construct()
     {
@@ -300,6 +305,18 @@ class Users implements UserInterface
     public function setDeletedAt(?\DateTimeInterface $deleted_at): self
     {
         $this->deleted_at = $deleted_at;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }

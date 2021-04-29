@@ -65,4 +65,17 @@ class DemandeController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/supprimer/{id}", name="supprimer")
+     */
+    public function supprimerDemande(Demande $demande)
+    {   
+            /* Entity manager = em */
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($demande);
+            $em->flush();
+            $this->addFlash('success', 'Demande supprimée avec succès');
+            return $this->redirectToRoute('admin_demandes_home');
+    }
 }

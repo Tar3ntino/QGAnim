@@ -5,6 +5,8 @@
 
 {% block body %}
 
+	{% include('_partials/flashs.html.twig') %}
+
 	<div class="container">
 		<h1 class="text-center my-3">Traitement des demandes clients</h1>
 
@@ -30,14 +32,41 @@
 						<td>{{ demande.eventType}}</td>
 						<td>{{ demande.status}}</td>
 						<td class="text-center">
-							<a class="btn btn-primary my-1" href="{{path("admin_demandes_modifier", {id: demande.id})}}" role="button"><i class="far fa-edit"></i></a>
-							<a class="btn btn-success my-1" href="{{path("admin_devis_creer", {id: demande.id})}}" role="button"><i class="fas fa-plus"></i> Créer un devis</a>
+							<a class="btn btn-primary my-1" href="{{path("admin_demandes_modifier", {id: demande.id})}}" role="button">
+								<i class="far fa-edit"></i>
+							</a>
+							<a class="btn btn-success my-1" href="{{path("admin_devis_creer", {id: demande.id})}}" role="button">
+								<i class="fas fa-plus"></i>
+								Créer un devis</a>
+
 							<!-- Button trigger modal -->
-							<a href="admin_demandes_supprimer" type="button" class="btn btn-danger modal-trigger-animation my-1" data-toggle="modal" data-target="#modal-delete" data-id="{{demande.id}}"><i class="fas fa-trash-alt"></i></a>
+							<a href="{{path("admin_demandes_supprimer", {id: demande.id})}}" type="button" class="btn btn-danger modal-trigger-demande my-1" data-toggle="modal" data-target="#modal-delete" data-id="{{demande.id}}" data-eventlocation={{demande.eventLocation}}>
+								<i class="fas fa-trash-alt"></i>
+							</a>
+
 						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="modal-delete" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Supprimer une demande</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+					<a href="" type="button" class="btn btn-primary">Oui</a>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock %}

@@ -5,11 +5,8 @@ window.addEventListener('touchstart', function detectTouch() {
 	window.removeEventListener('touchstart', detectTouch, false);
 }, false);
 
-
-
 const navbar = document.getElementById("navbar");
 const navbarToggle = navbar.querySelector(".navbar-toggle");
-
 
 function openMobileNavbar() {
   navbar.classList.add("opened");
@@ -58,15 +55,3 @@ boutonConnexion.addEventListener(clickedEvent, () =>{
         boutonConnexionSousMenu.style.display = "block";
     }
 })
-
-
-// TO BE DELETE :
-// document
-//   .getElementById("options")
-//   .querySelectorAll("input[name='navtype']")
-//   .forEach((option) => {
-//     option.addEventListener("change", (e) => {
-//       const navType = e.target.id.split("-").join(" ");
-//       navbarMenu.classList = "navbar-menu " + navType;
-//     });
-//   });

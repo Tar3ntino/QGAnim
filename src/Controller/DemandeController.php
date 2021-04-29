@@ -55,17 +55,4 @@ class DemandeController extends AbstractController
         ]);
     }
 
- /**
-     * @Route("/lire/{id}", name="lire")
-     * Pour créer un formulaire, il est nécessaire d'avoir en paramètre l'objet Request
-     * provenant de la classe HttpFoundation à importer use...
-     */
-    public function lectureDemande(Demande $demande)
-    {
-        return $this->render('users/detailDemande.html.twig', [
-            'demande' => $demande
-        ]);
-    }
-
-
 }
