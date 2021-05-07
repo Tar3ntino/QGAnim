@@ -64,6 +64,6 @@ let detailDemandeUtil = document.querySelectorAll('.modal-trigger-demande-detail
 for (let bouton of detailDemandeUtil){
     bouton.addEventListener("click", function () {  
     document.getElementById("titleDetailDemande").innerText = `Détail de la demande envoyé le ${this.dataset.createdat}`
-    document.getElementById("DetailDemandeContent").innerHTML = `<p>Envoyé le ${this.dataset.createdat}</p>` + `<p>Statut : ${this.dataset.status}</p>`+ `<p>Type d'évènement : ${this.dataset.eventType}</p>`+ `<p>Lieu de l'évènement : ${this.dataset.eventLocation}</p>`+`<p> Date : ${this.dataset.eventdate}</p>`+`<p>Nb de personnes : ${this.dataset.numberpeople}</p>`+`<p> Horaires animation : ${this.dataset.animationSchedules}</p>`+`<p>Budget :${this.dataset.budgetClient}</p>`+`<p>Autres Commentaires : ${this.dataset.otherComments} </p>`
+    document.getElementById("DetailDemandeContent").innerHTML = `<p>Envoyé le ${this.dataset.createdat}</p>` + `<p>Statut : ${this.dataset.status}</p>`+ `<p>Type d'évènement : ${this.dataset.eventtype}</p>`+ `<p>Lieu de l'évènement : ${this.dataset.eventlocation}</p>`+`<p> Date : ${this.dataset.eventdate}</p>`+`<p>Nb de personnes : ${this.dataset.numberpeople}</p>`+`<p> Horaires animation : ${this.dataset.animationschedules}</p>`+`<p>Budget :${this.dataset.budgetclient}</p>`+`<p>Autres Commentaires : ${this.dataset.othercomments} </p>`
     }) 
 }

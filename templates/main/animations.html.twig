@@ -20,7 +20,19 @@
 				<div class="carousel">
 					{% set i = 0 %}
 					{% for animation in animations %}
-						<div class="carousel__cell" id="img{{i}}"><img src="{{ asset('/uploads/') ~ animation.images[0].name }}"></div>
+                   
+                    
+						<div class="carousel__cell" id="img{{i}}">
+                        
+                        {% if animation.images is null or animation.images|length == 0 %}
+                        
+                            <img src="{{ asset('/uploads/image_no_image.jpg') }}">
+                        
+                        {% else %}
+                            <img src="{{ asset('/uploads/') ~ animation.images[0].name }}">
+                        {% endif %}
+
+                        </div>
 
 						{# A chaque tour de boucle, nous allons venir créer un titre ainsi que plusieurs paragraphes qui stockeront les propriétés titre, scénario, infos techniques et jeux propre à chacune des animations. Nous appliquerons un display:none à chacun de ces éléments afin de masquer l'affichage dans la vue.  Cela nous permettra d'exploiter ces données dans un second temps en appelant l'identifiant généré #}
 

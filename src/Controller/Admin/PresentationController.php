@@ -116,7 +116,6 @@ class PresentationController extends AbstractController
         ];
 
         // COPIE PHYSIQUE DU FICHIER du dossier temporaire vers le dossier d'uploads 'images_directory'
-
         for ($i=1; $i<3; $i++) {
         $originImages[$i]->move(
             $this->getParameter('images_directory'),
@@ -125,7 +124,6 @@ class PresentationController extends AbstractController
         }
         
         // On stocke l'image dans la base de données (son nom)
-
         $presentation->setImageTop($fichierTop);
         $presentation->setImageBottom($fichierBottom);
 

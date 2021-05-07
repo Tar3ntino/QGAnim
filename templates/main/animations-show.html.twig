@@ -1,4 +1,4 @@
-{# templates/animations.html.twig #}
+{# templates/animation.html.twig #}
 {% extends "base.html.twig" %}
 
 {% block title %}
@@ -6,33 +6,37 @@
 {% endblock %}
 
 {% block stylesheets %}
-	<link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/animations.css') }}">
+	<link rel='stylesheet' type='text/css' media='screen' href="{{ asset('css/animation.css') }}">
 {% endblock %}
 
 {% block body %}
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12 col-md-6 col-lg-6">
-				<img src="{{ asset('uploads/' ~ animations.images[0].name)|imagine_filter('square') }}" class="card-img-top" alt="{{ animations.title }}">
+            {% if animation.images is null or animation.images|length == 0 %}
+                <img src="{{ asset('/uploads/image_no_image.jpg') }}">
+            {% else %}
+                <img src="{{ asset('/uploads/' ~ animation.images[0].name)|imagine_filter('square') }}" class="card-img-top" alt="{{ animation.title }}">
+            {% endif %}
 			</div>
 			<div class="col-sm-12 col-md-6 col-lg-6">
-				<h1 class="title_details">{{animations.title}}</h1>
+				<h1 class="title_details">{{animation.title}}</h1>
 				<p>
 					Categorie :
 
-					{# {{ dump(animations.categories) }} #}
-					{{ animations.categories|map (c => c.name)|join(', ') }}
+					{# {{ dump(animation.categories) }} #}
+					{{ animation.categories|map (c => c.name)|join(', ') }}
 
 				</p>
 
 				<p
 					class="card-text">
 					{# {{ animation.scenario|striptags|u.truncate(50, '...') }} #}
-					{{ animations.scenario|raw }}
+					{{ animation.scenario|raw }}
 				</p>
 				{# {{ animation.scenario|striptags|u.truncate(50, '...') }} #}
-				{{ animations.technicalInfo|raw }}
-				<a href="{{path('app_contact',{id: animations.id})}}" class="btn btn-primary">
+				{{ animation.technicalInfo|raw }}
+				<a href="{{path('app_contact',{id: animation.id})}}" class="btn btn-primary">
 					Devis gratuit pour cet évènement
 				</a>
 			</div>
@@ -46,11 +50,15 @@
 			Nos réalisations
 		</h1>
 		<div class="row">
-			{% for img in animations.images %}
-				<div class="col">
-					<img src="{{ asset('uploads/' ~ img.name)|imagine_filter('square') }}" class="card-img-top" alt="{{ animations.title }}">
-				</div>
-			{% endfor %}
+
+        {% if animation.images is not null and animation.images|length >=2 %}
+			{% for img in animation.images[1:] %}
+            <div class="col">
+                <img src="{{ asset('uploads/' ~ img.name)|imagine_filter('square') }}" class="card-img-top" alt="{{ animation.title }}">
+			</div>
+            {% endfor %}
+        {% endif %}
+			
 		</div>
 	</div>
 	<div class="container">

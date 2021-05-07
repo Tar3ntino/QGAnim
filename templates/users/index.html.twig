@@ -99,8 +99,7 @@
 			</thead>
 			<tbody>
 				{# Remplissage tableau si demandes existantes : #}
-				{# A chaque tour de boucle, nous allons venir créer un titre ainsi que plusieurs paragraphes qui stockeront les propriétés de la demande. Nous appliquerons un display:none à chacun de ces éléments afin de masquer l'affichage dans la vue.  Cela nous permettra d'exploiter ces données dans un second temps en appelant l'identifiant généré #}
-
+				{# A chaque tour de boucle, nous affichons en prévisualisation quelques champs de l'entité Demande (Date d'envoi, statut, type d'évènement, lieu, date évènement, nombre de personne) #}
 				{% set i = 0 %}
 					{% for demande in demandes %}
 						<tr><td>
