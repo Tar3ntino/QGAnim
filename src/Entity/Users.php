@@ -282,7 +282,7 @@ class Users implements UserInterface
 
     public function __toString()
     {
-        return $this->getFirstname() + " " + $this->getName();
+        return $this->getFirstname()." ".$this->getName();
     }
 
     public function getEnabled(): ?bool

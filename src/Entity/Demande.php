@@ -101,10 +101,12 @@ class Demande
      */
     private $devis;
 
-    // public function __toString()
-    // {
-    //     return $this->eventType . "organisé par" . $this->getUser()->__toString;
-    // }
+    public function __toString()
+    {
+        // var_dump($this);
+        // die;
+        return $this->getEventType()."organisé par".$this->getUser()->get;
+    }
 
     public function __construct()
     {

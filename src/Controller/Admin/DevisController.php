@@ -28,9 +28,9 @@ class DevisController extends AbstractController
 
         // Si l'on a bien une demande en entrée d'url, alors
     
-        if ($demande){
-            $devis->setDemande($demande); // On MAJ le champs Demande de l'entité "Devis" avant de l'envoyer en Base
-        }
+        // if ($demande){
+        //     $devis->setDemande($demande); // On MAJ le champs Demande de l'entité "Devis" avant de l'envoyer en Base
+        // }
 
         // Creation d'un formulaire
         $form = $this->createForm(DevisType::class, $devis); 
@@ -47,7 +47,6 @@ class DevisController extends AbstractController
             return $this->redirectToRoute('admin_demandes_home');
         }
         return $this->render('admin/devis/creer.html.twig', [
-            'demande' => $demande,
             'DevisForm' => $form->createView()
         ]);
     }

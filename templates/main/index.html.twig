@@ -105,7 +105,13 @@
 											</div>
 											<div class="card-body">
 												<div class="container-img">
-													<img src="{{ asset('uploads/' ~ animation.images[0].name)|imagine_filter('square') }}" class="card-img-top" alt="{{ animation.title }}">
+
+													{% if animation.images is null or animation.images|length == 0 %}
+														<img src="{{ asset('/uploads/image_no_image.jpg')|imagine_filter('square')  }}" class="card-img-top" alt="no_image">
+													{% else %}
+														<img src="{{ asset('/uploads/' ~ animation.images[0].name)|imagine_filter('square')  }}" class="card-img-top" alt="{{ animation.title }}">
+													{% endif %}
+
 												</div>
 												<p class="animation-categorie mt-3">
 													Categorie :
