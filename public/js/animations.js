@@ -173,17 +173,25 @@ prevButtons.forEach((prevButton) => {
     prevButton.addEventListener(clickedEvent, function() {
         selectedIndex--;
         rotateCarousel();
-        console.log("index select :" + selectedIndex);
-        console.log("nb animations :" + cellsRange.value);
-        console.log("index_played = selectedIndex % NbAnimation :" + (selectedIndex % cellsRange.value));
         
-    
-        // Si la valeur de l'index devient négative, alors on l'index de la dernière vignette du carousel correspond à l'index du nombre de vignettes du carousel autrement dit la dernière:
-        if (selectedIndex < 0) {
-            selectedIndex = cellsRange.value;
-        }
-        var index_played = selectedIndex % cellsRange.value;
-    
+        var index_played = parseInt(cellsRange.value) - parseInt(Math.abs(selectedIndex % cellsRange.value));
+        
+        console.log("index select :" + selectedIndex); // -1,-2,-3,-4....
+        console.log("nb animations :" + cellsRange.value); // 4 fixe
+        console.log("index_played = (selectedIndex % NbAnimation) :" + (index_played)); 
+
+        /* On récupère le lien se situant à l'intérieur de la balise <a> généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'more_info'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées. */
+        var linkDetailsAnimationPlayed = document.getElementById('more_info'+index_played).textContent
+
+        //console.log(linkDetailsAnimationPlayed);
+
+        // On "écrase/ réinitialise" le contenu de la div qui contient le lien avec le bouton + d'infos de l'animation actuel :
+        var more_detail_animation = document.getElementById('more_info');
+        more_detail_animation.textContent = "";
+        more_detail_animation.innerHTML = '<a href= "/animations/'+ linkDetailsAnimationPlayed +'" class="btn btn-primary mx-auto"> + d\'infos </a>';
+        //console.log(more_detail_animation) ;
+
+
         /*On récupère le titre se situant à l'intérieur de la balise h2 généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'title_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
         var titleAnimationPlayed = document.getElementById('titre'+index_played).textContent;
         document.getElementById('title_animation').innerHTML = titleAnimationPlayed;
