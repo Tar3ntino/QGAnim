@@ -34,7 +34,7 @@ class DemandeType extends AbstractType
                     'Live music' => 'Live music',
                     'Autres' => 'Autres',
                 ],
-                'label'=> "Type d'évènement:",
+                'label'=> "Type d'évènement:"
             ],)
             ->add('eventDate', DateType::class,[
                 'label'=> "Date de l'évènement:",

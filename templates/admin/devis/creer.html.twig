@@ -1,15 +1,108 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Création de devis
+	Création de devis
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-            <h1 class="text-center my-3"> Création de devis </h1>
-    </div>
-    {# {{ dump(demande) }} #}
-    {# Logo entreprise QG :</br>
+	<div class="container-fluid">
+		<h1 class="text-center my-3">
+			Création de devis
+		</h1>
+	</div>
+
+	<div class="container-fluid">
+		<h2>Récapitulatif de la demande</h2>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-6 text-right">
+				Lieu / Ville de l'évènement :
+			</div>
+			<div class="col-6">
+				{{demande.eventLocation}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-right">
+				Nombre de personnes:
+			</div>
+			<div class="col-6">
+				{{demande.numberPeople}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-right">
+				Type d'évènement:</div>
+			<div class="col-6">
+				{{demande.eventType}}</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-right">
+				Date de l'évènement:</div>
+			<div class="col-6">
+				{{demande.eventDate | date('d-m-Y') }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-right">
+				Horaires souhaités de l'animation:</div>
+			<div class="col-6">
+				{{demande.animationSchedules}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-right">
+				Budget pour l'évènement: (€)</div>
+			<div class="col-6">
+				{{demande.budgetClient}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-right">
+				Renseignements complémentaires :</div>
+			<div class="col-6">
+				{{demande.otherComments}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-right">
+				Nom du demandeur :</div>
+			<div class="col-6">
+				{{demande.nameRequester}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-right">
+				Prénom du demandeur :</div>
+			<div class="col-6">
+				{{demande.firstNameRequester}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-right">
+				Entreprise / organisation / association :</div>
+			<div class="col-6">
+				{{demande.nameCompanyOrAssociation}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-right">
+				Email du demandeur :</div>
+			<div class="col-6">
+				{{demande.emailRequester}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6 text-right">
+				Téléphone :</div>
+			<div class="col-6">
+				{{demande.phoneRequester}}
+			</div>
+		</div>
+	</div>
+	{# {{ dump(demande) }} #}
+	{# Logo entreprise QG :</br>
     Adresse entreprise QG :</br>
     Slogan QG :</br>
 
@@ -23,16 +116,18 @@
     Taxe : </br>
     Montant : </br> #}
 
-<div class="container">
+	<div class="container">
+		{{form_start(DevisForm)}}
+        {# {{ form_widget(DevisForm.demande, {'attr' : demande.id }) }} #}
+        {# <label for="idDemande"> Demande : </label>
+        <input type="text" id="idDemande" value="{{demande.id}}"> #}
+		{{form_end(DevisForm)}}
+	</div>
 
-{# {{form_start(DevisForm)}}
-{{form_end(DevisForm)}} #}
-
-</div>
-
-{% endblock %} 
-
+{% endblock %}
 
 
 {% block javascripts %}
+{# Disabled input JQUERY pour figer la demande rattachée #}
+<script> $( "#devis_demande").prop( "disabled", true ); </script>
 {% endblock %}

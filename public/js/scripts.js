@@ -54,7 +54,7 @@ let supprimerDemande = document.querySelectorAll('.modal-trigger-demande');
 for (let bouton of supprimerDemande){
     bouton.addEventListener("click", function () {
     document.querySelector(".modal-footer a").href = `/admin/demandes/supprimer/${this.dataset.id}`
-    document.querySelector(".modal-body").innerText = `Etes-vous sûr(e) de vouloir supprimer cette demande : "${this.dataset.eventLocation}"?`
+    document.querySelector(".modal-body").innerText = `Etes-vous sûr(e) de vouloir supprimer cette demande sur : "${this.dataset.eventlocation}"?`
     }) 
 }
 

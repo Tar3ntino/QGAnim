@@ -43,14 +43,16 @@ class SecurityController extends AbstractController
     /**
      * @Route("/delete_user/{id}", name="delete_user")
      */
-    public function deleteUser($id)
+    public function deleteUser(Users $users)
     {
         $em = $this->getDoctrine()->getManager();
         $usrRepo = $em->getRepository(Users::class); // Récupération de la liste de tous les utilisateurs
-        $user = $usrRepo->find($id); // on cherche le user id parmi cette liste
+        $user = $usrRepo->find($users->getId()); // on cherche le user id parmi cette liste
 
-        // Si cet utilisateur existe
-        if (isset($user)){
+        // dd($this->getUser(),$users->getId());
+
+        // Si l'identifiant de notre utilisateur actuel est égale à l'identifiant de l'utilisateur en paramètre de la fonction (s'il s'agit bien du même utilisateur... Exemple: un utilisateur avec pour Id 5 ne doit pas pouvoir supprimer un compte (en soft delete) en appelant l'url (/delete_user/37))
+        if ($this->getUser()->getId() === (int)$users->getId()){
             // Si son compte est toujours actif
             if($user->getEnabled()){
                 // Si son compte n'a pas été "Supprimé"
@@ -64,8 +66,9 @@ class SecurityController extends AbstractController
             }
         }
         else {
-            throw $this->createNotFoundException(
-                'L\'utilisateur'.$user.'n\'existe pas');
+             // throw $this->createNotFoundException(
+             // 'L\'utilisateur'.$user.'n\'existe pas');
+                $this->addFlash('danger', 'L\'utilisateur'.$user.'n\'existe pas OU vous n\'avez pas la permission pour effectuer cette action');
         }
     return $this->redirectToRoute('users');
 

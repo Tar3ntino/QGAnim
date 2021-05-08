@@ -10,14 +10,15 @@
 {% endblock %}
 
 {% block body %}
+
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12 col-md-6 col-lg-6">
-            {% if animation.images is null or animation.images|length == 0 %}
-                <img src="{{ asset('/uploads/image_no_image.jpg') }}">
-            {% else %}
-                <img src="{{ asset('/uploads/' ~ animation.images[0].name)|imagine_filter('square') }}" class="card-img-top" alt="{{ animation.title }}">
-            {% endif %}
+				{% if animation.images is null or animation.images|length == 0 %}
+					<img src="{{ asset('/uploads/image_no_image.jpg') }}">
+				{% else %}
+					<img src="{{ asset('/uploads/' ~ animation.images[0].name|imagine_filter('square')) }}" class="card-img-top" alt="{{ animation.title }}">
+				{% endif %}
 			</div>
 			<div class="col-sm-12 col-md-6 col-lg-6">
 				<h1 class="title_details">{{animation.title}}</h1>
@@ -51,14 +52,14 @@
 		</h1>
 		<div class="row">
 
-        {% if animation.images is not null and animation.images|length >=2 %}
-			{% for img in animation.images[1:] %}
-            <div class="col">
-                <img src="{{ asset('uploads/' ~ img.name)|imagine_filter('square') }}" class="card-img-top" alt="{{ animation.title }}">
-			</div>
-            {% endfor %}
-        {% endif %}
-			
+			{% if animation.images is not null and animation.images|length >=2 %}
+				{% for img in animation.images[1:] %}
+					<div class="col">
+						<img src="{{ asset('uploads/' ~ img.name)|imagine_filter('square') }}" class="card-img-top" alt="{{ animation.title }}">
+					</div>
+				{% endfor %}
+			{% endif %}
+
 		</div>
 	</div>
 	<div class="container">

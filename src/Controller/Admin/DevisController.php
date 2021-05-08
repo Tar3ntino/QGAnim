@@ -25,6 +25,8 @@ class DevisController extends AbstractController
     {
         // Creation d'un nouveau devis :
         $devis = new Devis;
+        // var_dump($demande);
+        // die;
 
         // Si l'on a bien une demande en entrée d'url, alors
     
@@ -34,6 +36,7 @@ class DevisController extends AbstractController
 
         // Creation d'un formulaire
         $form = $this->createForm(DevisType::class, $devis); 
+        $form->get('demande')->setData($demande);
 
         /* Traitement de la request du formulaire une fois le bouton 'valider' cliqué : */
         $form->handleRequest($request);
@@ -47,6 +50,7 @@ class DevisController extends AbstractController
             return $this->redirectToRoute('admin_demandes_home');
         }
         return $this->render('admin/devis/creer.html.twig', [
+            "demande" => $demande,
             'DevisForm' => $form->createView()
         ]);
     }
