@@ -22,47 +22,40 @@ class DevisType extends AbstractType
     {
         $builder
             ->add('address', TextType::class,[
-                'label'=> "Adresse :"
+                'label'=> "Adresse :",
             ])
             ->add('date_Of_Issue', DateType::class,[
-                'label'=> "Date d'émission :"
+                'label'=> "Date d'émission :",
             ])
-            ->add('expiration_Date', TextType::class,[
-                'label'=> "Date d'expiration :"
+            ->add('expiration_Date', DateType::class,[
+                'label'=> "Date d'expiration :",
             ])
             ->add('description', TextType::class,[
-                'label'=> "Description :"
+                'label'=> "Description :",
             ])
             ->add('quantity',IntegerType::class,[
-                'label'=> "Quantité :"
+                'label'=> "Quantité :",
             ])
-            ->add('unit_Price',TextType::class,[
-                'label'=> "Prix unitaire:"
+            ->add('unit_Price',IntegerType::class,[
+                'label'=> "Prix unitaire:",
             ])
-            ->add('tax',TextType::class,[
-                'label'=> "Taxe :"
+            ->add('tax',IntegerType::class,[
+                'label'=> "Taxe :",
             ])
             ->add('amount',TextType::class,[
                 'label'=> "Montant :"
             ])
-            ->add('demande', EntityType::class,[
-                'label'=> "Demande rattachée :",
-                'class'=> Demande::class,
-                'choice_label' => 'id',
-            ])
             ->add('Valider', SubmitType::class);
-            // ->addEventListener(
-            // FormEvents::PRE_SET_DATA,
-            // [$this, 'onPreSetData']
-            // )
     }
 
-    // public function onPreSetData(FormEvent $event): void
-    // {
-    // //  $demande = $event->getData(); // Je récupère les données de ma demande
-    // //  $devis = $event->getData(); // Je récupère les données du devis
-    // //  $devis->setData()  
-    // }
+    public function onPreSetData(FormEvent $event): void
+    {
+        $data = $event->getData();
+        $form = $event->getForm();
+
+        // dd($data, $form);
+    
+    }
 
     public function configureOptions(OptionsResolver $resolver)
     {

@@ -17,7 +17,8 @@
 				{% if animation.images is null or animation.images|length == 0 %}
 					<img src="{{ asset('/uploads/image_no_image.jpg') }}">
 				{% else %}
-					<img src="{{ asset('/uploads/' ~ animation.images[0].name|imagine_filter('square')) }}" class="card-img-top" alt="{{ animation.title }}">
+                {# Retrait de la classe class="card-img-top" car sinon le filtre Liip Imagine ne fonctionne pas car la propriété width:100% est appliquée #}
+					<img src="{{ asset('/uploads/' ~ animation.images[0].name)|imagine_filter('square') }}" alt="{{ animation.title }}">
 				{% endif %}
 			</div>
 			<div class="col-sm-12 col-md-6 col-lg-6">
@@ -55,7 +56,8 @@
 			{% if animation.images is not null and animation.images|length >=2 %}
 				{% for img in animation.images[1:] %}
 					<div class="col">
-						<img src="{{ asset('uploads/' ~ img.name)|imagine_filter('square') }}" class="card-img-top" alt="{{ animation.title }}">
+                    {# Retrait de la classe class="card-img-top" car sinon le filtre Liip Imagine ne fonctionne pas car la propriété width:100% est appliquée #}
+						<img src="{{ asset('uploads/' ~ img.name)|imagine_filter('square') }}"  alt="{{ animation.title }}">
 					</div>
 				{% endfor %}
 			{% endif %}
