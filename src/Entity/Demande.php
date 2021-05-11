@@ -105,7 +105,7 @@ class Demande
     {
         // var_dump($this);
         // die;
-        return $this->getEventType()."organisé par".$this->getUser();
+        return $this->getEventType()." organisé par ".$this->getUser();
     }
 
     public function __construct()

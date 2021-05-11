@@ -103,7 +103,7 @@
 											<div class="card-header">
 												{{ animation.title }}
 											</div>
-											<div class="card-body">
+											<div class="card-body lastAnim">
 												<div class="container-img">
 
 													{% if animation.images is null or animation.images|length == 0 %}
@@ -119,7 +119,8 @@
 												<p
 													class="card-text">
 													{# {{ animation.scenario|striptags|u.truncate(50, '...') }} #}
-													{{ animation.scenario|raw }}
+													{# {{ animation.scenario|raw }} #}
+                                                    {{ animation.scenario|u.truncate(90, '...', false)|raw }}
 												</p>
 												<a href="{{path('app_animations_details',{slug: animation.slug})}}" class="btn btn-primary">
 													+ d'infos

@@ -11,6 +11,7 @@ use App\Repository\UsersRepository;
 use Symfony\Component\Mime\Address;
 use App\Security\UsersAuthenticator;
 use App\Repository\DemandeRepository;
+use App\Repository\DevisRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,11 +33,13 @@ class UsersController extends AbstractController
     /**
      * @Route("/users", name="users")
      */
-    public function index(DemandeRepository $demandeRepo): Response
+    public function index(DemandeRepository $demandeRepo, DevisRepository $devisRepo): Response
     {
-        $user = $this->getUser();
+        $user = $this->getUser(); // On récupère l'utilisateur pour filtrer les demandes à renvoyer qui lui sont propre
+
         return $this->render('users/index.html.twig', [
-            'demandes' => $demandeRepo->findBy(array('user' => $user))
+            'demandes' => $demandeRepo->findBy(array('user' => $user)),
+            'devis' => $devisRepo->findAll()
         ]);
     }
 

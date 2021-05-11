@@ -57,7 +57,7 @@
 							{{app.user.email}}
 						</div>
 					</div>
-                    <div class="row">
+					<div class="row">
 						<div class="col-6">
 							Adresse :</div>
 						<div class="col-6">
@@ -100,30 +100,35 @@
 			<tbody>
 				{# Remplissage tableau si demandes existantes : #}
 				{# A chaque tour de boucle, nous affichons en prévisualisation quelques champs de l'entité Demande (Date d'envoi, statut, type d'évènement, lieu, date évènement, nombre de personne) #}
-				{% set i = 0 %}
+
+
 					{% for demande in demandes %}
-						<tr><td>
-						</td>
-							<td scope="row"> {{ demande.createdAt | date('d-m-Y') }}</td>
-						<td>{{ demande.status}}</td>
-						<td>{{ demande.eventType}}</td>
-						<td>{{ demande.eventLocation }}</td>
-						<td>{{ demande.eventDate | date('d-m-Y') }}</td>
-						<td>{{ demande.numberPeople }}</td>
-						<td>
-							<a href="#modal-detail-demande" type="button" class="btn btn-success modal-trigger-demande-detail my-1" data-toggle="modal" data-target="#modal-detail-demande" data-createdat="{{ demande.createdAt | date('d-m-Y') }}" data-status="{{demande.status}}" data-eventtype="{{demande.eventType}}" data-eventlocation="{{ demande.eventLocation }}" data-eventdate="{{ demande.eventDate | date('d-m-Y') }}" data-numberpeople="{{ demande.numberPeople }}" data-animationschedules="{{ demande.animationSchedules }}" data-budgetclient="{{ demande.budgetClient }}" data-othercomments="{{ demande.otherComments }}">
-								<i class="fas fa-book-reader"></i>
-							</a>
-							<a href="#">Consulter le devis</a>
-						</td>
-					</tr>
-					{% set i = i+1 %}
+						{% for devisElement in devis %}
+							<tr><td>
+							</td>
+								<td scope="row"> {{ demande.createdAt | date('d-m-Y') }}</td>
+							<td>{{ demande.status}}</td>
+							<td>{{ demande.eventType}}</td>
+							<td>{{ demande.eventLocation }}</td>
+							<td>{{ demande.eventDate | date('d-m-Y') }}</td>
+							<td>{{ demande.numberPeople }}</td>
+							<td>
+								<a href="#modal-detail-demande" type="button" class="btn btn-success modal-trigger-demande-detail my-1" data-toggle="modal" data-target="#modal-detail-demande" data-createdat="{{ demande.createdAt | date('d-m-Y') }}" data-status="{{demande.status}}" data-eventtype="{{demande.eventType}}" data-eventlocation="{{ demande.eventLocation }}" data-eventdate="{{ demande.eventDate | date('d-m-Y') }}" data-numberpeople="{{ demande.numberPeople }}" data-animationschedules="{{ demande.animationSchedules }}" data-budgetclient="{{ demande.budgetClient }}" data-othercomments="{{ demande.otherComments }}">
+									<i class="fas fa-book-reader"></i><br>Voir demande
+								</a>
+								{% if demande.id == devisElement.demande.id %}
+									<a</i href="#modal-detail-devis" type="button" class="btn btn-success modal-trigger-devis-detail my-1" data-toggle="modal" data-target="#modal-detail-devis" data-id="{{ devisElement.id }}" data-address="{{ devisElement.address }}" data-dateofissue="{{ devisElement.dateOfIssue | date('d-m-Y') }}" data-expirationdate="{{ devisElement.expirationDate | date('d-m-Y') }}" data-description="{{devisElement.description}}" data-quantity="{{devisElement.quantity}}" data-unitprice="{{ devisElement.unitPrice }}" data-tax="{{ devisElement.tax }}" data-amount="{{ devisElement.amount }}" data-demandeid="{{ devisElement.demande }}" <i class="fas fa-book-reader"><br>Consulter devis
+									</a>
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
 				{% endfor %}
 			</tbody>
 		</table>
 	</div>
 
-	<!-- Modal -->
+	<!-- Modal affichage demande-->
 	<div class="modal fade" id="modal-detail-demande" tabindex="-1" role="dialog" aria-labelledby="modal-detail-demande" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -134,6 +139,24 @@
 					</button>
 				</div>
 				<div class="modal-body text-justify" id="DetailDemandeContent"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	{# Fin de la modal #}
+    <!-- Modal affichage devis-->
+	<div class="modal fade" id="modal-detail-devis" tabindex="-1" role="dialog" aria-labelledby="modal-detail-devis" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="titleDetailDevis"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body text-justify" id="DetailDevisContent"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
 				</div>

@@ -31,7 +31,10 @@ class MainController extends AbstractController
 
     public function animations(AnimationsRepository $animationsRepository)
     {
-         // A l'appel de la route, nous renvoyons l'utilisateur vers la vue twig. La méthode findAll va rechercher toutes les animations enregistrées en BDD qui seront stockées dans la variable "animations" qui pourra être exploitée dans notre vue
+         /* A l'appel de la route, l'utilisateur est renvoyé vers la vue twig. 
+         La méthode findAll va rechercher toutes les animations enregistrées en BDD.
+         Elles seront stockées dans la variable "animations" qui sera exploitée dans la vue
+         */
         return $this->render('main/animations.html.twig', [
             "animations" => $animationsRepository->findAll()
         ]);

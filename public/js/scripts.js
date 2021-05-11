@@ -65,5 +65,14 @@ for (let bouton of detailDemandeUtil){
     bouton.addEventListener("click", function () {  
     document.getElementById("titleDetailDemande").innerText = `Détail de la demande envoyé le ${this.dataset.createdat}`
     document.getElementById("DetailDemandeContent").innerHTML = `<p>Envoyé le ${this.dataset.createdat}</p>` + `<p>Statut : ${this.dataset.status}</p>`+ `<p>Type d'évènement : ${this.dataset.eventtype}</p>`+ `<p>Lieu de l'évènement : ${this.dataset.eventlocation}</p>`+`<p> Date : ${this.dataset.eventdate}</p>`+`<p>Nb de personnes : ${this.dataset.numberpeople}</p>`+`<p> Horaires animation : ${this.dataset.animationschedules}</p>`+`<p>Budget :${this.dataset.budgetclient}</p>`+`<p>Autres Commentaires : ${this.dataset.othercomments} </p>`
-    }) 
+    })
+}
+
+// Ecouteur d'évènement pour l'affichage modal des DEVIS propre à chaque demande sur son compte perso :
+let detailDevisUtil = document.querySelectorAll('.modal-trigger-devis-detail');
+for (let bouton of detailDevisUtil){
+    bouton.addEventListener("click", function () {  
+    document.getElementById("titleDetailDevis").innerText = `Détail du devis pour ${this.dataset.demandeid}`
+    document.getElementById("DetailDevisContent").innerHTML = `<p>Emis le : ${this.dataset.dateofissue}</p>`+ `<p>Expire le : ${this.dataset.expirationdate}</p>`+ `<p>Description: ${this.dataset.description}</p>`+`<p>Quantité : ${this.dataset.quantity}</p>`+`<p>Prix unitaire : ${this.dataset.unitprice}</p>`+`<p>Taxe : ${this.dataset.tax}</p>`+`<p>Montant : ${this.dataset.amount}</p>`
+    })
 }

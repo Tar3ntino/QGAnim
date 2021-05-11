@@ -20,21 +20,21 @@
 				<div class="carousel">
 					{% set i = 0 %}
 					{% for animation in animations %}
-                   
-                    
+
+
 						<div class="carousel__cell" id="img{{i}}">
-                        
-                        {% if animation.images is null or animation.images|length == 0 %}
-                        
-                            <img src="{{ asset('/uploads/image_no_image.jpg') }}">
-                        
-                        {% else %}
-                            <img src="{{ asset('/uploads/') ~ animation.images[0].name }}">
-                        {% endif %}
 
-                        </div>
+							{% if animation.images is null or animation.images|length == 0 %}
 
-						{# A chaque tour de boucle, nous allons venir créer un titre ainsi que plusieurs paragraphes qui stockeront les propriétés titre, scénario, infos techniques et jeux propre à chacune des animations. Nous appliquerons un display:none à chacun de ces éléments afin de masquer l'affichage dans la vue.  Cela nous permettra d'exploiter ces données dans un second temps en appelant l'identifiant généré #}
+								<img src="{{ asset('/uploads/image_no_image.jpg') }}">
+
+							{% else %}
+								<img src="{{ asset('/uploads/') ~ animation.images[0].name }}">
+							{% endif %}
+
+						</div>
+
+						{# A chaque tour de boucle, un titre ainsi que plusieurs paragraphes seront créés et stockeront les propriétés titre, scénario, infos techniques et jeux propre à chaque animation. Un display:none est appliqué à chaque élément afin de masquer l'affichage dans la vue. Ces données peuvent ensuite être exploitées en appelant l'identifiant généré #}
 
 						<a id="more_info{{i}}" style="display:none">{{animation.slug}}</a>
 
@@ -71,11 +71,13 @@
 			<i class="fas fa-sort-down fa-5x d-block next-button"></i>
 		</div>
 		<div class="col-2 emptyRightLandscape"></div>
-	</div> 
+	</div>
 
 	<div class="row">
 		<div class="col-2 d-block d-sm-none" id="left_more_info"></div>
-        <div class="col-5 text-right d-none d-sm-block previous-button" id="left_arrow"> <i class="fas fa-caret-left fa-5x"></i> </div>
+		<div class="col-5 text-right d-none d-sm-block previous-button" id="left_arrow">
+			<i class="fas fa-caret-left fa-5x"></i>
+		</div>
 		<div class="col-6 col-sm-2 d-flex align-items-center pr-0" id="more_info">
 			{% if animations is not empty %}
 				<a href="{{path('app_animations_details',{slug: animations[0].slug})}}" class="btn btn-primary mx-auto">
@@ -84,7 +86,9 @@
 			{% endif %}
 		</div>
 		<div class="col-4 d-block d-sm-none" id="right_more_info"></div>
-        <div class="col-5 d-none d-sm-block next-button" id="right_arrow"> <i class="fas fa-caret-right fa-5x"></i> </div>
+		<div class="col-5 d-none d-sm-block next-button" id="right_arrow">
+			<i class="fas fa-caret-right fa-5x"></i>
+		</div>
 	</div>
 
 	{# On initialise notre bouton "En savoir plus" avec la première animation du tableau si celui ci n'est pas vide : On viendra modifier le lien avec du JS au clic des boutons gauche et droite #}

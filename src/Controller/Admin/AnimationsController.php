@@ -43,7 +43,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
         /* Dans le cas ou le formulaire est soumis ET valide : */
         if ($form->isSubmitted() && $form->isValid()){
-            // On récupère les images transmises: on déclare une variable $images, on lui affecte(=) la donnée qui se trouve dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données getdata
+            /*
+            Les images transmises sont récupérées: une variable $images est déclarée, on lui affecte la donnée (=) qui se trouve dans le formulaire $form au niveau du paramètre du POST qui s'appelle 'images' et on va aller chercher les données avec getdata()
+            */
             $images = $form->get('images')->getData();
 
             // Etant donnée que "Multiple" = true, on peut avoir plusieurs images de chargées

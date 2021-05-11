@@ -49,14 +49,18 @@ class SecurityController extends AbstractController
         $usrRepo = $em->getRepository(Users::class); // Récupération de la liste de tous les utilisateurs
         $user = $usrRepo->find($users->getId()); // on cherche le user id parmi cette liste
         
-        // Si l'identifiant de notre utilisateur actuel est égale à l'identifiant de l'utilisateur en paramètre de la fonction (s'il s'agit bien du même utilisateur... Exemple: un utilisateur avec pour Id 5 ne doit pas pouvoir supprimer un compte (en soft delete) en appelant l'url (/delete_user/37))
+        /* Si l'identifiant de l'tilisateur actuel est égale à l'identifiant de l'utilisateur en paramètre de la fonction
+        S'il s'agit bien du même utilisateur... 
+        Exemple: un utilisateur avec pour Id 5 ne doit pas pouvoir supprimer un compte (en soft delete) en appelant l'url (/delete_user/37))
+        */
         
         if ($this->getUser()->getId() === (int)$users->getId()){
             // Si son compte est toujours actif (il peut avoir demandé la désactivation provisoire sans pour autant supprimer son compte)
             if($user->getEnabled()){
-                // Si son compte n'a pas été "Supprimé"
+                // Si son compte n'a pas été "supprimé"
                 if (is_null($user->getDeletedAt())){
-                    $user->setDeletedAt(new \DateTime('NOW')); // On marque le compte comme supprimé en indiquant la date à laquelle la suppression a été faite. Il faudrait pouvoir maintenant déconnecter l'utilisateur en le redirigeant vers une Route LogOut.
+                    // Le compte est marqué comme "supprimé" avec la date à laquelle la suppression a été faite. La reconnexion ne sera plus possible.
+                    $user->setDeletedAt(new \DateTime('NOW')); 
                     $em->flush();
 
                 // Message de succès pour la suppression du compte utilisateur : 
@@ -65,7 +69,7 @@ class SecurityController extends AbstractController
             }
         }
         else {
-             // On renvoie un message Flash plutôt qu'une exception pour une meilleure User Experience
+             // Un message Flash est renvoyé plutôt qu'une exception pour une meilleure User Experience
                 $this->addFlash('danger', 'L\'utilisateur'.$user.'n\'existe pas OU vous n\'avez pas la permission pour effectuer cette action');
         }
     return $this->redirectToRoute('users');
