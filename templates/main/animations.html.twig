@@ -43,7 +43,7 @@
 						</h2>
 						<p id="scenario{{i}}" style="display:none">
 							SCÉNARIO :
-							{{animation.scenario |striptags |raw }}
+							{{animation.scenario |striptags |u.truncate(60, '...', false)|raw}}
 						</p>
 						<p id="technical_info{{i}}" style="display:none">
 							CARACTERISTIQUES TECHNIQUES :
@@ -122,19 +122,20 @@
 
 	<div style="display:none" id="readIdImage"></div>
 
-	<div class="card border-light mb-3 mx-auto" style="max-width: 18rem;">
+	<div class="card border-light mb-3 mx-auto" id="card_border_anim">
 		<div class="card-header justify-content-center mt-0" id="title_animation">
 			{% if animations is not empty %}
 				{{animations[0].title}}
 			{% endif %}
 		</div>
-		<div class="card-body">
+		<div class="card-body" id="card_anim">
 			<h5 class="card-title" id="scenario_animation">
 				{% if animations is not empty %}
 					<!-- striptags retire les balises HTML, il n'accepte que celle passées entre parenthèse -->
 					<p>
 						SCÉNARIO :
-						<span>{{ animations[0].scenario | raw }}
+						<span>
+							{{ animations[0].scenario|u.truncate(40, '...', false)|raw }}
 						</span>
 					</p>
 				{% endif %}

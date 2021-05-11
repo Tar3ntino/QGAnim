@@ -34,17 +34,25 @@ var nextButtons = document.querySelectorAll('.next-button');
 nextButtons.forEach((nextButton) => {
 
     nextButton.addEventListener(clickedEvent, function() {
-        selectedIndex++;
+        selectedIndex++; //1
         rotateCarousel();
-        console.log("index select :" + selectedIndex);
-        console.log("nb animations :" + cellsRange.value);
-        console.log("index_played = selectedIndex % NbAnimation :" + (selectedIndex % cellsRange.value));
-        var index_played = selectedIndex % cellsRange.value;
-    
-        /* On récupère le lien se situant à l'intérieur de la balise <a> généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'more_info'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées. */
-        var linkDetailsAnimationPlayed = document.getElementById('more_info'+index_played).textContent
+        console.log("selectedIndex:" + selectedIndex);
+        console.log("cellsRange.value :" + cellsRange.value);
+        console.log("selectedIndex % cellsRange.value:" + (selectedIndex % cellsRange.value));
+        var index_played = selectedIndex % cellsRange.value
+        console.log("index_played" + index_played);
+
+        Number.prototype.mod = function(n) {
+            var m = (( this % n) + n) % n;
+            return m < 0 ? m + Math.abs(n) : m;
+        };
         
-        console.log(linkDetailsAnimationPlayed);
+        /* On récupère le lien se situant à l'intérieur de la balise <a> généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'more_info'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.
+        index-played = (parseInt(selectedIndex).mod(parseInt(cellsRange.value)))
+        */
+        var linkDetailsAnimationPlayed = document.getElementById('more_info'+(parseInt(selectedIndex).mod(parseInt(cellsRange.value)))).textContent
+        
+        console.log("linkDetailsAnimationPlayed : " + linkDetailsAnimationPlayed);
     
         // On "écrase/ réinitialise" le contenu de la div qui contient le lien avec le bouton + d'infos de l'animation actuel :
     
@@ -54,24 +62,24 @@ nextButtons.forEach((nextButton) => {
         console.log(more_detail_animation) ;
     
         /*On récupère le titre se situant à l'intérieur de la balise h2 généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'title_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
-        var titleAnimationPlayed = document.getElementById('titre'+index_played).textContent
+        var titleAnimationPlayed = document.getElementById('titre'+(parseInt(selectedIndex).mod(parseInt(cellsRange.value)))).textContent
         document.getElementById('title_animation').innerHTML = titleAnimationPlayed;
     
-        var scenarioAnimationPlayed = document.getElementById('scenario'+index_played).textContent
+        var scenarioAnimationPlayed = document.getElementById('scenario'+(parseInt(selectedIndex).mod(parseInt(cellsRange.value)))).textContent
         
         // On "écrase/ réinitialise" le contenu du précédent scenario lu avec le contenu de scenarioAnimationPlayed pour ne pas qu'il vienne se rajouter au précédent visionnage :
         var scenario_animation = document.getElementById('scenario_animation');   // Soit "scenario_animation" la div ciblé par son Id qui accueillera le scenario à lire
         scenario_animation.textContent = "";                                      // On écrase le scenario précédemment lu
         scenario_animation.innerHTML = scenarioAnimationPlayed;                   // On injecte le nouveau à lire
     
-        var technicalInfoAnimationPlayed = document.getElementById('technical_info'+index_played).textContent
+        var technicalInfoAnimationPlayed = document.getElementById('technical_info'+(parseInt(selectedIndex).mod(parseInt(cellsRange.value)))).textContent
     
         // On "écrase/ réinitialise" le contenu du précédent scenario lu avec le contenu de technicalInfoAnimationPlayed pour ne pas qu'il vienne se rajouter au précédent visionnage :
         var technical_info_animation = document.getElementById('technical_info_animation');   // Soit "technical_info_animation" la div ciblé par son Id qui accueillera les caracteristiques à lire
         technical_info_animation.textContent = "";                                            // On écrase les caracteristiques précédemment lues
         technical_info_animation.innerHTML = technicalInfoAnimationPlayed;                    // On injecte les nouvelles à lire
     
-        var gameAnimationPlayed = document.getElementById('game'+index_played).textContent
+        var gameAnimationPlayed = document.getElementById('game'+(parseInt(selectedIndex).mod(parseInt(cellsRange.value)))).textContent
     
         // On "écrase/ réinitialise" le contenu du précédent scenario lu avec le contenu de gameAnimationPlayed pour ne pas qu'il vienne se rajouter au précédent visionnage :
         var game_animation = document.getElementById('game_animation');   // Soit "game_animation" la div ciblé par son Id qui accueillera le jeu à lire
@@ -140,7 +148,6 @@ console.log("isHorizontal : " + isHorizontal);
   }
 }
 
-
  // On lance une première fois le ScreenTest même si aucun "évènement de rotation / changement "" de largeur de l'apparail pour savoir si affichage vertical ou horizontal du carousel
 mediaQueryList.addListener(screenTest);
 
@@ -173,17 +180,27 @@ prevButtons.forEach((prevButton) => {
     prevButton.addEventListener(clickedEvent, function() {
         selectedIndex--;
         rotateCarousel();
+
+        Number.prototype.mod = function(n) {
+            var m = (( this % n) + n) % n;
+            return m < 0 ? m + Math.abs(n) : m;
+        };
+    
+        var index_played = parseInt(parseInt(selectedIndex).mod(parseInt(nbAnim)));
         
-        var index_played = parseInt(cellsRange.value) - parseInt(Math.abs(selectedIndex % cellsRange.value));
-        
-        console.log("index select :" + selectedIndex); // -1,-2,-3,-4....
-        console.log("nb animations :" + cellsRange.value); // 4 fixe
-        console.log("index_played = (selectedIndex % NbAnimation) :" + (index_played)); 
+        console.log("selectedIndex:" + selectedIndex); // -1,-2,-3,-4....
+        var nbAnim = cellsRange.value ;
+        console.log("cellsRange.value ::" + cellsRange.value); // 4 fixe
+        console.log("selectedIndex % cellsRange.value:" + (selectedIndex % cellsRange.value));
+        var index_played = selectedIndex % cellsRange.value
+        console.log("index_played" + index_played);
+        // console.log("index_played" + parseInt(index_played));
+        // console.log("index_played = (selectedIndex % NbAnimation) MODULO :" + (parseInt(selectedIndex).mod(parseInt(nbAnim)))); 
 
         /* On récupère le lien se situant à l'intérieur de la balise <a> généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'more_info'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées. */
-        var linkDetailsAnimationPlayed = document.getElementById('more_info'+index_played).textContent
+        var linkDetailsAnimationPlayed = document.getElementById('more_info'+ (parseInt(selectedIndex).mod(parseInt(cellsRange.value))));
 
-        //console.log(linkDetailsAnimationPlayed);
+        console.log("linkDetailsAnimationPlayed : " + linkDetailsAnimationPlayed);
 
         // On "écrase/ réinitialise" le contenu de la div qui contient le lien avec le bouton + d'infos de l'animation actuel :
         var more_detail_animation = document.getElementById('more_info');
@@ -193,11 +210,11 @@ prevButtons.forEach((prevButton) => {
 
 
         /*On récupère le titre se situant à l'intérieur de la balise h2 généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'title_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
-        var titleAnimationPlayed = document.getElementById('titre'+index_played).textContent;
+        var titleAnimationPlayed = document.getElementById('titre'+(parseInt(selectedIndex).mod(parseInt(nbAnim)))).textContent;
         document.getElementById('title_animation').innerHTML = titleAnimationPlayed;
     
         /*On récupère le scenario de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
-        var scenarioAnimationPlayed = document.getElementById('scenario'+index_played).textContent;
+        var scenarioAnimationPlayed = document.getElementById('scenario'+(parseInt(selectedIndex).mod(parseInt(nbAnim)))).textContent;
         document.getElementById('scenario_animation').innerHTML = scenarioAnimationPlayed;
     
         /*On récupère les caracteristiques techniques de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
@@ -205,7 +222,7 @@ prevButtons.forEach((prevButton) => {
         document.getElementById('technical_info_animation').innerHTML = technicalInfoAnimationPlayed;
     
         /*On récupère les caracteristiques techniques de la balise 'paragraphe' généré précédemment lors du tour de boucle à l'initialisation dans le twig et on l'affecte à la div 'scenario_animation'. Pas besoin de changer la propriété en retirant le display:none, on peut donc laisser les div cachées.*/
-        var gameAnimationPlayed = document.getElementById('game'+index_played).textContent;
+        var gameAnimationPlayed = document.getElementById('game'+(parseInt(selectedIndex).mod(parseInt(nbAnim)))).textContent;
         document.getElementById('game_animation').innerHTML = gameAnimationPlayed;
     })
 })
@@ -253,6 +270,7 @@ Soit rotateFn, la propriété à changer:
     - Si le bouton est coché en vertical, on viendra modifier rotateX pour rendre le carousel horizontal
 Une fois que l'on a définit comment l'on devait effectuer la rotation, on appelle la méthode changeCarousel()
  */
+
 function onOrientationChange() {
     var checkedRadio = document.querySelector('input[name="orientation"]:checked'); 
     isHorizontal = checkedRadio.value == 'horizontal';
@@ -260,8 +278,3 @@ function onOrientationChange() {
     changeCarousel();
 }
 
-// set initials
-// onOrientationChange();
-
-// Récuperation des infos de l'animation selectionnée du carousel avecc JS :
-document.getElementById('readIdImage');
